@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Form, Formik } from "formik";
-import * as Yup from "yup";
 import Card from "../components/common/Card";
 import Hyperlink from "../components/common/Hyperlink";
 import Label from "../components/common/Label";
@@ -9,40 +8,53 @@ import FormSuccess from "../components/FormSuccess";
 import FormError from "../components/FormError";
 import GradientBar from "../components/common/GradientBar";
 import { AuthContext } from "../context/AuthContext";
-import { publicFetch } from "./../util/fetch";
+import { publicFetch } from "../util/fetch";
 import { Redirect } from "react-router-dom";
 import GradientButton from "../components/common/GradientButton";
-import logo from "./../images/logo.png";
+import { AxiosError } from "axios";
+
+const Yup = require("yup");
+
+const logo = "./../images/logo.png";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
 
-const Login = () => {
+export interface ICredentials {
+  email: string;
+  password: string;
+}
+
+const Login: React.FC = () => {
   const authContext = useContext(AuthContext);
-  const [loginSuccess, setLoginSuccess] = useState();
-  const [loginError, setLoginError] = useState();
+  const [loginSuccess, setLoginSuccess] = useState<string>();
+  const [loginError, setLoginError] = useState<string>();
   const [redirectOnLogin, setRedirectOnLogin] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
 
-  const submitCredentials = async (credentials) => {
+  const submitCredentials = async (credentials: ICredentials) => {
     try {
       setLoginLoading(true);
       const { data } = await publicFetch.post(`authenticate`, credentials);
 
       authContext.setAuthState(data);
       setLoginSuccess(data.message);
-      setLoginError(null);
+      setLoginError("");
 
       setTimeout(() => {
         setRedirectOnLogin(true);
       }, 700);
-    } catch (error) {
+    } catch (err) {
       setLoginLoading(false);
-      const { data } = error.response;
-      setLoginError(data.message);
-      setLoginSuccess(null);
+      if (err instanceof Error) {
+        setLoginError(err.message);
+      } else {
+        const error = err as AxiosError;
+        setLoginError(error?.response?.data.message || "Unexpected error");
+      }
+      setLoginSuccess("");
     }
   };
 
@@ -62,7 +74,7 @@ const Login = () => {
                   Log in to your account
                 </h2>
                 <p className="text-gray-600 text-center">
-                  Don't have an account?{" "}
+                  Don&apos;t have an account?{" "}
                   <Hyperlink to="signup" text="Sign up now" />
                 </p>
               </div>
@@ -72,7 +84,7 @@ const Login = () => {
                   email: "",
                   password: "",
                 }}
-                onSubmit={(values) => submitCredentials(values)}
+                onSubmit={(values: ICredentials) => submitCredentials(values)}
                 validationSchema={LoginSchema}
               >
                 {() => (

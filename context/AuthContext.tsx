@@ -1,11 +1,38 @@
-import React, { createContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { createContext, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { IUser } from "../pages/Users";
 
-interface IAuthState { token: string | null; expiresAt: string | null; userInfo: any; }
-interface TAuthContext { authState: IAuthState; setAuthState: (authInfo: any) => void; logout: () => void; isAuthenticated: () => boolean; isAdmin: () => boolean; }
+interface IAuthState {
+  token: string | null;
+  expiresAt: string | null;
+  userInfo: IUser;
+}
 
-const defaultAuthState: IAuthState = { token: null, expiresAt:  null, userInfo: 'any' }
-const defaultContext: TAuthContext = { authState: defaultAuthState, setAuthState: () => {}, logout: () => {}, isAuthenticated: () => false, isAdmin: () => false}
+interface TAuthContext {
+  authState: IAuthState;
+  setAuthState: (authInfo: any) => void;
+  logout: () => void;
+  isAuthenticated: () => boolean;
+  isAdmin: () => boolean;
+}
+
+const defaultAuthState: IAuthState = {
+  token: null,
+  expiresAt: null,
+  userInfo: {
+    avatar: "",
+    firstName: "John",
+    lastName: "Doe",
+    bio: "ruthless developer",
+  },
+};
+const defaultContext: TAuthContext = {
+  authState: defaultAuthState,
+  setAuthState: () => {},
+  logout: () => {},
+  isAuthenticated: () => false,
+  isAdmin: () => false,
+};
 
 const AuthContext: React.Context<TAuthContext> = createContext(defaultContext);
 const { Provider } = AuthContext;
@@ -13,60 +40,55 @@ const { Provider } = AuthContext;
 const AuthProvider: React.FC = ({ children }) => {
   const history = useHistory();
 
-  const token = localStorage.getItem('token');
-  const userInfo = localStorage.getItem('userInfo');
-  const expiresAt = localStorage.getItem('expiresAt');
+  const token = localStorage.getItem("token");
+  const userInfo = localStorage.getItem("userInfo");
+  const expiresAt = localStorage.getItem("expiresAt");
 
   const [authState, setAuthState] = useState({
     token,
     expiresAt,
-    userInfo: userInfo ? JSON.parse(userInfo) : {}
+    userInfo: userInfo ? JSON.parse(userInfo) : {},
   });
 
   const setAuthInfo = ({ token, userInfo, expiresAt }: IAuthState) => {
-    localStorage.setItem('token', token || '');
-    localStorage.setItem(
-      'userInfo',
-      JSON.stringify(userInfo)
-    );
-    localStorage.setItem('expiresAt', expiresAt || "");
+    localStorage.setItem("token", token || "");
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    localStorage.setItem("expiresAt", expiresAt || "");
 
     setAuthState({
       token,
       userInfo,
-      expiresAt
+      expiresAt,
     });
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('expiresAt');
+    localStorage.removeItem("token");
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("expiresAt");
     setAuthState(defaultAuthState);
-    history.push('/login');
+    history.push("/login");
   };
 
   const isAuthenticated = () => {
     if (!authState.token || !authState.expiresAt) {
       return false;
     }
-    return (
-      new Date().getTime() / 1000 < Number(authState.expiresAt)
-    );
+    return new Date().getTime() / 1000 < Number(authState.expiresAt);
   };
 
   const isAdmin = () => {
-    return authState.userInfo.role === 'admin';
+    return authState.userInfo.role === "admin";
   };
 
   return (
     <Provider
       value={{
         authState,
-        setAuthState: authInfo => setAuthInfo(authInfo),
+        setAuthState: (authInfo) => setAuthInfo(authInfo),
         logout,
         isAuthenticated,
-        isAdmin
+        isAdmin,
       }}
     >
       {children}

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Form, Formik } from "formik";
-import * as Yup from "yup";
 import Card from "../components/common/Card";
 import GradientButton from "../components/common/GradientButton";
 import Hyperlink from "../components/common/Hyperlink";
@@ -10,9 +9,14 @@ import { AuthContext } from "../context/AuthContext";
 import GradientBar from "../components/common/GradientBar";
 import FormError from "../components/FormError";
 import FormSuccess from "../components/FormSuccess";
-import { publicFetch } from "./../util/fetch";
-import logo from "./../images/logo.png";
+import { publicFetch } from "../util/fetch";
 import { Redirect } from "react-router-dom";
+import { ICredentials } from "./Login";
+import { AxiosError } from "axios";
+
+const Yup = require("yup");
+
+const logo = "./../images/logo.png";
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string().required("First name is required"),
@@ -21,14 +25,14 @@ const SignupSchema = Yup.object().shape({
   password: Yup.string().required("Password is required"),
 });
 
-const Signup = () => {
+const Signup: React.FC = () => {
   const authContext = useContext(AuthContext);
-  const [signupSuccess, setSignupSuccess] = useState();
-  const [signupError, setSignupError] = useState();
+  const [signupSuccess, setSignupSuccess] = useState<string>();
+  const [signupError, setSignupError] = useState<string>();
   const [redirectOnLogin, setRedirectOnLogin] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
 
-  const submitCredentials = async (credentials) => {
+  const submitCredentials = async (credentials: ICredentials) => {
     try {
       setLoginLoading(true);
       const { data } = await publicFetch.post(`signup`, credentials);
@@ -40,10 +44,14 @@ const Signup = () => {
       setTimeout(() => {
         setRedirectOnLogin(true);
       }, 700);
-    } catch (error) {
+    } catch (err) {
       setLoginLoading(false);
-      const { data } = error.response;
-      setSignupError(data.message);
+      if (err instanceof Error) {
+        setSignupError(err.message);
+      } else {
+        const error = err as AxiosError;
+        setSignupError(error?.response?.data.message || "Unexpected error");
+      }
       setSignupSuccess("");
     }
   };
@@ -75,7 +83,7 @@ const Signup = () => {
                   email: "",
                   password: "",
                 }}
-                onSubmit={(values) => submitCredentials(values)}
+                onSubmit={(values: ICredentials) => submitCredentials(values)}
                 validationSchema={SignupSchema}
               >
                 {() => (

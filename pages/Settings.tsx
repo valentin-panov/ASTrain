@@ -6,12 +6,13 @@ import { Field, Form, Formik } from "formik";
 import { FetchContext } from "../context/FetchContext";
 import FormError from "../components/FormError";
 import FormSuccess from "../components/FormSuccess";
+import { AxiosError } from "axios";
 
-const Settings = () => {
+const Settings: React.FC = () => {
   const fetchContext = useContext(FetchContext);
   const [bio, setBio] = useState();
-  const [successMessage, setSuccessMessage] = useState();
-  const [errorMessage, setErrorMessage] = useState();
+  const [successMessage, setSuccessMessage] = useState<string>();
+  const [errorMessage, setErrorMessage] = useState<string>();
 
   useEffect(() => {
     const getBio = async () => {
@@ -25,15 +26,19 @@ const Settings = () => {
     getBio();
   }, [fetchContext.authAxios]);
 
-  const saveBio = async (bio) => {
+  const saveBio = async (bio: string) => {
     try {
       const { data } = await fetchContext.authAxios.patch("bio", bio);
-      setErrorMessage(null);
+      setErrorMessage("");
       setSuccessMessage(data.message);
     } catch (err) {
-      const { data } = err.response;
-      setSuccessMessage(null);
-      setErrorMessage(data.message);
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        const error = err as AxiosError;
+        setErrorMessage(error?.response?.data.message || "Unexpected error");
+      }
+      setSuccessMessage("");
     }
   };
   return (
@@ -47,7 +52,7 @@ const Settings = () => {
           initialValues={{
             bio,
           }}
-          onSubmit={(values) => saveBio(values)}
+          onSubmit={(values: string) => saveBio(values)}
           enableReinitialize={true}
         >
           {() => (

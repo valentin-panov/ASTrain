@@ -8,7 +8,7 @@ import {
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FetchContext } from "../context/FetchContext";
-import { formatCurrency } from "./../util";
+import { formatCurrency } from "../util";
 import DashboardChart, { ISalesData } from "../components/DashboardChart";
 
 interface IDashboardData {

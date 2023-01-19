@@ -1,17 +1,34 @@
 import React, { useContext, useEffect, useState } from "react";
 import PageTitle from "../components/common/PageTitle";
 import { FetchContext } from "../context/FetchContext";
-import { formatCurrency } from "./../util";
-import InventoryItemForm from "../components/InventoryItemForm";
+import { formatCurrency } from "../util";
+import InventoryItemForm, {
+  IInventoryItemForm,
+} from "../components/InventoryItemForm";
 import DangerButton from "../components/common/DangerButton";
 import FormError from "../components/FormError";
 import FormSuccess from "../components/FormSuccess";
+import { AxiosError } from "axios";
 
-const InventoryItemContainer = ({ children }) => (
+const InventoryItemContainer: React.FC = ({ children }) => (
   <div className="bg-white rounded shadow-md mb-4 p-4">{children}</div>
 );
 
-const InventoryItem = ({ item, onDelete }) => {
+export interface IItem {
+  _id: string;
+  user: string;
+  image: string;
+  name: string;
+  itemNumber: string;
+  unitPrice: string;
+}
+
+interface IInventoryItem {
+  item: IItem;
+  onDelete: (arg: IItem) => void;
+}
+
+const InventoryItem: React.FC<IInventoryItem> = ({ item, onDelete }) => {
   return (
     <div className="flex">
       <img className="rounded w-32 h-full" src={item.image} alt="inventory" />
@@ -35,7 +52,7 @@ const InventoryItem = ({ item, onDelete }) => {
   );
 };
 
-const NewInventoryItem = ({ onSubmit }) => {
+const NewInventoryItem: React.FC<IInventoryItemForm> = ({ onSubmit }) => {
   return (
     <section className="bg-white p-4 shadow-md rounded-md">
       <p className="font-bold mb-2">New Inventory Item</p>
@@ -44,11 +61,11 @@ const NewInventoryItem = ({ onSubmit }) => {
   );
 };
 
-const Inventory = () => {
+const Inventory: React.FC = () => {
   const fetchContext = useContext(FetchContext);
-  const [inventory, setInventory] = useState([]);
-  const [successMessage, setSuccessMessage] = useState();
-  const [errorMessage, setErrorMessage] = useState();
+  const [inventory, setInventory] = useState<IItem[]>([]);
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
     const getInventory = async () => {
@@ -63,33 +80,41 @@ const Inventory = () => {
     getInventory();
   }, [fetchContext]);
 
-  const onSubmit = async (values, resetForm) => {
+  const onSubmit = async (values: IItem[], resetForm: () => void) => {
     try {
       const { data } = await fetchContext.authAxios.post("inventory", values);
       setInventory([...inventory, data.inventoryItem]);
       resetForm();
       setSuccessMessage(data.message);
-      setErrorMessage(null);
+      setErrorMessage("");
     } catch (err) {
-      const { data } = err.response;
-      setSuccessMessage(null);
-      setErrorMessage(data.message);
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        const error = err as AxiosError;
+        setErrorMessage(error?.response?.data.message || "Unexpected error");
+      }
+      setSuccessMessage("");
     }
   };
 
-  const onDelete = async (item) => {
+  const onDelete = async (item: IItem) => {
     try {
       if (window.confirm("Are you sure you want to delete this item?")) {
         const { data } = await fetchContext.authAxios.delete(
           `inventory/${item._id}`
         );
         setInventory(
-          inventory.filter((item) => item._id !== data.deletedItem._id)
+          inventory.filter((item: IItem) => item._id !== data.deletedItem._id)
         );
       }
-    } catch (err) {
-      const { data } = err.response;
-      setErrorMessage(data.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        const error = err as AxiosError;
+        setErrorMessage(error?.response?.data.message || "Unexpected error");
+      }
     }
   };
 
@@ -102,7 +127,7 @@ const Inventory = () => {
         <NewInventoryItem onSubmit={onSubmit} />
       </div>
       {inventory && inventory.length
-        ? inventory.map((item) => (
+        ? inventory.map((item: IItem) => (
             <InventoryItemContainer key={item._id}>
               <InventoryItem item={item} onDelete={onDelete} />
             </InventoryItemContainer>

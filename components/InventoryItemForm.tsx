@@ -1,9 +1,11 @@
 import React from "react";
 import { Form, Formik } from "formik";
-import * as Yup from "yup";
 import Label from "./common/Label";
 import FormInput from "./FormInput";
 import GradientButton from "./common/GradientButton";
+import { IItem } from "../pages/Inventory";
+
+const Yup = require("yup");
 
 const InventoryItemSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -11,8 +13,8 @@ const InventoryItemSchema = Yup.object().shape({
   unitPrice: Yup.string().required("Unit price is required"),
 });
 
-interface IInventoryItemForm {
-  onSubmit: (values: [string], arg1: unknown) => unknown;
+export interface IInventoryItemForm {
+  onSubmit: (values: IItem, arg1: () => void) => Promise<void>;
 }
 
 const InventoryItemForm: React.FC<IInventoryItemForm> = ({ onSubmit }) => {
@@ -23,7 +25,7 @@ const InventoryItemForm: React.FC<IInventoryItemForm> = ({ onSubmit }) => {
         itemNumber: "",
         unitPrice: "",
       }}
-      onSubmit={(values: [string], { resetForm }) =>
+      onSubmit={(values: IItem, { resetForm }: { resetForm: () => void }) =>
         onSubmit(values, resetForm)
       }
       validationSchema={InventoryItemSchema}

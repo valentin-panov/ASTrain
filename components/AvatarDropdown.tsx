@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { faCaretDown, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AuthContext } from "../context/AuthContext";
-import defaultAvatar from "./../images/defaultAvatar.png";
+
+const defaultAvatar = "./../images/defaultAvatar.png";
 
 type TdropdownItem = { onClick: () => void; icon: string; title: string };
 

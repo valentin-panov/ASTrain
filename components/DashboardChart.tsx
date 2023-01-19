@@ -1,6 +1,6 @@
 import React from "react";
 import { Line as LineChart } from "react-chartjs-2";
-import { formatCurrency } from "./../util";
+import { formatCurrency } from "../util";
 
 export interface ISalesData {
   date: string;
