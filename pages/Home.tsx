@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import GradientLink from "../components/common/GradientLink";
 import GradientBar from "../components/common/GradientBar";
-import logo from "./../images/logo.png";
 
-const Home = () => {
+const logo = "./../images/logo.png";
+
+const Home: React.FC = () => {
   const auth = useContext(AuthContext);
 
   return (
