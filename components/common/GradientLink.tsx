@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 interface IGradientLink {
   to: string;
   text: string;
-  size: string;
+  size?: string;
 }
 
 const GradientLink: React.FC<IGradientLink> = ({ to, text, size }) => {
