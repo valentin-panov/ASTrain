@@ -80,7 +80,7 @@ const Inventory: React.FC = () => {
     getInventory();
   }, [fetchContext]);
 
-  const onSubmit = async (values: IItem[], resetForm: () => void) => {
+  const onSubmit = async (values: IItem, resetForm: () => void) => {
     try {
       const { data } = await fetchContext.authAxios.post("inventory", values);
       setInventory([...inventory, data.inventoryItem]);

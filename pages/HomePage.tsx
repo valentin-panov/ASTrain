@@ -6,7 +6,7 @@ import GradientBar from "../components/common/GradientBar";
 
 const logo = "./../images/logo.png";
 
-const Home: React.FC = () => {
+const HomePage: React.FC = () => {
   const auth = useContext(AuthContext);
 
   return (
@@ -56,4 +56,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default HomePage;

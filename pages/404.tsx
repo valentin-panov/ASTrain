@@ -1,10 +1,9 @@
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
-import { MainLayout } from "../components";
 
 export default function Error404() {
   return (
-    <MainLayout>
+    <>
       <h2 className={styles.error}>Error 404</h2>
       <p className={styles.description}>
         Please{" "}
@@ -13,6 +12,6 @@ export default function Error404() {
         </Link>
         to safety
       </p>
-    </MainLayout>
+    </>
   );
 }
