@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import PageTitle from "../components/common/PageTitle";
 import { FetchContext } from "../context/FetchContext";
 import Card from "../components/common/Card";
+import IUser from "../interfaces/IUser";
+import Image from "next/image";
 
 const defaultAvatar = "./../images/defaultAvatar.png";
 
@@ -9,19 +11,11 @@ const UserDetailLabel: React.FC<{ text: string }> = ({ text }) => (
   <p className="mt-2 uppercase font-bold text-gray-500 text-xs">{text}</p>
 );
 
-export interface IUser {
-  _id?: string;
-  avatar: string;
-  firstName: string;
-  lastName: string;
-  bio: string;
-}
-
 const UserDetail: React.FC<{ user: IUser }> = ({ user }) => (
   <Card>
     <div className="flex">
       <div className="w-24">
-        <img src={user.avatar || defaultAvatar} alt="avatar" />
+        <Image src={user.avatar || defaultAvatar} alt="avatar" />
       </div>
 
       <div>

@@ -1,20 +1,6 @@
 import React, { createContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { IUser } from "../pages/Users";
-
-interface IAuthState {
-  token: string | null;
-  expiresAt: string | null;
-  userInfo: IUser;
-}
-
-interface TAuthContext {
-  authState: IAuthState;
-  setAuthState: (authInfo: any) => void;
-  logout: () => void;
-  isAuthenticated: () => boolean;
-  isAdmin: () => boolean;
-}
+import { IAuthState, TAuthContext } from "../interfaces/IAuth";
 
 const defaultAuthState: IAuthState = {
   token: null,
@@ -24,6 +10,8 @@ const defaultAuthState: IAuthState = {
     firstName: "John",
     lastName: "Doe",
     bio: "ruthless developer",
+    email: "john@doe.com",
+    role: "user",
   },
 };
 const defaultContext: TAuthContext = {
