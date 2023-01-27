@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import GradientLink from "../components/common/GradientLink";
 import GradientBar from "../components/common/GradientBar";
+import Link from "next/link";
+import Image from "next/image";
 
-const logo = "./../images/logo.png";
+import logo from "../images/logo.png";
 
 const HomePage: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -14,9 +15,9 @@ const HomePage: React.FC = () => {
       <GradientBar />
       <div className="w-full top-0 bg-white px-10 py-5">
         <div className="flex justify-between">
-          <img className="w-32 h-full" src={logo} alt="Logo" />
+          <Image src={logo} alt="Logo" width={120} height={32} />
           <div className="flex items-center">
-            <Link to="/signup" className="text-blue-700 mr-6">
+            <Link href="/signup" className="text-blue-700 mr-6">
               Sign Up
             </Link>
             <GradientLink

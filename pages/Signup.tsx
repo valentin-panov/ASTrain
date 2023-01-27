@@ -11,8 +11,8 @@ import FormError from "../components/FormError";
 import FormSuccess from "../components/FormSuccess";
 import { publicFetch } from "../util/fetch";
 import { Redirect } from "react-router-dom";
-import { ICredentials } from "./Login";
 import { AxiosError } from "axios";
+import { ICredentials } from "../interfaces/ICredentials";
 
 const Yup = require("yup");
 

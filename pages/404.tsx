@@ -1,10 +1,11 @@
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/error.module.scss";
+import { MainLayout } from "../layouts";
 
 export default function Error404() {
   return (
-    <>
-      <h2 className={styles.error}>Error 404</h2>
+    <MainLayout>
+      <h2>Error 404</h2>
       <p className={styles.description}>
         Please{" "}
         <Link href={`/`} className={styles.link}>
@@ -12,6 +13,6 @@ export default function Error404() {
         </Link>
         to safety
       </p>
-    </>
+    </MainLayout>
   );
 }

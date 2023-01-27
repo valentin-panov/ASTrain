@@ -1,12 +1,11 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
-import classNames from "classnames";
+import { Button } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 
 interface IGradientButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
   text: string;
-  size?: string;
+  size?: "small" | "medium" | "large";
   loading?: boolean;
   onClick?: () => void;
 }
@@ -18,22 +17,23 @@ const GradientButton: React.FC<IGradientButtonProps> = ({
   loading = false,
   onClick,
 }) => {
-  const classes = classNames({
-    "flex rounded-full items-center py-2 px-6 bg-gradient focus:outline-none shadow-lg text-white":
-      true,
-    "text-2xl": size === "lg",
-  });
   return (
-    <button type={type} className={classes} onClick={onClick}>
+    <>
       {loading ? (
-        <span className="flex items-center">
-          <FontAwesomeIcon icon={faCircleNotch} spin />
-          <span className="ml-2">Loading...</span>
-        </span>
+        <LoadingButton
+          size={size}
+          loading
+          loadingPosition="start"
+          variant="outlined"
+        >
+          Loading...
+        </LoadingButton>
       ) : (
-        <span>{text}</span>
+        <Button size={size} variant={"contained"} type={type} onClick={onClick}>
+          {text}
+        </Button>
       )}
-    </button>
+    </>
   );
 };
 

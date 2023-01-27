@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 interface IHyperlink {
   text: string;
@@ -8,7 +8,7 @@ interface IHyperlink {
 
 const Hyperlink: React.FC<IHyperlink> = ({ text, to }) => (
   <Link
-    to={to}
+    href={to}
     className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
   >
     {text}

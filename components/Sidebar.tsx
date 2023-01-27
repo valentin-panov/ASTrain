@@ -8,8 +8,10 @@ import {
   faCogs,
   faDoorOpen,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import Link from "next/link";
+import Image from "next/image";
 
 const logo = "./../images/logo.png";
 
@@ -64,7 +66,7 @@ const NavItem: React.FC<NavItemProps> = ({ navItem }) => {
     "bg-gradient text-gray-100 shadow-lg": isCurrentRoute,
   });
   return (
-    <Link to={navItem.path} className={classes}>
+    <Link href={navItem.path} className={classes}>
       <div className="flex items-center">
         <div className="mr-0 sm:mr-4">
           <FontAwesomeIcon icon={navItem.icon} />
@@ -87,7 +89,7 @@ const Sidebar = () => {
   return (
     <section className="h-screen">
       <div className="w-16 sm:w-24 m-auto">
-        <img src={logo} alt="Logo" />
+        <Image src={logo} alt="Logo" />
       </div>
       <div className="mt-20">
         {navItems.map((navItem, i) => (

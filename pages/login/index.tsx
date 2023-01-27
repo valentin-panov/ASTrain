@@ -1,31 +1,27 @@
 import React, { useContext, useState } from "react";
 import { Form, Formik } from "formik";
-import Card from "../components/common/Card";
-import Hyperlink from "../components/common/Hyperlink";
-import Label from "../components/common/Label";
-import FormInput from "../components/FormInput";
-import FormSuccess from "../components/FormSuccess";
-import FormError from "../components/FormError";
-import GradientBar from "../components/common/GradientBar";
-import { AuthContext } from "../context/AuthContext";
-import { publicFetch } from "../util/fetch";
+import Card from "../../components/common/Card";
+import Hyperlink from "../../components/common/Hyperlink";
+import Label from "../../components/common/Label";
+import FormInput from "../../components/FormInput";
+import FormSuccess from "../../components/FormSuccess";
+import FormError from "../../components/FormError";
+import GradientBar from "../../components/common/GradientBar";
+import { AuthContext } from "../../context/AuthContext";
+import { publicFetch } from "../../util/fetch";
 import { Redirect } from "react-router-dom";
-import GradientButton from "../components/common/GradientButton";
+import GradientButton from "../../components/common/GradientButton";
 import { AxiosError } from "axios";
+import { ICredentials } from "../../interfaces/ICredentials";
+import Image from "next/image";
+import logo from "../../images/logo.png";
 
 const Yup = require("yup");
-
-const logo = "./../images/logo.png";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
-
-export interface ICredentials {
-  email: string;
-  password: string;
-}
 
 const Login: React.FC = () => {
   const authContext = useContext(AuthContext);
@@ -68,7 +64,7 @@ const Login: React.FC = () => {
             <div className="max-w-md w-full">
               <div>
                 <div className="w-32 m-auto mb-6">
-                  <img src={logo} alt="Logo" />
+                  <Image src={logo} alt="Logo" width={120} height={32} />
                 </div>
                 <h2 className="mb-2 text-center text-3xl leading-9 font-extrabold text-gray-900">
                   Log in to your account
