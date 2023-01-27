@@ -13,9 +13,7 @@ const authenticate = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { email, password } = req.body;
 
-    console.log("CONNECTING TO MONGO");
     await connectMongo();
-    console.log("CONNECTED TO MONGO");
 
     const user: IUser = await UserModel.findOne({
       email,

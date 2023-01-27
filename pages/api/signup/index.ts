@@ -22,9 +22,7 @@ const signup = async (req: NextApiRequest, res: NextApiResponse) => {
       role: "admin",
     };
 
-    console.log("CONNECTING TO MONGO");
     await connectMongo();
-    console.log("CONNECTED TO MONGO");
 
     const existingEmail = await UserModel.findOne({
       email: userData.email,
