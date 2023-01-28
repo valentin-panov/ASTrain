@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import Label from "./common/Label";
 import FormInput from "./FormInput";
 import GradientButton from "./common/GradientButton";
-import { IItem } from "../pages/inventory";
+import { IItem } from "../interfaces/IItem";
 
 const Yup = require("yup");
 
@@ -13,21 +13,31 @@ const InventoryItemSchema = Yup.object().shape({
   unitPrice: Yup.string().required("Unit price is required"),
 });
 
+export type TInventoryItemInitialValues = Pick<
+  IItem,
+  "name" | "itemNumber" | "unitPrice"
+>;
+
 export interface IInventoryItemForm {
-  onSubmit: (values: IItem, arg1: () => void) => Promise<void>;
+  onSubmit: (
+    values: TInventoryItemInitialValues,
+    arg1: () => void
+  ) => Promise<void>;
 }
 
+const initialValues: TInventoryItemInitialValues = {
+  name: "",
+  itemNumber: "",
+  unitPrice: "",
+};
 const InventoryItemForm: React.FC<IInventoryItemForm> = ({ onSubmit }) => {
   return (
     <Formik
-      initialValues={{
-        name: "",
-        itemNumber: "",
-        unitPrice: "",
-      }}
-      onSubmit={(values: IItem, { resetForm }: { resetForm: () => void }) =>
-        onSubmit(values, resetForm)
-      }
+      initialValues={initialValues}
+      onSubmit={(
+        values: TInventoryItemInitialValues,
+        { resetForm }: { resetForm: () => void }
+      ) => onSubmit(values, resetForm)}
       validationSchema={InventoryItemSchema}
       validateOnBlur={false}
     >

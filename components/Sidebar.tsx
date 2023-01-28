@@ -1,17 +1,16 @@
 import React, { useContext } from "react";
 import classNames from "classnames";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAddressCard,
-  faChartLine,
-  faChartPie,
-  faCogs,
-  faDoorOpen,
-} from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Link from "next/link";
 import Image from "next/image";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import PieChartIcon from "@mui/icons-material/PieChart";
+import SettingsIcon from "@mui/icons-material/Settings";
+import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
+import { SvgIconTypeMap } from "@mui/material";
+import { OverridableComponent } from "@mui/types";
 
 const logo = "./../images/logo.png";
 
@@ -19,31 +18,31 @@ const navItems = [
   {
     label: "Dashboard",
     path: "dashboard",
-    icon: faChartLine,
+    icon: TrendingUpIcon,
     allowedRoles: ["user", "admin"],
   },
   {
     label: "Inventory",
     path: "inventory",
-    icon: faChartPie,
+    icon: PieChartIcon,
     allowedRoles: ["admin"],
   },
   {
     label: "Account",
     path: "account",
-    icon: faAddressCard,
+    icon: ContactMailIcon,
     allowedRoles: ["user", "admin"],
   },
   {
     label: "Settings",
     path: "settings",
-    icon: faCogs,
+    icon: SettingsIcon,
     allowedRoles: ["user", "admin"],
   },
   {
     label: "Users",
     path: "users",
-    icon: faDoorOpen,
+    icon: MeetingRoomIcon,
     allowedRoles: ["admin"],
   },
 ];
@@ -51,7 +50,7 @@ const navItems = [
 interface NavItemProps {
   navItem: {
     path: string;
-    icon: string;
+    icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
     label: string;
   };
 }
@@ -68,9 +67,7 @@ const NavItem: React.FC<NavItemProps> = ({ navItem }) => {
   return (
     <Link href={navItem.path} className={classes}>
       <div className="flex items-center">
-        <div className="mr-0 sm:mr-4">
-          <FontAwesomeIcon icon={navItem.icon} />
-        </div>
+        <div className="mr-0 sm:mr-4">{navItem.icon}</div>
         <span className="hidden sm:block">{navItem.label}</span>
       </div>
     </Link>

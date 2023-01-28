@@ -4,24 +4,17 @@ import { FetchContext } from "../../context/FetchContext";
 import { formatCurrency } from "../../util";
 import InventoryItemForm, {
   IInventoryItemForm,
+  TInventoryItemInitialValues,
 } from "../../components/InventoryItemForm";
 import DangerButton from "../../components/common/DangerButton";
 import FormError from "../../components/FormError";
 import FormSuccess from "../../components/FormSuccess";
 import { AxiosError } from "axios";
+import { IItem } from "../../interfaces/IItem";
 
 const InventoryItemContainer: React.FC = ({ children }) => (
   <div className="bg-white rounded shadow-md mb-4 p-4">{children}</div>
 );
-
-export interface IItem {
-  _id: string;
-  user: string;
-  image: string;
-  name: string;
-  itemNumber: string;
-  unitPrice: string;
-}
 
 interface IInventoryItem {
   item: IItem;
@@ -80,7 +73,10 @@ const Inventory: React.FC = () => {
     getInventory();
   }, [fetchContext]);
 
-  const onSubmit = async (values: IItem, resetForm: () => void) => {
+  const onSubmit = async (
+    values: TInventoryItemInitialValues,
+    resetForm: () => void
+  ) => {
     try {
       const { data } = await fetchContext.authAxios.post("inventory", values);
       setInventory([...inventory, data.inventoryItem]);

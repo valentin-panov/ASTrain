@@ -1,36 +1,35 @@
 import React from "react";
 import { Line as LineChart } from "react-chartjs-2";
-import { formatCurrency } from "../util";
+import { BubbleDataPoint, ChartData, Point } from "chart.js";
 
 export interface ISalesData {
   date: string;
-  amount: string;
+  amount: number | [number, number] | Point | BubbleDataPoint | null;
 }
 
 interface IDashboardChart {
   salesData: ISalesData[];
 }
 
+type TCharData = ChartData<
+  "line",
+  (number | [number, number] | Point | BubbleDataPoint | null)[],
+  unknown
+>;
 const DashboardChart: React.FC<IDashboardChart> = ({ salesData }) => {
   const chartLabels = salesData.map((sale) => sale.date);
   const chartValues = salesData.map((sale) => sale.amount);
 
-  const chartData = (canvas) => {
-    const ctx = canvas.getContext("2d");
-    var gradientFill = ctx.createLinearGradient(0, 0, 0, 250);
-    gradientFill.addColorStop(0, "rgba(0, 97, 215, 0.3)");
-    gradientFill.addColorStop(1, "rgba(0, 200, 255, 0)");
-    return {
-      labels: chartLabels,
-      datasets: [
-        {
-          label: "Sales",
-          borderColor: "#3182ce",
-          data: chartValues,
-          backgroundColor: gradientFill,
-        },
-      ],
-    };
+  const chartData: TCharData = {
+    labels: chartLabels,
+    datasets: [
+      {
+        label: "Sales",
+        borderColor: "#3182ce",
+        data: chartValues,
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
   };
 
   return (
@@ -45,15 +44,15 @@ const DashboardChart: React.FC<IDashboardChart> = ({ salesData }) => {
           },
           point: { radius: 0 },
         },
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                callback: (value) => formatCurrency(value),
-              },
-            },
-          ],
-        },
+        // scales: {
+        //   yAxes: [
+        //     {
+        //       ticks: {
+        //         callback: (value: String) => formatCurrency(value),
+        //       },
+        //     },
+        //   ],
+        // },
       }}
     />
   );

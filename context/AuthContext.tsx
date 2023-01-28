@@ -12,6 +12,7 @@ const defaultAuthState: IAuthState = {
     bio: "ruthless developer",
     email: "john@doe.com",
     role: "user",
+    password: "",
   },
 };
 const defaultContext: TAuthContext = {

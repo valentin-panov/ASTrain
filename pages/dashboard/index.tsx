@@ -2,14 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import PageTitle from "../../components/common/PageTitle";
 import DashboardMetric from "../../components/DashboardMetric";
 import Card from "../../components/common/Card";
-import {
-  faChartArea,
-  faDollarSign,
-  faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
 import { FetchContext } from "../../context/FetchContext";
 import { formatCurrency } from "../../util";
 import DashboardChart, { ISalesData } from "../../components/DashboardChart";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { MainLayout } from "../../layouts";
 
 interface IDashboardData {
   salesVolume: string;
@@ -36,7 +35,7 @@ const Dashboard: React.FC = () => {
   }, [fetchContext]);
 
   return (
-    <>
+    <MainLayout>
       <PageTitle title="Dashboard" />
       {dashboardData ? (
         <>
@@ -45,21 +44,21 @@ const Dashboard: React.FC = () => {
               <DashboardMetric
                 title="Sales Volume"
                 value={formatCurrency(dashboardData.salesVolume)}
-                icon={faChartArea}
+                icon={BarChartIcon}
               />
             </div>
             <div className="w-full sm:w-1/3 sm:ml-2 sm:mr-2 mb-4 sm:mb-0">
               <DashboardMetric
                 title="New Customers"
                 value={dashboardData.newCustomers}
-                icon={faUserPlus}
+                icon={PersonAddAltIcon}
               />
             </div>
             <div className="w-full sm:w-1/3 sm:ml-2 mb-4 sm:mb-0">
               <DashboardMetric
                 title="Refunds"
                 value={formatCurrency(dashboardData.refunds)}
-                icon={faDollarSign}
+                icon={AttachMoneyIcon}
               />
             </div>
           </div>
@@ -74,7 +73,7 @@ const Dashboard: React.FC = () => {
       ) : (
         <p>Loading...</p>
       )}
-    </>
+    </MainLayout>
   );
 };
 

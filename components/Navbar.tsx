@@ -1,7 +1,6 @@
-import React from 'react';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import AvatarDropdown from './AvatarDropdown';
+import React from "react";
+import AvatarDropdown from "./AvatarDropdown";
+import EastIcon from "@mui/icons-material/East";
 
 const SearchInput = () => (
   <div className="flex">
@@ -10,7 +9,7 @@ const SearchInput = () => (
       placeholder="Search"
     />
     <button className="rounded-full bg-gradient px-4 ml-2 text-white flex items-center text-xs focus:outline-none shadow-lg">
-      <FontAwesomeIcon icon={faArrowRight} />
+      <EastIcon />
     </button>
   </div>
 );
