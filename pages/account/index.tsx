@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import PageTitle from "../components/common/PageTitle";
-import Card from "../components/common/Card";
-import { FetchContext } from "../context/FetchContext";
-import { AuthContext } from "../context/AuthContext";
+import PageTitle from "../../components/common/PageTitle";
+import Card from "../../components/common/Card";
+import { FetchContext } from "../../context/FetchContext";
+import { AuthContext } from "../../context/AuthContext";
 import { AxiosError } from "axios";
 
 const Account: React.FC = () => {

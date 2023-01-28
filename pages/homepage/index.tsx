@@ -1,14 +1,12 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import GradientLink from "../components/common/GradientLink";
-import { Header } from "../components";
+import { AuthContext } from "../../context/AuthContext";
+import GradientLink from "../../components/common/GradientLink";
 
 const HomePage: React.FC = () => {
   const auth = useContext(AuthContext);
 
   return (
     <>
-      <Header />
       <div className="h-full bg-blue-900">
         <div className="opacity-10">
           <img

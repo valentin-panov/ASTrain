@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import PageTitle from "../components/common/PageTitle";
-import { FetchContext } from "../context/FetchContext";
-import Card from "../components/common/Card";
-import IUser from "../interfaces/IUser";
+import PageTitle from "../../components/common/PageTitle";
+import { FetchContext } from "../../context/FetchContext";
+import Card from "../../components/common/Card";
+import IUser from "../../interfaces/IUser";
 import Image from "next/image";
 
 const defaultAvatar = "./../images/defaultAvatar.png";

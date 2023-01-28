@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import PageTitle from "../components/common/PageTitle";
-import Card from "../components/common/Card";
-import GradientButton from "../components/common/GradientButton";
+import PageTitle from "../../components/common/PageTitle";
+import Card from "../../components/common/Card";
+import GradientButton from "../../components/common/GradientButton";
 import { Field, Form, Formik } from "formik";
-import { FetchContext } from "../context/FetchContext";
-import FormError from "../components/FormError";
-import FormSuccess from "../components/FormSuccess";
+import { FetchContext } from "../../context/FetchContext";
+import FormError from "../../components/FormError";
+import FormSuccess from "../../components/FormSuccess";
 import { AxiosError } from "axios";
 
 const Settings: React.FC = () => {

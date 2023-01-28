@@ -1,4 +1,4 @@
-import HomePage from "./HomePage";
+import HomePage from "./homepage";
 import React from "react";
 import { MainLayout } from "../layouts";
 

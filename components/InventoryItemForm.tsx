@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import Label from "./common/Label";
 import FormInput from "./FormInput";
 import GradientButton from "./common/GradientButton";
-import { IItem } from "../pages/Inventory";
+import { IItem } from "../pages/inventory";
 
 const Yup = require("yup");
 

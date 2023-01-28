@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import PageTitle from "../components/common/PageTitle";
-import DashboardMetric from "../components/DashboardMetric";
-import Card from "../components/common/Card";
+import PageTitle from "../../components/common/PageTitle";
+import DashboardMetric from "../../components/DashboardMetric";
+import Card from "../../components/common/Card";
 import {
   faChartArea,
   faDollarSign,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { FetchContext } from "../context/FetchContext";
-import { formatCurrency } from "../util";
-import DashboardChart, { ISalesData } from "../components/DashboardChart";
+import { FetchContext } from "../../context/FetchContext";
+import { formatCurrency } from "../../util";
+import DashboardChart, { ISalesData } from "../../components/DashboardChart";
 
 interface IDashboardData {
   salesVolume: string;

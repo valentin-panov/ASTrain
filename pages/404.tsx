@@ -1,17 +1,13 @@
-import Link from "next/link";
 import styles from "../styles/error.module.scss";
 import { MainLayout } from "../layouts";
+import GradientLink from "../components/common/GradientLink";
 
 export default function Error404() {
   return (
     <MainLayout>
-      <h2>Error 404</h2>
+      <h2 className={styles.title}>404: nothing interesting here.</h2>
       <p className={styles.description}>
-        Please{" "}
-        <Link href={`/`} className={styles.link}>
-          go back
-        </Link>
-        to safety
+        <GradientLink to={`/`} text={"Go back to safety"} />
       </p>
     </MainLayout>
   );

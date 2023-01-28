@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
 import styles from "./MainLayout.module.scss";
-import { Footer } from "../../components";
+import { Footer, Header, Main } from "../../components";
 
 interface MainProps {
   children: ReactNode | ReactNode[];
@@ -23,11 +23,9 @@ const MainLayout: React.FC<MainProps> = ({ children, keywords }) => {
         <title>UCTOK Application</title>
       </Head>
       <div className={styles.container}>
-        {/*<Header />*/}
+        <Header />
         {/*<Menu />*/}
-        {/*<Main>*/}
-        {children}
-        {/*</Main>*/}
+        <Main>{children}</Main>
         <Footer />
       </div>
     </>
