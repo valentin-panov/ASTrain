@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import LoginIcon from "@mui/icons-material/Login";
 
 interface IButton {
   type?: "button" | "submit" | "reset" | undefined;
@@ -26,8 +27,9 @@ const MainButton: React.FC<IButton> = ({
         loadingPosition="start"
         variant={variant}
         size={size}
+        startIcon={<LoginIcon />}
       >
-        Loading...
+        <span>Loading...</span>
       </LoadingButton>
     ) : (
       <Button variant={variant} type={type} onClick={onClick} size={size}>

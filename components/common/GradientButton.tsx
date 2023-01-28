@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import LoginIcon from "@mui/icons-material/Login";
 
 interface IGradientButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
@@ -24,6 +25,7 @@ const GradientButton: React.FC<IGradientButtonProps> = ({
           size={size}
           loading
           loadingPosition="start"
+          startIcon={<LoginIcon />}
           variant="outlined"
         >
           Loading...
