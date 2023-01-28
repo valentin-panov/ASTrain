@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import GradientButton from "../common/GradientButton";
-import AuthDebugger from "../AuthDebugger";
+import AuthDebugger from "../authDebugger/AuthDebugger";
 
 const Footer: React.FC = () => {
   const [showAuthDebugger, setShowAuthDebugger] = useState(false);

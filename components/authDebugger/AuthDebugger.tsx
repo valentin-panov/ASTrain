@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { IAuthStateItem } from "../interfaces/IAuth";
+import { AuthContext } from "../../context/AuthContext";
+import { IAuthStateItem } from "../../interfaces/IAuth";
+import styles from "./AuthDebugger.module.scss";
+import classNames from "classnames";
 
 const AuthStateItem: React.FC<IAuthStateItem> = ({ title, value }) => (
-  <div className="text-sm">
-    <p className="font-bold mb-2">{title}</p>
-    <pre className="whitespace-pre-wrap bg-gray-100 p-2 rounded">
-      <code className="break-all">{value}</code>
+  <div className={styles.container}>
+    <p className={classNames(styles.title, styles.mb_2)}>{title}</p>
+    <pre className={styles.pre_wrap}>
+      <code className={styles.code}>{value}</code>
     </pre>
   </div>
 );
@@ -15,14 +17,14 @@ const AuthDebugger: React.FC = () => {
   const authContext = useContext(AuthContext);
   const { token, expiresAt, userInfo } = authContext.authState;
   return (
-    <section className="rounded-lg shadow bg-white p-4">
-      <div className="mb-2">
+    <section className={styles.section}>
+      <div className={styles.mb_2}>
         <AuthStateItem title="Token" value={token} />
       </div>
-      <div className="mb-2">
+      <div className={styles.mb_2}>
         <AuthStateItem title="Expiry" value={expiresAt} />
       </div>
-      <div className="mb-2">
+      <div className={styles.mb_2}>
         <AuthStateItem
           title="User Info"
           value={JSON.stringify(userInfo, null, 2)}
