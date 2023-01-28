@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import Image from "next/image";
-import logo from "../images/logo.png";
-import GradientLink from "./common/GradientLink";
-import { AuthContext } from "../context/AuthContext";
-import MainButton from "./common/MainButton";
+import logo from "../../images/logo.png";
+import GradientLink from "../common/GradientLink";
+import { AuthContext } from "../../context/AuthContext";
+import MainButton from "../common/MainButton";
 import { useRouter } from "next/router";
 
 const Header: React.FC = () => {

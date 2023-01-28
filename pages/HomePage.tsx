@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import GradientLink from "../components/common/GradientLink";
-import Header from "../components/Header";
+import { Header } from "../components";
 
 const HomePage: React.FC = () => {
   const auth = useContext(AuthContext);

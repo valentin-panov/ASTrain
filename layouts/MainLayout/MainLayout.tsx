@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
 import styles from "./MainLayout.module.scss";
-import Footer from "../../components/Footer";
+import { Footer } from "../../components";
 
 interface MainProps {
   children: ReactNode | ReactNode[];
