@@ -36,7 +36,7 @@ const authenticate = async (req: NextApiRequest, res: NextApiResponse) => {
       const decodedToken: JwtPayload = jwtDecode(token);
       const expiresAt = decodedToken.exp;
 
-      res.json({
+      res.status(200).json({
         message: "Authentication successful!",
         token,
         userInfo,

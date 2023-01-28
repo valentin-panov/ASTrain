@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
         </div>
         <div className="absolute left-0 top-0 mt-32 lg:mt-48 px-12 nato-sans">
           <div className="w-full lg:w-2/3">
-            <h1 className="text-gray-200 text-2xl lg:text-6xl sm:text-5xl font-bold leading-tight">
+            <h1 className="text-gray-200 text-xl lg:text-5xl sm:text-4xl font-bold leading-tight bg-blue-700 p-2 rounded">
               Your Space Exploration starts today!
             </h1>
             <h2 className="text-gray-400 text-md sm:text-2xl sm:mt-10 mt-4">

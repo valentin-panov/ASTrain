@@ -58,6 +58,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     if (redirectOnLogin) {
       router.push("/dashboard").then();
+      // router.push("/").then();
     }
   }, [redirectOnLogin]);
 

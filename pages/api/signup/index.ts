@@ -49,7 +49,7 @@ const signup = async (req: NextApiRequest, res: NextApiResponse) => {
         role,
       };
 
-      return res.json({
+      return res.status(200).json({
         message: "User created!",
         token,
         userInfo,
