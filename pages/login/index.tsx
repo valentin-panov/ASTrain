@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import Card from "../../components/common/Card";
 import Hyperlink from "../../components/common/Hyperlink";
@@ -9,12 +9,12 @@ import FormError from "../../components/FormError";
 import GradientBar from "../../components/common/GradientBar";
 import { AuthContext } from "../../context/AuthContext";
 import { publicFetch } from "../../util/fetch";
-import { Redirect } from "react-router-dom";
 import GradientButton from "../../components/common/GradientButton";
 import { AxiosError } from "axios";
 import { ICredentials } from "../../interfaces/ICredentials";
 import Image from "next/image";
 import logo from "../../images/logo.png";
+import { useRouter } from "next/router";
 
 const Yup = require("yup");
 
@@ -24,6 +24,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login: React.FC = () => {
+  const router = useRouter();
   const authContext = useContext(AuthContext);
   const [loginSuccess, setLoginSuccess] = useState<string>();
   const [loginError, setLoginError] = useState<string>();
@@ -54,9 +55,14 @@ const Login: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (redirectOnLogin) {
+      router.push("/dashboard").then();
+    }
+  }, [redirectOnLogin]);
+
   return (
     <>
-      {redirectOnLogin && <Redirect to="/dashboard" />}
       <section className="w-full sm:w-1/2 h-screen m-auto p-8 sm:pt-10">
         <GradientBar />
         <Card>

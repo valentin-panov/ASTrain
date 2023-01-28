@@ -1,23 +1,30 @@
 import React from "react";
-import classNames from "classnames";
-import Link from "next/link";
+import MainButton from "./MainButton";
+import { useRouter } from "next/router";
 
 interface IGradientLink {
   to: string;
   text: string;
-  size?: string;
+  size?: "small" | "medium" | "large";
 }
 
-const GradientLink: React.FC<IGradientLink> = ({ to, text, size }) => {
-  const classes = classNames({
-    "flex justify-center rounded-full py-2 px-6 bg-gradient focus:outline-none shadow-lg text-white":
-      true,
-    "text-xl": size === "lg",
-  });
+const GradientLink: React.FC<IGradientLink> = ({
+  to,
+  text,
+  size = "medium",
+}) => {
+  const router = useRouter();
+  const onClick = async () => {
+    await router.push(to);
+  };
   return (
-    <Link href={to} className={classes}>
-      {text}
-    </Link>
+    <MainButton
+      text={text}
+      loading={false}
+      size={size}
+      onClick={onClick}
+      variant={"contained"}
+    />
   );
 };
 

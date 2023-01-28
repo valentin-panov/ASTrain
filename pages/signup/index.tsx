@@ -1,22 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Form, Formik } from "formik";
-import Card from "../components/common/Card";
-import GradientButton from "../components/common/GradientButton";
-import Hyperlink from "../components/common/Hyperlink";
-import Label from "../components/common/Label";
-import FormInput from "../components/FormInput";
-import { AuthContext } from "../context/AuthContext";
-import GradientBar from "../components/common/GradientBar";
-import FormError from "../components/FormError";
-import FormSuccess from "../components/FormSuccess";
-import { publicFetch } from "../util/fetch";
-import { Redirect } from "react-router-dom";
+import Card from "../../components/common/Card";
+import GradientButton from "../../components/common/GradientButton";
+import Hyperlink from "../../components/common/Hyperlink";
+import Label from "../../components/common/Label";
+import FormInput from "../../components/FormInput";
+import { AuthContext } from "../../context/AuthContext";
+import GradientBar from "../../components/common/GradientBar";
+import FormError from "../../components/FormError";
+import FormSuccess from "../../components/FormSuccess";
+import { publicFetch } from "../../util/fetch";
 import { AxiosError } from "axios";
-import { ICredentials } from "../interfaces/ICredentials";
+import { ICredentials } from "../../interfaces/ICredentials";
+import logo from "../../images/logo.png";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 const Yup = require("yup");
-
-const logo = "./../images/logo.png";
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string().required("First name is required"),
@@ -26,6 +26,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const Signup: React.FC = () => {
+  const router = useRouter();
   const authContext = useContext(AuthContext);
   const [signupSuccess, setSignupSuccess] = useState<string>();
   const [signupError, setSignupError] = useState<string>();
@@ -56,9 +57,14 @@ const Signup: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (redirectOnLogin) {
+      router.push("/dashboard").then();
+    }
+  }, [redirectOnLogin]);
+
   return (
     <>
-      {redirectOnLogin && <Redirect to="/dashboard" />}
       <section className="w-1/2 h-screen m-auto p-8 sm:pt-10">
         <GradientBar />
         <Card>
@@ -66,7 +72,7 @@ const Signup: React.FC = () => {
             <div className="max-w-md w-full">
               <div>
                 <div className="w-32 m-auto mb-6">
-                  <img src={logo} alt="Logo" />
+                  <Image src={logo} alt="Logo" />
                 </div>
                 <h2 className="mb-2 text-center text-3xl leading-9 font-extrabold text-gray-900">
                   Sign up for an account

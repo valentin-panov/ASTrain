@@ -1,10 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-
-interface IAuthStateItem {
-  title: string;
-  value: string | null;
-}
+import { IAuthStateItem } from "../interfaces/IAuth";
 
 const AuthStateItem: React.FC<IAuthStateItem> = ({ title, value }) => (
   <div className="text-sm">
