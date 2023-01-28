@@ -61,7 +61,7 @@ const Signup: React.FC = () => {
     if (redirectOnLogin) {
       router.push("/dashboard").then();
     }
-  }, [redirectOnLogin]);
+  }, [redirectOnLogin, router]);
 
   return (
     <>

@@ -19,7 +19,6 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/lab": "^5.0.0-alpha.117",
     "@mui/material": "^5.11.6",
-    "@types/yup": "^0.32.0",
     "axios": "^0.26.1",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.3.1",
@@ -48,7 +47,7 @@
     "swiper": "^6.8.4",
     "uuid": "^8.3.2",
     "windowed-observable": "^0.4.2",
-    "yup": "^0.28.5"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",

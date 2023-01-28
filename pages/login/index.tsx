@@ -60,7 +60,7 @@ const Login: React.FC = () => {
       router.push("/dashboard").then();
       // router.push("/").then();
     }
-  }, [redirectOnLogin]);
+  }, [redirectOnLogin, router]);
 
   return (
     <>
