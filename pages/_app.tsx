@@ -6,13 +6,10 @@ import React from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <FetchProvider>
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
-      </FetchProvider>
-      ;
-    </>
+    <FetchProvider>
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
+    </FetchProvider>
   );
 }
