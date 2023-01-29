@@ -58,4 +58,15 @@ const requireAdmin = (
   next();
 };
 
-export { createToken, hashPassword, verifyPassword, requireAdmin };
+const requireAuth = () => ({
+  secret: process.env.JWT_SECRET,
+  audience: "api.orbit",
+  issuer: "api.orbit",
+});
+// const requireAuth: boolean = jwt({
+//   secret: process.env.JWT_SECRET,
+//   audience: "api.orbit",
+//   issuer: "api.orbit",
+// });
+
+export { createToken, hashPassword, verifyPassword, requireAdmin, requireAuth };

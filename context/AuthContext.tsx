@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IAuthState, TAuthContext } from "../interfaces/IAuth";
 
@@ -28,10 +28,15 @@ const { Provider } = AuthContext;
 
 const AuthProvider: React.FC = ({ children }) => {
   const history = useHistory();
+  const [token, setToken] = useState<string | null>(null);
+  const [userInfo, setUserInfo] = useState<string | null>(null);
+  const [expiresAt, setExpiresAt] = useState<string | null>(null);
 
-  const token = localStorage.getItem("token");
-  const userInfo = localStorage.getItem("userInfo");
-  const expiresAt = localStorage.getItem("expiresAt");
+  useEffect(() => {
+    setToken(localStorage.getItem("token"));
+    setUserInfo(localStorage.getItem("userInfo"));
+    setExpiresAt(localStorage.getItem("expiresAt"));
+  }, []);
 
   const [authState, setAuthState] = useState({
     token,
@@ -40,10 +45,11 @@ const AuthProvider: React.FC = ({ children }) => {
   });
 
   const setAuthInfo = ({ token, userInfo, expiresAt }: IAuthState) => {
-    localStorage.setItem("token", token || "");
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
-    localStorage.setItem("expiresAt", expiresAt || "");
-
+    if (typeof window !== "undefined") {
+      localStorage.setItem("token", token || "");
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+      localStorage.setItem("expiresAt", expiresAt || "");
+    }
     setAuthState({
       token,
       userInfo,
@@ -52,9 +58,11 @@ const AuthProvider: React.FC = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userInfo");
-    localStorage.removeItem("expiresAt");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("expiresAt");
+    }
     setAuthState(defaultAuthState);
     history.push("/login");
   };

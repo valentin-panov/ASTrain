@@ -1,11 +1,9 @@
 import React from "react";
-import { SvgIconTypeMap } from "@mui/material";
-import { OverridableComponent } from "@mui/types";
 
 export interface IDashboardMetric {
   title: string;
-  value: string;
-  icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
+  value: string | number;
+  icon: React.ReactNode;
 }
 
 const DashboardMetric: React.FC<IDashboardMetric> = ({

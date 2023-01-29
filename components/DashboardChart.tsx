@@ -1,6 +1,26 @@
 import React from "react";
 import { Line as LineChart } from "react-chartjs-2";
-import { BubbleDataPoint, ChartData, Point } from "chart.js";
+import {
+  BubbleDataPoint,
+  CategoryScale,
+  Chart,
+  ChartData,
+  LinearScale,
+  LineController,
+  LineElement,
+  Point,
+  PointElement,
+  Title,
+} from "chart.js";
+
+Chart.register(
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale
+);
 
 export interface ISalesData {
   date: string;
