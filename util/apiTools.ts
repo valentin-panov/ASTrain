@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import IUser from "../interfaces/IUser";
+import jwtDecode from "jwt-decode";
 
 const createToken = (user: Omit<IUser, "password" | "avatar" | "bio">) => {
   // Sign the JWT
@@ -69,4 +70,32 @@ const requireAuth = () => ({
 //   issuer: "api.orbit",
 // });
 
-export { createToken, hashPassword, verifyPassword, requireAdmin, requireAuth };
+const attachUser = (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  next: () => void
+) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ message: "Authentication invalid" });
+  }
+  const decodedToken = jwtDecode(token.slice(7));
+
+  if (!decodedToken) {
+    return res.status(401).json({
+      message: "There was a problem authorizing the request",
+    });
+  } else {
+    req.body.user = decodedToken;
+    next();
+  }
+};
+
+export {
+  createToken,
+  hashPassword,
+  verifyPassword,
+  requireAdmin,
+  requireAuth,
+  attachUser,
+};

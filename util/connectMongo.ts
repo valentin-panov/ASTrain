@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-const connectMongo = async () => {
+const connectMongo = async (msg?: string) => {
   try {
-    console.log("CONNECTING TO MONGO");
+    console.log("CONNECTING TO MONGO", msg ? `. Message: ${msg}` : "");
     mongoose.Promise = global.Promise;
     await mongoose.connect(process.env.ATLAS_URL as string, {
       autoIndex: true,

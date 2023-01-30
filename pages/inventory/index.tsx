@@ -11,6 +11,7 @@ import FormError from "../../components/FormError";
 import FormSuccess from "../../components/FormSuccess";
 import { AxiosError } from "axios";
 import { IItem } from "../../interfaces/IItem";
+import { MainLayout } from "../../layouts";
 
 const InventoryItemContainer: React.FC = ({ children }) => (
   <div className="bg-white rounded shadow-md mb-4 p-4">{children}</div>
@@ -115,7 +116,7 @@ const Inventory: React.FC = () => {
   };
 
   return (
-    <>
+    <MainLayout>
       <PageTitle title="Inventory" />
       {successMessage && <FormSuccess text={successMessage} />}
       {errorMessage && <FormError text={errorMessage} />}
@@ -129,7 +130,7 @@ const Inventory: React.FC = () => {
             </InventoryItemContainer>
           ))
         : "No Inventory Items"}
-    </>
+    </MainLayout>
   );
 };
 
