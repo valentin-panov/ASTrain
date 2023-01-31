@@ -5,7 +5,7 @@ import Card from "../../components/common/Card";
 import IUser from "../../interfaces/IUser";
 import Image from "next/image";
 
-const defaultAvatar = "./../images/defaultAvatar.png";
+import defaultAvatar from "../../images/defaultAvatar.png";
 
 const UserDetailLabel: React.FC<{ text: string }> = ({ text }) => (
   <p className="mt-2 uppercase font-bold text-gray-500 text-xs">{text}</p>
@@ -15,7 +15,12 @@ const UserDetail: React.FC<{ user: IUser }> = ({ user }) => (
   <Card>
     <div className="flex">
       <div className="w-24">
-        <Image src={user.avatar || defaultAvatar} alt="avatar" />
+        <Image
+          src={user.avatar || defaultAvatar}
+          alt="avatar"
+          width={30}
+          height={30}
+        />
       </div>
 
       <div>
