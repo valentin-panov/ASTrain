@@ -20,7 +20,7 @@ const MainLayout: React.FC<MainProps> = ({ children, keywords }) => {
           }
         />
         <meta name={"author"} content={"Valentin Panov"} />
-        <title>UCTOK Application</title>
+        <title>Metropolitan book store</title>
       </Head>
       <div className={styles.container}>
         <Header />

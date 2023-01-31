@@ -9,7 +9,7 @@ import connectMongo from "util/connectMongo";
  * @param {import("next").NextApiResponse} res
  */
 const signup = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "GET") {
+  if (req.method === "POST") {
     try {
       const { email, firstName, lastName } = req.body;
 

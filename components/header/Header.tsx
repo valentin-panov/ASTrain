@@ -18,7 +18,7 @@ const Header: React.FC = () => {
     <div className="w-full top-0 bg-white px-10 py-5 flex justify-between">
       <Link href={"/"} shallow={true}>
         <a className="hover:cursor-pointer flex justify-center items-center">
-          <Image src={logo} alt="Logo" width={120} height={32} />
+          <Image src={logo} alt="Logo" width={150} height={32} />
         </a>
       </Link>
       <div className="flex items-center">
