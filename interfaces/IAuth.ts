@@ -8,7 +8,7 @@ export interface IAuthState {
 
 export interface TAuthContext {
   authState: IAuthState;
-  setAuthState: (authInfo: any) => void;
+  setAuthState: (authInfo: IAuthState) => void;
   logout: () => void;
   isAuthenticated: () => boolean;
   isAdmin: () => boolean;

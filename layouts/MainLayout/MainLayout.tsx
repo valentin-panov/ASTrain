@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import Head from "next/head";
 import styles from "./MainLayout.module.scss";
 import { Footer, Header, Main } from "../../components";
+import Sidebar from "../../components/Sidebar";
 
 interface MainProps {
   children: ReactNode | ReactNode[];
@@ -24,6 +25,8 @@ const MainLayout: React.FC<MainProps> = ({ children, keywords }) => {
       </Head>
       <div className={styles.container}>
         <Header />
+
+        <Sidebar />
         {/*<Menu />*/}
         <Main>{children}</Main>
         <Footer />

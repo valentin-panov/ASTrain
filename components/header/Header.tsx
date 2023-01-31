@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 import MainButton from "../common/MainButton";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Navbar from "../Navbar";
 
 const Header: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -22,16 +23,23 @@ const Header: React.FC = () => {
         </a>
       </Link>
       <div className="flex items-center">
-        <MainButton
-          onClick={onClick}
-          text={"Sign Up"}
-          loading={false}
-          variant={"text"}
-        ></MainButton>
-        <GradientLink
-          to={auth.isAuthenticated() ? "/dashboard" : "/login"}
-          text="Log In"
-        />
+        {auth.isAuthenticated() ? (
+          <Navbar />
+        ) : (
+          <>
+            <MainButton
+              onClick={onClick}
+              text={"Sign Up"}
+              loading={false}
+              variant={"text"}
+            ></MainButton>
+            <GradientLink
+              to={"/login"}
+              // to={auth.isAuthenticated() ? "/dashboard" : "/login"}
+              text="Log In"
+            />
+          </>
+        )}
       </div>
     </div>
   );

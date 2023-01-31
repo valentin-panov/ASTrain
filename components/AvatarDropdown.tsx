@@ -2,19 +2,18 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import LoginIcon from "@mui/icons-material/Login";
-import { OverridableComponent } from "@mui/types";
-import { SvgIconTypeMap } from "@mui/material";
 
-const defaultAvatar = "./../images/defaultAvatar.png";
+import defaultAvatar from "./../images/defaultAvatar.png";
+import Image from "next/image";
 
-type TdropdownItem = {
+type TDropdownItem = {
   onClick: () => void;
-  icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
+  icon: React.ReactNode;
   title: string;
 };
 
 interface IDropdownItem {
-  item: TdropdownItem;
+  item: TDropdownItem;
 }
 
 const DropdownItem: React.FC<IDropdownItem> = ({ item }) => (
@@ -25,7 +24,7 @@ const DropdownItem: React.FC<IDropdownItem> = ({ item }) => (
 );
 
 interface IDropdownContent {
-  dropdownItems: TdropdownItem[];
+  dropdownItems: TDropdownItem[];
 }
 
 const DropdownContent: React.FC<IDropdownContent> = ({ dropdownItems }) => {
@@ -51,7 +50,7 @@ const AvatarDropdown: React.FC = () => {
   const dropdownItems = [
     {
       title: "Log Out",
-      icon: LoginIcon,
+      icon: <LoginIcon />,
       onClick: auth.logout,
     },
   ];
@@ -77,10 +76,12 @@ const AvatarDropdown: React.FC = () => {
         className="flex rounded-full items-center py-2 px-3 bg-gradient focus:outline-none shadow-lg"
         onClick={() => setDropdownOpen(!dropdownOpen)}
       >
-        <img
+        <Image
           src={authState.userInfo.avatar || defaultAvatar}
           className="rounded-full w-6 border-2 border-white"
           alt="Avatar"
+          height={30}
+          width={30}
         />
         <div className="px-3">
           <p className="text-white">{authState.userInfo.firstName}</p>

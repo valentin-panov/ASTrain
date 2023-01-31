@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { IAuthState, TAuthContext } from "../interfaces/IAuth";
+import { useRouter } from "next/router";
 
 const defaultAuthState: IAuthState = {
   token: null,
@@ -27,7 +27,7 @@ const AuthContext: React.Context<TAuthContext> = createContext(defaultContext);
 const { Provider } = AuthContext;
 
 const AuthProvider: React.FC = ({ children }) => {
-  const history = useHistory();
+  const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
   const [userInfo, setUserInfo] = useState<string | null>(null);
   const [expiresAt, setExpiresAt] = useState<string | null>(null);
@@ -64,7 +64,7 @@ const AuthProvider: React.FC = ({ children }) => {
       localStorage.removeItem("expiresAt");
     }
     setAuthState(defaultAuthState);
-    history.push("/login");
+    router.push("/login");
   };
 
   const isAuthenticated = () => {

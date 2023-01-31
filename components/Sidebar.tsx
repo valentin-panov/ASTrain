@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import classNames from "classnames";
-import { useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,40 +8,39 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import PieChartIcon from "@mui/icons-material/PieChart";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-import { SvgIconTypeMap } from "@mui/material";
-import { OverridableComponent } from "@mui/types";
 
-const logo = "./../images/logo.png";
+import logo from "./../images/logo.png";
+import { useRouter } from "next/router";
 
 const navItems = [
   {
     label: "Dashboard",
     path: "dashboard",
-    icon: TrendingUpIcon,
+    icon: <TrendingUpIcon />,
     allowedRoles: ["user", "admin"],
   },
   {
     label: "Inventory",
     path: "inventory",
-    icon: PieChartIcon,
+    icon: <PieChartIcon />,
     allowedRoles: ["admin"],
   },
   {
     label: "Account",
     path: "account",
-    icon: ContactMailIcon,
+    icon: <ContactMailIcon />,
     allowedRoles: ["user", "admin"],
   },
   {
     label: "Settings",
     path: "settings",
-    icon: SettingsIcon,
+    icon: <SettingsIcon />,
     allowedRoles: ["user", "admin"],
   },
   {
     label: "Users",
     path: "users",
-    icon: MeetingRoomIcon,
+    icon: <MeetingRoomIcon />,
     allowedRoles: ["admin"],
   },
 ];
@@ -50,14 +48,14 @@ const navItems = [
 interface NavItemProps {
   navItem: {
     path: string;
-    icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
+    icon: React.ReactNode;
     label: string;
   };
 }
 
 const NavItem: React.FC<NavItemProps> = ({ navItem }) => {
-  const location = useLocation();
-  const isCurrentRoute = location.pathname === `/${navItem.path}`;
+  const router = useRouter();
+  const isCurrentRoute = router.pathname === `/${navItem.path}`;
   const classes = classNames({
     "px-2 sm:px-6 justify-center sm:justify-start py-3 rounded-full flex": true,
     "text-gray-600 hover:text-blue-500 transform hover:translate-x-1 transition ease-in-out duration-100":
@@ -66,10 +64,10 @@ const NavItem: React.FC<NavItemProps> = ({ navItem }) => {
   });
   return (
     <Link href={navItem.path} className={classes}>
-      <div className="flex items-center">
+      <a className="flex items-center">
         <div className="mr-0 sm:mr-4">{navItem.icon}</div>
         <span className="hidden sm:block">{navItem.label}</span>
-      </div>
+      </a>
     </Link>
   );
 };
@@ -86,7 +84,7 @@ const Sidebar = () => {
   return (
     <section className="h-screen">
       <div className="w-16 sm:w-24 m-auto">
-        <Image src={logo} alt="Logo" />
+        <Image src={logo} alt="Logo" width={150} height={32} />
       </div>
       <div className="mt-20">
         {navItems.map((navItem, i) => (
