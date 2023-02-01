@@ -4,6 +4,7 @@ import Card from "../../components/common/Card";
 import { FetchContext } from "../../context/FetchContext";
 import { AuthContext } from "../../context/AuthContext";
 import { AxiosError } from "axios";
+import { MainLayout } from "../../layouts";
 
 const Account: React.FC = () => {
   const fetchContext = useContext(FetchContext);
@@ -28,7 +29,7 @@ const Account: React.FC = () => {
   };
 
   return (
-    <>
+    <MainLayout>
       <PageTitle title="Account" />
       <Card>
         <p className="font-bold">User Role</p>
@@ -51,7 +52,7 @@ const Account: React.FC = () => {
           </div>
         </div>
       </Card>
-    </>
+    </MainLayout>
   );
 };
 

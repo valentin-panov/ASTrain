@@ -6,6 +6,7 @@ import IUser from "../../interfaces/IUser";
 import Image from "next/image";
 
 import defaultAvatar from "../../images/defaultAvatar.png";
+import { MainLayout } from "../../layouts";
 
 const UserDetailLabel: React.FC<{ text: string }> = ({ text }) => (
   <p className="mt-2 uppercase font-bold text-gray-500 text-xs">{text}</p>
@@ -58,7 +59,7 @@ const Users = () => {
   }, [fetchContext.authAxios]);
 
   return (
-    <>
+    <MainLayout>
       <PageTitle title="Users" />
       <div className="flex flex-col">
         {!!users.length &&
@@ -68,7 +69,7 @@ const Users = () => {
             </div>
           ))}
       </div>
-    </>
+    </MainLayout>
   );
 };
 

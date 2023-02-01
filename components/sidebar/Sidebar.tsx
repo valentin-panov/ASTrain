@@ -1,15 +1,12 @@
 import React, { useContext } from "react";
 import classNames from "classnames";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import Link from "next/link";
-import Image from "next/image";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import PieChartIcon from "@mui/icons-material/PieChart";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-
-import logo from "./../images/logo.png";
 import { useRouter } from "next/router";
 
 const navItems = [
@@ -83,9 +80,6 @@ const Sidebar = () => {
   const { role } = auth.authState.userInfo;
   return (
     <section className="h-screen">
-      <div className="w-16 sm:w-24 m-auto">
-        <Image src={logo} alt="Logo" width={150} height={32} />
-      </div>
       <div className="mt-20">
         {navItems.map((navItem, i) => (
           <NavItemContainer key={i}>

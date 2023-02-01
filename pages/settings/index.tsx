@@ -7,6 +7,7 @@ import { FetchContext } from "../../context/FetchContext";
 import FormError from "../../components/FormError";
 import FormSuccess from "../../components/FormSuccess";
 import { AxiosError } from "axios";
+import { MainLayout } from "../../layouts";
 
 interface IValues {
   bio: string;
@@ -47,7 +48,7 @@ const Settings: React.FC = () => {
     }
   };
   return (
-    <>
+    <MainLayout>
       <PageTitle title="Settings" />
       <Card>
         <h2 className="font-bold mb-2">Fill Out Your Bio</h2>
@@ -71,7 +72,7 @@ const Settings: React.FC = () => {
           )}
         </Formik>
       </Card>
-    </>
+    </MainLayout>
   );
 };
 

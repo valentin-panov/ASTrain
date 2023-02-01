@@ -1,8 +1,9 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useContext } from "react";
 import Head from "next/head";
 import styles from "./MainLayout.module.scss";
 import { Footer, Header, Main } from "../../components";
-import Sidebar from "../../components/Sidebar";
+import { AuthContext } from "../../context/AuthContext";
+import Sidebar from "../../components/sidebar/Sidebar";
 
 interface MainProps {
   children: ReactNode | ReactNode[];
@@ -10,6 +11,8 @@ interface MainProps {
 }
 
 const MainLayout: React.FC<MainProps> = ({ children, keywords }) => {
+  const { isAuthenticated } = useContext(AuthContext);
+
   return (
     <>
       <Head>
@@ -26,8 +29,8 @@ const MainLayout: React.FC<MainProps> = ({ children, keywords }) => {
       <div className={styles.container}>
         <Header />
 
-        <Sidebar />
-        {/*<Menu />*/}
+        {isAuthenticated() && <Sidebar />}
+
         <Main>{children}</Main>
         <Footer />
       </div>

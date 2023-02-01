@@ -6,7 +6,8 @@ import { AuthContext } from "../../context/AuthContext";
 import MainButton from "../common/MainButton";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Navbar from "../Navbar";
+import styles from "./Header.module.scss";
+import { Navbar } from "../index";
 
 const Header: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -16,13 +17,13 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="w-full top-0 bg-white px-10 py-5 flex justify-between">
+    <div className={styles.container}>
       <Link href={"/"} shallow={true}>
-        <a className="hover:cursor-pointer flex justify-center items-center">
+        <a className={styles.container_logo}>
           <Image src={logo} alt="Logo" width={150} height={32} />
         </a>
       </Link>
-      <div className="flex items-center">
+      <div className={styles.container_buttons}>
         {auth.isAuthenticated() ? (
           <Navbar />
         ) : (

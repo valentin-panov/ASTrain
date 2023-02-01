@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import LoginIcon from "@mui/icons-material/Login";
-
-import defaultAvatar from "./../images/defaultAvatar.png";
+import styles from "./AvatarDropdown.module.scss";
+import defaultAvatar from "../../images/defaultAvatar.png";
 import Image from "next/image";
 
 type TDropdownItem = {
@@ -17,9 +17,9 @@ interface IDropdownItem {
 }
 
 const DropdownItem: React.FC<IDropdownItem> = ({ item }) => (
-  <button className="text-gray-700 flex items-center" onClick={item.onClick}>
+  <button className={styles.dropdownItemButton} onClick={item.onClick}>
     {item.icon}
-    <p className="ml-2">{item.title}</p>
+    <p className={styles.button_text}>{item.title}</p>
   </button>
 );
 
@@ -29,10 +29,10 @@ interface IDropdownContent {
 
 const DropdownContent: React.FC<IDropdownContent> = ({ dropdownItems }) => {
   return (
-    <div className="bg-white w-full absolute p-4 shadow-lg rounded-lg mt-2">
+    <div className={styles.dropdownContent}>
       {dropdownItems.map((item, i) => {
         return (
-          <div className="mt-1" key={i}>
+          <div className={styles.dropdownContent_item} key={i}>
             <DropdownItem item={item} />
           </div>
         );
@@ -73,26 +73,26 @@ const AvatarDropdown: React.FC = () => {
     <div ref={node}>
       <button
         // ref={node} // TODO recheck the dropdown logic
-        className="flex rounded-full items-center py-2 px-3 bg-gradient focus:outline-none shadow-lg"
+        className={styles.avatarDropdown}
         onClick={() => setDropdownOpen(!dropdownOpen)}
       >
         <Image
           src={authState.userInfo.avatar || defaultAvatar}
-          className="rounded-full w-6 border-2 border-white"
+          className={styles.avatarDropdown_avatar}
           alt="Avatar"
           height={30}
           width={30}
         />
-        <div className="px-3">
-          <p className="text-white">{authState.userInfo.firstName}</p>
+        <div className={styles.avatarDropdown_userName}>
+          {authState.userInfo.firstName}
         </div>
-        <div className="mr-1 text-white">
+        <div className={styles.avatarDropdown_arrowCont}>
           <ArrowDropDownIcon />
         </div>
       </button>
 
       {dropdownOpen && (
-        <div className="relative">
+        <div className={styles.avatarDropdown_dropContent}>
           <DropdownContent dropdownItems={dropdownItems} />
         </div>
       )}

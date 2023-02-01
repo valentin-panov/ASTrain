@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import GradientButton from "../common/GradientButton";
 import AuthDebugger from "../authDebugger/AuthDebugger";
+import styles from "./Footer.module.scss";
 
 const Footer: React.FC = () => {
   const [showAuthDebugger, setShowAuthDebugger] = useState(false);
   return (
-    <footer className="p-6 w-full">
-      <div className="ml-2">
+    <footer className={styles.container}>
+      <div className={styles.container_4btn}>
         <GradientButton
           text="Auth Debugger"
           onClick={() => setShowAuthDebugger(!showAuthDebugger)}
         />
       </div>
-      <div className="mt-4">{showAuthDebugger && <AuthDebugger />}</div>
+      <div className={styles.container_authD}>
+        {showAuthDebugger && <AuthDebugger />}
+      </div>
     </footer>
   );
 };
