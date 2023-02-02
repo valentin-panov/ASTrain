@@ -28,9 +28,7 @@ const MainLayout: React.FC<MainProps> = ({ children, keywords }) => {
       </Head>
       <div className={styles.container}>
         <Header />
-
         {isAuthenticated() && <Sidebar />}
-
         <Main>{children}</Main>
         <Footer />
       </div>
