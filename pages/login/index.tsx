@@ -16,7 +16,7 @@ import Image from "next/image";
 import logo from "../../images/logo.png";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import styles from "../../components/header/Header.module.scss";
+import styles from "./Login.module.scss";
 
 const Yup = require("yup");
 
@@ -74,7 +74,7 @@ const Login: React.FC = () => {
               <div>
                 <div className="w-32 m-auto mb-6">
                   <Link href={"/"} shallow={true}>
-                    <a className={styles.container_logo}>
+                    <a className={styles.logo}>
                       <Image src={logo} alt="Logo" width={150} height={32} />
                     </a>
                   </Link>

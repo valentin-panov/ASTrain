@@ -8,6 +8,7 @@ import PieChartIcon from "@mui/icons-material/PieChart";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import { useRouter } from "next/router";
+import styles from "./Sidebar.module.scss";
 
 const navItems = [
   {
@@ -72,23 +73,19 @@ const NavItem: React.FC<NavItemProps> = ({ navItem }) => {
 interface NavItemContainerProps {}
 
 const NavItemContainer: React.FC<NavItemContainerProps> = ({ children }) => (
-  <div>{children}</div>
+  <>{children}</>
 );
 
 const Sidebar = () => {
   const auth = useContext(AuthContext);
   const { role } = auth.authState.userInfo;
   return (
-    <section className="h-screen">
-      <div className="mt-20">
-        {navItems.map((navItem, i) => (
-          <NavItemContainer key={i}>
-            {navItem.allowedRoles.includes(role) && (
-              <NavItem navItem={navItem} />
-            )}
-          </NavItemContainer>
-        ))}
-      </div>
+    <section className={styles.container}>
+      {navItems.map((navItem, i) => (
+        <NavItemContainer key={i}>
+          {navItem.allowedRoles.includes(role) && <NavItem navItem={navItem} />}
+        </NavItemContainer>
+      ))}
     </section>
   );
 };

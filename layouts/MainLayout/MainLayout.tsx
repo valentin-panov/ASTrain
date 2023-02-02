@@ -26,12 +26,12 @@ const MainLayout: React.FC<MainProps> = ({ children, keywords }) => {
         <meta name={"author"} content={"Valentin Panov"} />
         <title>Metropolitan book store</title>
       </Head>
+      <Header />
       <div className={styles.container}>
-        <Header />
         {isAuthenticated() && <Sidebar />}
         <Main>{children}</Main>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };
