@@ -1,0 +1,14 @@
+@import "styles/colors";
+
+.wrapper {
+  // sm:my-4"
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.content {
+  color: $gray-800;
+  font-weight: 700;
+  font-size: 1.5rem;
+
+}

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import PageTitle from "../../components/common/PageTitle";
+import PageTitle from "../../components/common/pageTitle/PageTitle";
 import { FetchContext } from "../../context/FetchContext";
-import Card from "../../components/common/Card";
+import Card from "../../components/common/card/Card";
 import IUser from "../../interfaces/IUser";
 import Image from "next/image";
 

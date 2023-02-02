@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import PageTitle from "../../components/common/PageTitle";
+import PageTitle from "../../components/common/pageTitle/PageTitle";
 import DashboardMetric from "../../components/DashboardMetric";
-import Card from "../../components/common/Card";
+import Card from "../../components/common/card/Card";
 import { FetchContext } from "../../context/FetchContext";
 import { formatCurrency } from "../../util";
 import DashboardChart, { ISalesData } from "../../components/DashboardChart";

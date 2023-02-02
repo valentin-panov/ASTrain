@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import GradientButton from "../common/GradientButton";
+import GradientButton from "../common/buttons/GradientButton";
 import AuthDebugger from "../authDebugger/AuthDebugger";
 import styles from "./Footer.module.scss";
 

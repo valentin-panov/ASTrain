@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import Image from "next/image";
 import logo from "../../images/logo.png";
-import GradientLink from "../common/GradientLink";
+import GradientLink from "../common/buttons/GradientLink";
 import { AuthContext } from "../../context/AuthContext";
-import MainButton from "../common/MainButton";
+import MainButton from "../common/buttons/MainButton";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import styles from "./Header.module.scss";
@@ -32,12 +32,14 @@ const Header: React.FC = () => {
               onClick={onClick}
               text={"Sign Up"}
               loading={false}
-              variant={"text"}
+              variant={"outlined"}
+              rounded={true}
             ></MainButton>
             <GradientLink
               to={"/login"}
               // to={auth.isAuthenticated() ? "/dashboard" : "/login"}
               text="Log In"
+              rounded={true}
             />
           </>
         )}

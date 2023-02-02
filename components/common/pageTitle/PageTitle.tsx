@@ -1,12 +1,13 @@
 import React from "react";
+import styles from "./PageTitle.module.scss";
 
 interface IPageTitle {
   title: string;
 }
 
 const PageTitle: React.FC<IPageTitle> = ({ title }) => (
-  <div className="my-1 sm:my-4">
-    <h2 className="text-gray-800 font-bold text-2xl">{title}</h2>
+  <div className={styles.wrapper}>
+    <h2 className={styles.content}>{title}</h2>
   </div>
 );
 

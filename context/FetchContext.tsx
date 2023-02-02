@@ -7,6 +7,7 @@ const { Provider } = FetchContext;
 
 const FetchProvider: React.FC = ({ children }) => {
   const authContext = useContext(AuthContext);
+  const { token } = authContext.authState;
 
   const authAxios = axios.create({
     baseURL: process.env.API_URL,
@@ -14,8 +15,7 @@ const FetchProvider: React.FC = ({ children }) => {
 
   authAxios.interceptors.request.use(
     (config) => {
-      if (config.headers)
-        config.headers.Authorization = `Bearer ${authContext.authState.token}`;
+      if (config.headers) config.headers.Authorization = `Bearer ${token}`;
       return config;
     },
     (error) => {

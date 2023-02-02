@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Form, Formik } from "formik";
-import Card from "../../components/common/Card";
-import Hyperlink from "../../components/common/Hyperlink";
+import Card from "../../components/common/card/Card";
+import Hyperlink from "../../components/common/buttons/Hyperlink";
 import Label from "../../components/common/Label";
 import FormInput from "../../components/FormInput";
 import FormSuccess from "../../components/FormSuccess";
@@ -9,7 +9,7 @@ import FormError from "../../components/FormError";
 import GradientBar from "../../components/common/GradientBar";
 import { AuthContext } from "../../context/AuthContext";
 import { publicFetch } from "../../util/fetch";
-import GradientButton from "../../components/common/GradientButton";
+import GradientButton from "../../components/common/buttons/GradientButton";
 import { AxiosError } from "axios";
 import { ICredentials } from "../../interfaces/ICredentials";
 import Image from "next/image";

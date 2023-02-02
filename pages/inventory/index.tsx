@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import PageTitle from "../../components/common/PageTitle";
+import PageTitle from "../../components/common/pageTitle/PageTitle";
 import { FetchContext } from "../../context/FetchContext";
 import { formatCurrency } from "../../util";
 import InventoryItemForm, {

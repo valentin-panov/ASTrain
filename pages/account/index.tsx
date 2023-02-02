@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
-import PageTitle from "../../components/common/PageTitle";
-import Card from "../../components/common/Card";
 import { FetchContext } from "../../context/FetchContext";
 import { AuthContext } from "../../context/AuthContext";
 import { AxiosError } from "axios";
 import { MainLayout } from "../../layouts";
+import styles from "./Account.module.scss";
+import classNames from "classnames";
+import { Card, PageTitle } from "../../components";
 
 const Account: React.FC = () => {
   const fetchContext = useContext(FetchContext);
@@ -16,9 +17,12 @@ const Account: React.FC = () => {
     try {
       const { data } = await fetchContext.authAxios.patch("user-role", {
         role,
+        sub: auth.authState.userInfo._id,
       });
       setSuccessMessage(data.message);
+      setErrorMessage("");
     } catch (err: unknown) {
+      setSuccessMessage("");
       if (err instanceof Error) {
         setErrorMessage(err.message);
       } else {
@@ -32,22 +36,27 @@ const Account: React.FC = () => {
     <MainLayout>
       <PageTitle title="Account" />
       <Card>
-        <p className="font-bold">User Role</p>
-        <div className="mt-4">
-          <p>Select a role for yourself</p>
-          <div className="mt-2 flex">
+        <p className={styles.card_header}>User Role</p>
+        <div className={styles.card_wrapper}>
+          <p className={styles.card_cta}>Select a role for yourself</p>
+          <div className={styles.card_selectBlock}>
             <select
               defaultValue={auth.authState.userInfo.role}
               onChange={(e) => setUserRole(e.target.value)}
+              className={styles.card_selectBlock_select}
             >
               <option value="user">User</option>
               <option value="admin">Admin</option>
             </select>
             {successMessage && (
-              <p className="text-green-700 ml-4">{successMessage}</p>
+              <p className={classNames(styles.message, styles.message_success)}>
+                {successMessage}
+              </p>
             )}
             {errorMessage && (
-              <p className="text-red-500 ml-4">{errorMessage}</p>
+              <p className={classNames(styles.message, styles.message_error)}>
+                {errorMessage}
+              </p>
             )}
           </div>
         </div>

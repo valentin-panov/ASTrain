@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Formik } from "formik";
 import Label from "./common/Label";
 import FormInput from "./FormInput";
-import GradientButton from "./common/GradientButton";
+import GradientButton from "./common/buttons/GradientButton";
 import { IItem } from "../interfaces/IItem";
 
 const Yup = require("yup");

@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import LoginIcon from "@mui/icons-material/Login";
+import styles from "./Button.module.scss";
 
 interface IButton {
   type?: "button" | "submit" | "reset" | undefined;
@@ -10,6 +11,7 @@ interface IButton {
   onClick?: () => void;
   size?: "small" | "medium" | "large";
   variant?: "text" | "contained" | "outlined";
+  rounded?: boolean;
 }
 
 const MainButton: React.FC<IButton> = ({
@@ -18,7 +20,8 @@ const MainButton: React.FC<IButton> = ({
   loading,
   onClick,
   size,
-  variant = "contained",
+  variant = "outlined",
+  rounded = false,
 }) => (
   <>
     {loading ? (
@@ -28,11 +31,18 @@ const MainButton: React.FC<IButton> = ({
         variant={variant}
         size={size}
         startIcon={<LoginIcon />}
+        className={rounded ? styles.rounded_full : ""}
       >
         <span>Loading...</span>
       </LoadingButton>
     ) : (
-      <Button variant={variant} type={type} onClick={onClick} size={size}>
+      <Button
+        variant={variant}
+        type={type}
+        onClick={onClick}
+        size={size}
+        className={rounded ? styles.rounded_full : ""}
+      >
         {text}
       </Button>
     )}

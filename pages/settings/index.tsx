@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import PageTitle from "../../components/common/PageTitle";
-import Card from "../../components/common/Card";
-import GradientButton from "../../components/common/GradientButton";
+import PageTitle from "../../components/common/pageTitle/PageTitle";
+import Card from "../../components/common/card/Card";
+import GradientButton from "../../components/common/buttons/GradientButton";
 import { Field, Form, Formik } from "formik";
 import { FetchContext } from "../../context/FetchContext";
 import FormError from "../../components/FormError";

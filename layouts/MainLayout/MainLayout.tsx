@@ -1,9 +1,8 @@
 import React, { ReactNode, useContext } from "react";
 import Head from "next/head";
 import styles from "./MainLayout.module.scss";
-import { Footer, Header, Main } from "../../components";
+import { Footer, Header, Main, Sidebar } from "../../components";
 import { AuthContext } from "../../context/AuthContext";
-import Sidebar from "../../components/sidebar/Sidebar";
 
 interface MainProps {
   children: ReactNode | ReactNode[];
