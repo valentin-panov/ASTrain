@@ -5,15 +5,7 @@ import { useRouter } from "next/router";
 const defaultAuthState: IAuthState = {
   token: null,
   expiresAt: null,
-  userInfo: {
-    avatar: "",
-    firstName: "John",
-    lastName: "Doe",
-    bio: "ruthless developer",
-    email: "john@doe.com",
-    role: "user",
-    password: "",
-  },
+  userInfo: null,
 };
 const defaultContext: TAuthContext = {
   authState: defaultAuthState,
@@ -28,21 +20,23 @@ const { Provider } = AuthContext;
 
 const AuthProvider: React.FC = ({ children }) => {
   const router = useRouter();
-  const [token, setToken] = useState<string | null>(null);
-  const [userInfo, setUserInfo] = useState<string | null>(null);
-  const [expiresAt, setExpiresAt] = useState<string | null>(null);
+  const [authState, setAuthState] = useState<IAuthState>(defaultAuthState);
+
+  const getStateFromLocalStorage = () => {
+    try {
+      return {
+        token: localStorage.getItem("token"),
+        expiresAt: localStorage.getItem("expiresAt"),
+        userInfo: JSON.parse(localStorage.getItem("userInfo") || ""),
+      };
+    } catch {
+      return defaultAuthState;
+    }
+  };
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
-    setUserInfo(localStorage.getItem("userInfo"));
-    setExpiresAt(localStorage.getItem("expiresAt"));
+    setAuthState(getStateFromLocalStorage());
   }, []);
-
-  const [authState, setAuthState] = useState({
-    token,
-    expiresAt,
-    userInfo: userInfo ? JSON.parse(userInfo) : {},
-  });
 
   const setAuthInfo = ({ token, userInfo, expiresAt }: IAuthState) => {
     if (typeof window !== "undefined") {
@@ -75,7 +69,7 @@ const AuthProvider: React.FC = ({ children }) => {
   };
 
   const isAdmin = () => {
-    return authState.userInfo.role === "admin";
+    return authState.userInfo?.role === "admin";
   };
 
   return (
