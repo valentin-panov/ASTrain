@@ -13,7 +13,6 @@ const GradientLink: React.FC<IGradientLink> = ({
   to,
   text,
   size = "medium",
-  rounded = false,
 }) => {
   const router = useRouter();
   const onClick = async () => {
@@ -26,7 +25,6 @@ const GradientLink: React.FC<IGradientLink> = ({
       size={size}
       onClick={onClick}
       variant={"contained"}
-      rounded={rounded}
     />
   );
 };

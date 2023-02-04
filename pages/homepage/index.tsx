@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
   return (
     <div className={styles.homePage}>
       <div className={styles.container}>
-        <h1 className="text-gray-200 text-xl lg:text-5xl sm:text-4xl font-bold leading-tight bg-blue-800 p-2 rounded">
+        <h1 className="text-gray-200 text-xl lg:text-5xl sm:text-4xl font-bold leading-tight p-2 rounded">
           Books, accessories and other goods from the metropolis.
         </h1>
         <h2 className="text-gray-100 text-md sm:text-2xl sm:mt-10 mt-4 ">
@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
           <GradientLink
             text="Get Started"
             size="large"
-            to={auth.isAuthenticated() ? "/dashboard" : "/login"}
+            to={auth.isAuthenticated() ? "/dashboard" : "/signup"}
           />
         </div>
       </div>

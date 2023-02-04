@@ -33,13 +33,11 @@ const Header: React.FC = () => {
               text={"Sign Up"}
               loading={false}
               variant={"outlined"}
-              rounded={true}
             ></MainButton>
             <GradientLink
               to={"/login"}
               // to={auth.isAuthenticated() ? "/dashboard" : "/login"}
               text="Log In"
-              rounded={true}
             />
           </>
         )}

@@ -11,7 +11,6 @@ interface IButton {
   onClick?: () => void;
   size?: "small" | "medium" | "large";
   variant?: "text" | "contained" | "outlined";
-  rounded?: boolean;
 }
 
 const MainButton: React.FC<IButton> = ({
@@ -21,7 +20,6 @@ const MainButton: React.FC<IButton> = ({
   onClick,
   size,
   variant = "outlined",
-  rounded = false,
 }) => (
   <>
     {loading ? (
@@ -31,7 +29,7 @@ const MainButton: React.FC<IButton> = ({
         variant={variant}
         size={size}
         startIcon={<LoginIcon />}
-        className={rounded ? styles.rounded_full : ""}
+        className={styles.btn}
       >
         <span>Loading...</span>
       </LoadingButton>
@@ -41,7 +39,7 @@ const MainButton: React.FC<IButton> = ({
         type={type}
         onClick={onClick}
         size={size}
-        className={rounded ? styles.rounded_full : ""}
+        className={styles.btn}
       >
         {text}
       </Button>

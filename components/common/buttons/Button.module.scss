@@ -1,3 +1,15 @@
+@import "styles/colors";
+
 .rounded_full {
   border-radius: 9999px;
+}
+
+.btn {
+  box-shadow: $shadow-lg;
+  outline: 0 transparent !important;
+  border-radius: 9999px;
+
+  &_gradient {
+    background: $bg-gradient-fwd;
+  }
 }

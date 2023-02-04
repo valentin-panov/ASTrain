@@ -1,3 +1,5 @@
+@import "styles/colors";
+
 .main {
   font-size: 0.875rem;
   padding: 0;
@@ -9,4 +11,5 @@
   align-items: center;
   grid-area: main;
   position: relative;
+  background-color: rgba(44, 82, 130, 0.7);
 }
