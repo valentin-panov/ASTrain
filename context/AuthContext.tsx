@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { IAuthState, TAuthContext } from "../interfaces/IAuth";
 import { useRouter } from "next/router";
+import { storage } from "../utils/storage";
 
 const defaultAuthState: IAuthState = {
   token: null,
@@ -31,9 +32,9 @@ const AuthProvider: React.FC = ({ children }) => {
   const getStateFromLocalStorage = () => {
     try {
       return {
-        token: localStorage.getItem("token"),
-        expiresAt: localStorage.getItem("expiresAt"),
-        userInfo: JSON.parse(localStorage.getItem("userInfo") || ""),
+        token: storage.get("token"),
+        expiresAt: storage.get("expiresAt"),
+        userInfo: JSON.parse(storage.get("userInfo") || ""),
       };
     } catch {
       return defaultAuthState;
@@ -46,9 +47,9 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const setAuthInfo = ({ token, userInfo, expiresAt }: IAuthState) => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("token", token || "");
-      localStorage.setItem("userInfo", JSON.stringify(userInfo));
-      localStorage.setItem("expiresAt", expiresAt || "");
+      storage.set("token", token || "");
+      storage.set("userInfo", JSON.stringify(userInfo));
+      storage.set("expiresAt", expiresAt || "");
     }
     setAuthState({
       token,
@@ -58,20 +59,26 @@ const AuthProvider: React.FC = ({ children }) => {
   };
 
   const logout = () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("token");
-      localStorage.removeItem("userInfo");
-      localStorage.removeItem("expiresAt");
-    }
+    clearStorage();
     setAuthState(defaultAuthState);
-    router.push("/login");
+    router.push("/login").then();
+  };
+
+  const clearStorage = () => {
+    if (typeof window !== "undefined") {
+      storage.remove("token", "userInfo", "expiresAt");
+    }
   };
 
   const isAuthenticated = () => {
     if (!authState.token || !authState.expiresAt) {
       return false;
     }
-    return new Date().getTime() / 1000 < Number(authState.expiresAt);
+    if (new Date().getTime() / 1000 > Number(authState.expiresAt)) {
+      clearStorage();
+      return false;
+    }
+    return true;
   };
 
   const isAdmin = () => {

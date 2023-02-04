@@ -3,7 +3,7 @@ import PageTitle from "../../components/common/pageTitle/PageTitle";
 import DashboardMetric from "../../components/DashboardMetric";
 import Card from "../../components/common/card/Card";
 import { FetchContext } from "../../context/FetchContext";
-import { formatCurrency } from "../../util";
+import { formatCurrency } from "../../utils";
 import DashboardChart, { ISalesData } from "../../components/DashboardChart";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";

@@ -9,7 +9,7 @@ import { AuthContext } from "../../context/AuthContext";
 import GradientBar from "../../components/common/GradientBar";
 import FormError from "../../components/FormError";
 import FormSuccess from "../../components/FormSuccess";
-import { publicFetch } from "../../util/fetch";
+import { publicFetch } from "../../utils/fetch";
 import { AxiosError } from "axios";
 import { ICredentials } from "../../interfaces/ICredentials";
 import logo from "../../images/logo.png";

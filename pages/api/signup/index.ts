@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { createToken, hashPassword } from "../../../util/apiTools";
+import { createToken, hashPassword } from "../../../utils/apiTools";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import UserModel from "../../../models/UserModel";
-import connectMongo from "util/connectMongo";
+import connectMongo from "utils/connectMongo";
 
 /**
  * @param {import("next").NextApiRequest} req

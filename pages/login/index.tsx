@@ -8,7 +8,7 @@ import FormSuccess from "../../components/FormSuccess";
 import FormError from "../../components/FormError";
 import GradientBar from "../../components/common/GradientBar";
 import { AuthContext } from "../../context/AuthContext";
-import { publicFetch } from "../../util/fetch";
+import { publicFetch } from "../../utils/fetch";
 import GradientButton from "../../components/common/buttons/GradientButton";
 import { AxiosError } from "axios";
 import { ICredentials } from "../../interfaces/ICredentials";

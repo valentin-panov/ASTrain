@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { requireAuth } from "../../../util/apiTools";
-import connectMongo from "../../../util/connectMongo";
+import { requireAuth } from "../../../utils/apiTools";
+import connectMongo from "../../../utils/connectMongo";
 import InventoryItemModel from "../../../models/InventoryItemModel";
 
 /**

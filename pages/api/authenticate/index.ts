@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { createToken, verifyPassword } from "../../../util/apiTools";
+import { createToken, verifyPassword } from "../../../utils/apiTools";
 import jwtDecode, { JwtPayload } from "jwt-decode";
-import connectMongo from "../../../util/connectMongo";
+import connectMongo from "../../../utils/connectMongo";
 import UserModel from "../../../models/UserModel";
 import IUser from "../../../interfaces/IUser";
 
