@@ -78,7 +78,7 @@ const NavItemContainer: React.FC<NavItemContainerProps> = ({ children }) => (
 
 const Sidebar = () => {
   const auth = useContext(AuthContext);
-  const { role } = auth.authState.userInfo;
+  const role = auth.authState.userInfo?.role;
   return (
     <section className={styles.container}>
       {navItems.map((navItem, i) => (

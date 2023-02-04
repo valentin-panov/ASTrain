@@ -26,7 +26,10 @@ const authenticate = async (req: NextApiRequest, res: NextApiResponse) => {
         });
       }
 
-      const passwordValid = await verifyPassword(password, user.password);
+      const passwordValid = await verifyPassword(
+        password,
+        user.password as string
+      );
 
       if (passwordValid) {
         const { password, bio, avatar, ...rest } = user;

@@ -5,7 +5,13 @@ import { useRouter } from "next/router";
 const defaultAuthState: IAuthState = {
   token: null,
   expiresAt: null,
-  userInfo: null,
+  userInfo: {
+    avatar: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    role: "user",
+  },
 };
 const defaultContext: TAuthContext = {
   authState: defaultAuthState,

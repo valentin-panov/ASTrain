@@ -3,7 +3,7 @@ import IUser from "./IUser";
 export interface IAuthState {
   token: string | null;
   expiresAt: string | null;
-  userInfo: IUser | null;
+  userInfo: IUser;
 }
 
 export interface TAuthContext {
