@@ -77,14 +77,14 @@ const AvatarDropdown: React.FC = () => {
         onClick={() => setDropdownOpen(!dropdownOpen)}
       >
         <Image
-          src={authState.userInfo.avatar || defaultAvatar}
+          src={authState.userInfo?.avatar || defaultAvatar}
           className={styles.avatarDropdown_avatar}
           alt="Avatar"
           height={30}
           width={30}
         />
         <div className={styles.avatarDropdown_userName}>
-          {authState.userInfo.firstName}
+          {authState.userInfo?.firstName}
         </div>
         <div className={styles.avatarDropdown_arrowCont}>
           <ArrowDropDownIcon />

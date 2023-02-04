@@ -17,7 +17,7 @@ const Account: React.FC = () => {
     try {
       const { data } = await fetchContext.authAxios.patch("user-role", {
         role,
-        sub: auth.authState.userInfo._id,
+        sub: auth.authState.userInfo?._id,
       });
       setSuccessMessage(data.message);
       setErrorMessage("");
@@ -41,7 +41,7 @@ const Account: React.FC = () => {
           <p className={styles.card_cta}>Select a role for yourself</p>
           <div className={styles.card_selectBlock}>
             <select
-              defaultValue={auth.authState.userInfo.role}
+              defaultValue={auth.authState.userInfo?.role}
               onChange={(e) => setUserRole(e.target.value)}
               className={styles.card_selectBlock_select}
             >
