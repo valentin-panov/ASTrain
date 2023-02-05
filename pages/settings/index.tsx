@@ -67,7 +67,7 @@ const Settings: React.FC = () => {
                 name="bio"
                 placeholder="Your bio here"
               />
-              <GradientButton text="Save" type="submit" />
+              <GradientButton type="submit">Save</GradientButton>
             </Form>
           )}
         </Formik>

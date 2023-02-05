@@ -80,7 +80,7 @@ const InventoryItemForm: React.FC<IInventoryItemForm> = ({ onSubmit }) => {
           </div>
           <div className="flex">
             <div className="w-full sm:w-1/4 mt-4">
-              <GradientButton type="submit" text="Submit" />
+              <GradientButton type="submit">Submit</GradientButton>
             </div>
           </div>
         </Form>

@@ -8,10 +8,9 @@ const Footer: React.FC = () => {
   return (
     <footer className={styles.container}>
       <div className={styles.container_4btn}>
-        <GradientButton
-          text="Auth Debugger"
-          onClick={() => setShowAuthDebugger(!showAuthDebugger)}
-        />
+        <GradientButton onClick={() => setShowAuthDebugger(!showAuthDebugger)}>
+          Auth Debugger
+        </GradientButton>
       </div>
       <div className={styles.container_authD}>
         {showAuthDebugger && <AuthDebugger />}

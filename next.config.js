@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 require("dotenv").config();
 
 const nextConfig = {
@@ -7,6 +7,7 @@ const nextConfig = {
     ATLAS_URL: process.env.ATLAS_URL,
     JWT_SECRET: process.env.JWT_SECRET,
     API_URL: process.env.API_URL,
+    BASE_URL: process.env.BASE_URL,
   },
   images: {
     remotePatterns: [

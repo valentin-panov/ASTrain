@@ -8,7 +8,7 @@ import FormSuccess from "../../components/FormSuccess";
 import FormError from "../../components/FormError";
 import GradientBar from "../../components/common/GradientBar";
 import { AuthContext } from "../../context/AuthContext";
-import { publicFetch } from "../../utils/fetch";
+import { publicFetch } from "@utils/fetch";
 import GradientButton from "../../components/common/buttons/GradientButton";
 import { AxiosError } from "axios";
 import { ICredentials } from "../../interfaces/ICredentials";
@@ -73,7 +73,7 @@ const Login: React.FC = () => {
             <div className="max-w-md w-full">
               <div>
                 <div className="w-32 m-auto mb-6">
-                  <Link href={"/"} shallow={true}>
+                  <Link href={"/"} shallow={false}>
                     <a className={styles.logo}>
                       <Image src={logo} alt="Logo" width={150} height={32} />
                     </a>
@@ -135,11 +135,9 @@ const Login: React.FC = () => {
                     </div>
 
                     <div className="mt-6">
-                      <GradientButton
-                        type="submit"
-                        text="Log In"
-                        loading={loginLoading}
-                      />
+                      <GradientButton type="submit" loading={loginLoading}>
+                        Log In
+                      </GradientButton>
                     </div>
                   </Form>
                 )}

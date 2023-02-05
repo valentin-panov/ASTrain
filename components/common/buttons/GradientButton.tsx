@@ -6,7 +6,7 @@ import styles from "./Button.module.scss";
 
 interface IGradientButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
-  text: string;
+  text?: string;
   size?: "small" | "medium" | "large";
   loading?: boolean;
   onClick?: () => void;
@@ -14,10 +14,10 @@ interface IGradientButtonProps {
 
 const GradientButton: React.FC<IGradientButtonProps> = ({
   type = "button",
-  text,
   size,
   loading = false,
   onClick,
+  children,
 }) => {
   return (
     <>
@@ -40,7 +40,7 @@ const GradientButton: React.FC<IGradientButtonProps> = ({
           onClick={onClick}
           className={`${styles.btn} ${styles.btn_gradient}`}
         >
-          {text}
+          {children}
         </Button>
       )}
     </>

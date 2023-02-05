@@ -14,8 +14,8 @@ const createToken = (user: Omit<IUser, "password" | "avatar" | "bio">) => {
       sub: user._id,
       email: user.email,
       role: user.role,
-      iss: "api.orbit",
-      aud: "api.orbit",
+      iss: "api.metrobooks",
+      aud: "api.metrobooks",
     },
     process.env.JWT_SECRET as string,
     { algorithm: "HS256", expiresIn: "1h" }
@@ -59,11 +59,16 @@ const requireAdmin = (
   next();
 };
 
-const requireAuth = () => ({
-  secret: process.env.JWT_SECRET,
-  audience: "api.orbit",
-  issuer: "api.orbit",
-});
+const requireAuth = (): boolean => {
+  return (
+    {
+      secret: process.env.JWT_SECRET,
+      audience: "api.metrobooks",
+      issuer: "api.metrobooks",
+      algorithms: ["HS256"],
+    } !== undefined
+  );
+};
 // const requireAuth: boolean = jwt({
 //   secret: process.env.JWT_SECRET,
 //   audience: "api.orbit",

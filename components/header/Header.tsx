@@ -18,7 +18,7 @@ const Header: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Link href={"/"} shallow={true}>
+      <Link href={"/"} shallow={false}>
         <a className={styles.container_logo}>
           <Image src={logo} alt="Logo" width={150} height={32} />
         </a>
