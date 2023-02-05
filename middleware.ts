@@ -2,10 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import * as process from "process";
 import { routes } from "@utils/routes";
 
+export const config = {
+  matcher: "/((?!_next/static|_next/image|favicon.ico).*)",
+};
+
 export default function middleware(req: NextRequest) {
   // const cookieLogged = req.cookies.get("logged"); // here should be reliable check
   const headerAuth = req.headers.get("authorization");
-  const path = new URL(req.url).pathname.split("/");
+  const path = req.nextUrl.pathname.split("/");
 
   // console.log(path[1]);
   console.log("Token here? ", !!headerAuth);
@@ -31,8 +35,5 @@ export default function middleware(req: NextRequest) {
     }
   }
 }
-export const config = {
-  matcher: "/((?!_next/static|_next/image|favicon.ico).*)",
-};
 
 // https://www.youtube.com/watch?v=4zlqCu24wr4
