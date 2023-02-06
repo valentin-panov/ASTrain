@@ -11,6 +11,7 @@ const FetchProvider: React.FC = ({ children }) => {
 
   const authAxios = axios.create({
     baseURL: process.env.API_URL,
+    withCredentials: true,
   });
 
   authAxios.interceptors.request.use(

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import data from "../../../data/dashboard";
-import { requireAuth } from "../../../utils/apiTools";
+import { requireAuth } from "@utils/apiTools";
 
 /**
  * @param {import("next").NextApiRequest} req

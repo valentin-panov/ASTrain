@@ -1,19 +1,21 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { requireAuth } from "../../../utils/apiTools";
+import { requireAuth } from "@utils/apiTools";
 import InventoryItemModel from "../../../models/InventoryItemModel";
-import connectMongo from "../../../utils/connectMongo";
+import connectMongo from "@utils/connectMongo";
 
 /**
  * @param {import("next").NextApiRequest} req
  * @param {import("next").NextApiResponse} res
  */
 const apiInventory = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(requireAuth); // TODO AUTH!
   if (req.method === "GET") {
+    const token = req.headers.authorization?.substring(7);
+    const userInfo = requireAuth(token as string);
+
     await connectMongo("GET from inventory api");
 
     try {
-      const user = req.body.user.sub;
+      const user = userInfo.sub;
       const inventoryItems = await InventoryItemModel.find({
         user,
       });
@@ -23,9 +25,11 @@ const apiInventory = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   } else if (req.method === "POST") {
     try {
+      const token = req.headers.authorization?.substring(7);
+      const userInfo = requireAuth(token as string);
       await connectMongo();
 
-      const userId = req.body.user.sub;
+      const userId = userInfo.sub;
       const input = Object.assign({}, req.body, {
         user: userId,
       });

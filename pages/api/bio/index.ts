@@ -1,16 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { requireAuth } from "../../../utils/apiTools";
+import { requireAuth } from "@utils/apiTools";
 import UserModel from "../../../models/UserModel";
-import connectMongo from "../../../utils/connectMongo";
+import connectMongo from "@utils/connectMongo";
 
 /**
  * @param {import("next").NextApiRequest} req
  * @param {import("next").NextApiResponse} res
  */
 const apiBio = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(requireAuth); // TODO AUTH!
   if (req.method === "GET") {
     try {
+      const token = req.headers.authorization?.substring(7);
+      requireAuth(token as string);
+
       await connectMongo();
 
       const { sub } = req.body.user;

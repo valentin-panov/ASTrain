@@ -1,25 +1,27 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { requireAuth } from "../../../utils/apiTools";
+import { requireAuth } from "@utils/apiTools";
 import UserModel from "../../../models/UserModel";
-import connectMongo from "../../../utils/connectMongo";
+import connectMongo from "@utils/connectMongo";
 
 /**
  * @param {import("next").NextApiRequest} req
  * @param {import("next").NextApiResponse} res
  */
 const apiUserRole = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(requireAuth); // TODO AUTH!
   if (req.method === "PATCH") {
     try {
-      const { role } = req.body;
+      const token = req.headers.authorization?.substring(7);
+      const userInfo = requireAuth(token as string);
+
       const allowedRoles = ["user", "admin"];
+      const { role } = req.body;
 
       if (!allowedRoles.includes(role)) {
         return res.status(400).json({ message: "Role not allowed" });
       }
       await connectMongo();
 
-      await UserModel.findOneAndUpdate({ _id: req.body.sub }, { role });
+      await UserModel.findOneAndUpdate({ _id: userInfo.sub }, { role });
       res.status(200).json({
         message:
           "User role updated. You must log in again for the changes to take effect.",

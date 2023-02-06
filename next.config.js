@@ -5,7 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   env: {
     ATLAS_URL: process.env.ATLAS_URL,
-    JWT_SECRET: process.env.JWT_SECRET,
+    JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
     API_URL: process.env.API_URL,
     BASE_URL: process.env.BASE_URL,
   },

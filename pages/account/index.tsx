@@ -17,7 +17,6 @@ const Account: React.FC = () => {
     try {
       const { data } = await fetchContext.authAxios.patch("user-role", {
         role,
-        sub: auth.authState.userInfo?._id,
       });
       setSuccessMessage(data.message);
       setErrorMessage("");

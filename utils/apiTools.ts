@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { Secret } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import IUser from "../interfaces/IUser";
@@ -17,7 +17,7 @@ const createToken = (user: Omit<IUser, "password" | "avatar" | "bio">) => {
       iss: "api.metrobooks",
       aud: "api.metrobooks",
     },
-    process.env.JWT_SECRET as string,
+    process.env.JWT_SECRET_KEY as string,
     { algorithm: "HS256", expiresIn: "1h" }
   );
 };
@@ -59,21 +59,12 @@ const requireAdmin = (
   next();
 };
 
-const requireAuth = (): boolean => {
-  return (
-    {
-      secret: process.env.JWT_SECRET,
-      audience: "api.metrobooks",
-      issuer: "api.metrobooks",
-      algorithms: ["HS256"],
-    } !== undefined
-  );
-};
-// const requireAuth: boolean = jwt({
-//   secret: process.env.JWT_SECRET,
-//   audience: "api.orbit",
-//   issuer: "api.orbit",
-// });
+const requireAuth = (token: string) =>
+  jwt.verify(token, process.env.JWT_SECRET as Secret, {
+    audience: "api.metrobooks",
+    issuer: "api.metrobooks",
+    algorithms: ["HS256"],
+  });
 
 const attachUser = (
   req: NextApiRequest,
