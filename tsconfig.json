@@ -31,6 +31,9 @@
       "@utils/*": [
         "./utils/*"
       ],
+      "@lib/*": [
+        "./lib/*"
+      ],
       "@public/*": [
         "./public/*"
       ]

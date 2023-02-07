@@ -33,7 +33,7 @@ export async function verifyAuth(req: NextRequest) {
 /**
  * Adds the user token cookie to a response.
  */
-export async function setUserCookie(res: NextResponse, payload: JwtPayload) {
+export async function createJWToken(payload: JwtPayload) {
   const token = await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setJti(nanoid())
@@ -41,12 +41,7 @@ export async function setUserCookie(res: NextResponse, payload: JwtPayload) {
     .setExpirationTime("2h")
     .sign(new TextEncoder().encode(getJwtSecretKey()));
 
-  res.cookies.set(USER_TOKEN, token, {
-    httpOnly: true,
-    maxAge: 60 * 60 * 2, // 2 hours in seconds
-  });
-
-  return res;
+  return token;
 }
 
 /**

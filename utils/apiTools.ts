@@ -4,7 +4,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 import IUser from "../interfaces/IUser";
 import jwtDecode from "jwt-decode";
 
-const createToken = (user: Omit<IUser, "password" | "avatar" | "bio">) => {
+export const config = {
+  runtime: "nodejs",
+};
+const createToken = (
+  user: Omit<IUser, "password" | "avatar" | "bio">,
+  expireIn: number
+) => {
   // Sign the JWT
   if (!user.role) {
     throw new Error("No user role specified");
@@ -16,9 +22,10 @@ const createToken = (user: Omit<IUser, "password" | "avatar" | "bio">) => {
       role: user.role,
       iss: "api.metrobooks",
       aud: "api.metrobooks",
+      exp: Math.floor(Date.now()) + 60 * 60 * 1000 * expireIn,
     },
     process.env.JWT_SECRET_KEY as string,
-    { algorithm: "HS256", expiresIn: "1h" }
+    { algorithm: "HS256" }
   );
 };
 
@@ -59,8 +66,9 @@ const requireAdmin = (
   next();
 };
 
+// THIS MODULE CANNOT BE USED WITHIN NEXTJS EDGE RUNTIME
 const requireAuth = (token: string) =>
-  jwt.verify(token, process.env.JWT_SECRET as Secret, {
+  jwt.verify(token, process.env.JWT_SECRET_KEY as Secret, {
     audience: "api.metrobooks",
     issuer: "api.metrobooks",
     algorithms: ["HS256"],
