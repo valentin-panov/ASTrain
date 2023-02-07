@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { requireAuth } from "@utils/apiTools";
+import { verifyJWT } from "@utils/apiTools";
 import UserModel from "../../../models/UserModel";
 import connectMongo from "@utils/connectMongo";
 import IUser from "../../../interfaces/IUser";
@@ -12,7 +12,7 @@ const apiUsers = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
       const token = req.headers.authorization?.substring(7);
-      const userInfo = requireAuth(token as string);
+      const userInfo = verifyJWT(token as string);
       const { role } = userInfo as IUser;
       if (role === "admin") {
         await connectMongo();

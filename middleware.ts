@@ -4,7 +4,7 @@ import { routes } from "@utils/routes";
 import { verifyAuth } from "@lib/auth";
 
 export const config = {
-  matcher: ["/api/dashboard-data", "/dashboard"],
+  matcher: ["/dashboard"],
   // matcher: "/((?!login|signup|_next/static|_next/image|favicon.ico).*)",
 };
 

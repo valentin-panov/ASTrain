@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { requireAuth } from "@utils/apiTools";
+import { verifyJWT } from "@utils/apiTools";
 import InventoryItemModel from "../../../models/InventoryItemModel";
 import connectMongo from "@utils/connectMongo";
 
@@ -10,7 +10,7 @@ import connectMongo from "@utils/connectMongo";
 const apiInventory = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     const token = req.headers.authorization?.substring(7);
-    const userInfo = requireAuth(token as string);
+    const userInfo = verifyJWT(token as string);
 
     await connectMongo("GET from inventory api");
 
@@ -26,7 +26,7 @@ const apiInventory = async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (req.method === "POST") {
     try {
       const token = req.headers.authorization?.substring(7);
-      const userInfo = requireAuth(token as string);
+      const userInfo = verifyJWT(token as string);
       await connectMongo();
 
       const userId = userInfo.sub;

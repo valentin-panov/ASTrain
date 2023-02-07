@@ -1,13 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import data from "../../../data/dashboard";
-import { requireAuth } from "@utils/apiTools";
+import { verifyJWT } from "@utils/apiTools";
 
 /**
  * @param {import("next").NextApiRequest} req
  * @param {import("next").NextApiResponse} res
  */
 const apiDashboard = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(requireAuth); // TODO AUTH!
+  console.log(verifyJWT); // TODO AUTH!
   if (req.method === "GET") {
     // Process a POST request
     return res.status(200).json(data);

@@ -22,7 +22,12 @@ export async function verifyAuth(req: NextRequest) {
   try {
     const verified = await jwtVerify(
       token,
-      new TextEncoder().encode(getJwtSecretKey())
+      new TextEncoder().encode(getJwtSecretKey()),
+      {
+        audience: "api.metrobooks",
+        issuer: "api.metrobooks",
+        algorithms: ["HS256"],
+      }
     );
     return verified.payload as UserJwtPayload;
   } catch (err) {
@@ -33,12 +38,14 @@ export async function verifyAuth(req: NextRequest) {
 /**
  * Adds the user token cookie to a response.
  */
-export async function createJWToken(payload: JwtPayload) {
+export async function createJWToken(payload: JwtPayload, exp: number) {
   const token = await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setJti(nanoid())
     .setIssuedAt()
-    .setExpirationTime("2h")
+    .setIssuer("api.metrobooks")
+    .setAudience("api.metrobooks")
+    .setExpirationTime(`${exp}h`)
     .sign(new TextEncoder().encode(getJwtSecretKey()));
 
   return token;

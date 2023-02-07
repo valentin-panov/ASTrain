@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { createToken, verifyPassword } from "@utils/apiTools";
+import { verifyPassword } from "@utils/apiTools";
 import connectMongo from "@utils/connectMongo";
 import UserModel from "../../../models/UserModel";
 import IUser from "../../../interfaces/IUser";
-import jwtDecode, { JwtPayload } from "jwt-decode";
 import { serialize } from "cookie";
+import { createJWToken } from "@lib/auth";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 
 export const config = {
   runtime: "nodejs",
@@ -42,12 +43,13 @@ const authenticate = async (req: NextApiRequest, res: NextApiResponse) => {
     if (passwordValid) {
       const { password, bio, avatar, ...rest } = user;
       const userInfo = Object.assign({}, { ...rest });
-      const accessToken = createToken(userInfo, 1);
-      const refreshToken = createToken(userInfo, 24);
+
+      const accessToken = await createJWToken(userInfo, 1);
+      const refreshToken = await createJWToken(userInfo, 24);
       const decodedAToken: JwtPayload = jwtDecode(accessToken);
-      const expiresInAT = new Date(decodedAToken.exp as number);
+      const expiresInAT = new Date((decodedAToken.exp as number) * 1000);
       const decodedRToken: JwtPayload = jwtDecode(refreshToken);
-      const expiresInRT = new Date(decodedRToken.exp as number);
+      const expiresInRT = new Date((decodedRToken.exp as number) * 1000);
 
       res.setHeader("Set-Cookie", [
         serialize("access-token", accessToken, {
