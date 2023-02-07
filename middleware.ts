@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as process from "process";
 import { routes } from "@utils/routes";
-import { verifyAuth } from "@lib/auth";
+import { verifyTokenInRequest } from "@lib/auth";
 
 export const config = {
   matcher: ["/dashboard"],
@@ -9,11 +9,11 @@ export const config = {
 };
 
 export default async function middleware(req: NextRequest) {
-  const verifiedToken = await verifyAuth(req).catch((err) => {
+  const verifiedToken = await verifyTokenInRequest(req).catch((err) => {
     console.error("verifyAuth: ", err.message);
   });
 
-  console.log("token: ", verifiedToken);
+  console.log("middleware token: ", verifiedToken);
 
   if (!verifiedToken) {
     console.log("no token statement");

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { verifyJWT } from "@utils/apiTools";
 import connectMongo from "@utils/connectMongo";
 import InventoryItemModel from "../../../models/InventoryItemModel";
+import { verifyToken } from "@lib/auth";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -14,7 +14,7 @@ const apiDeleteInventory = async (
   if (req.method === "DELETE") {
     try {
       const token = req.headers.authorization?.substring(7);
-      const userInfo = verifyJWT(token as string);
+      const userInfo = await verifyToken(token as string);
 
       await connectMongo();
 

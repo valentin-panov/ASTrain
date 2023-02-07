@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import IUser from "../interfaces/IUser";
 import jwtDecode from "jwt-decode";
 import { NextRequest } from "next/server";
-import { getJwtSecretKey, USER_TOKEN } from "@lib/authConstants";
+import { getJwtSecretKey, jwtOpt, USER_TOKEN } from "@lib/authConstants";
 import { jwtVerify } from "jose";
 
 export const config = {
@@ -15,6 +15,8 @@ const createToken = (
   user: Omit<IUser, "password" | "avatar" | "bio">,
   expireIn: number
 ) => {
+  // LEGACY
+
   // Sign the JWT
   if (!user.role) {
     throw new Error("No user role specified");
@@ -70,7 +72,7 @@ const requireAdmin = (
   next();
 };
 
-const verifyJWT = (req: NextRequest): Promise<string | JwtPayload> => {
+const verifyJwtInRequest = (req: NextRequest): Promise<string | JwtPayload> => {
   // LEGACY
   return new Promise((resolve, reject) => {
     const token = req.cookies.get(USER_TOKEN);
@@ -80,11 +82,7 @@ const verifyJWT = (req: NextRequest): Promise<string | JwtPayload> => {
       const verified = jwtVerify(
         token,
         new TextEncoder().encode(getJwtSecretKey()),
-        {
-          audience: "api.metrobooks",
-          issuer: "api.metrobooks",
-          algorithms: ["HS256"],
-        }
+        jwtOpt
       );
       return resolve(verified);
     } catch (err) {
@@ -119,6 +117,6 @@ export {
   hashPassword,
   verifyPassword,
   requireAdmin,
-  verifyJWT,
+  verifyJwtInRequest,
   attachUser,
 };

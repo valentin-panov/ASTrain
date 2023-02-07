@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { verifyJWT } from "@utils/apiTools";
 import UserModel from "../../../models/UserModel";
 import connectMongo from "@utils/connectMongo";
+import { verifyToken } from "@lib/auth";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -11,7 +11,7 @@ const apiUserRole = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "PATCH") {
     try {
       const token = req.headers.authorization?.substring(7);
-      const userInfo = verifyJWT(token as string);
+      const userInfo = await verifyToken(token as string);
 
       const allowedRoles = ["user", "admin"];
       const { role } = req.body;

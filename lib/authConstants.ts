@@ -9,3 +9,9 @@ export function getJwtSecretKey(): string {
 
   return JWT_SECRET_KEY;
 }
+
+export const jwtOpt = {
+  audience: "api.metrobooks",
+  issuer: "api.metrobooks",
+  algorithms: ["HS256"],
+};

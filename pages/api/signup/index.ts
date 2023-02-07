@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { createToken, hashPassword } from "../../../utils/apiTools";
-import jwtDecode, { JwtPayload } from "jwt-decode";
+import { hashPassword } from "@utils/apiTools";
 import UserModel from "../../../models/UserModel";
 import connectMongo from "utils/connectMongo";
+import { createTokens } from "@lib/auth";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -37,10 +37,6 @@ const signup = async (req: NextApiRequest, res: NextApiResponse) => {
       const savedUser = await newUser.save();
 
       if (savedUser) {
-        const token = createToken(savedUser);
-        const decodedToken: JwtPayload = jwtDecode(token);
-        const expiresAt = decodedToken.exp;
-
         const { firstName, lastName, email, role } = savedUser;
 
         const userInfo = {
@@ -50,12 +46,14 @@ const signup = async (req: NextApiRequest, res: NextApiResponse) => {
           role,
         };
 
-        return res.status(200).json({
-          message: "User created!",
-          token,
-          userInfo,
-          expiresAt,
-        });
+        return createTokens(res, userInfo).then(({ res, expiresAt, token }) =>
+          res.status(200).json({
+            message: "User created!",
+            token,
+            userInfo,
+            expiresAt,
+          })
+        );
       } else {
         return res.status(400).json({
           message: "There was a problem creating your account",

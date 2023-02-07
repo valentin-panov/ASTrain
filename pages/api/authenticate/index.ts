@@ -3,9 +3,7 @@ import { verifyPassword } from "@utils/apiTools";
 import connectMongo from "@utils/connectMongo";
 import UserModel from "../../../models/UserModel";
 import IUser from "../../../interfaces/IUser";
-import { serialize } from "cookie";
-import { createJWToken } from "@lib/auth";
-import jwtDecode, { JwtPayload } from "jwt-decode";
+import { createTokens } from "@lib/auth";
 
 export const config = {
   runtime: "nodejs",
@@ -44,35 +42,14 @@ const authenticate = async (req: NextApiRequest, res: NextApiResponse) => {
       const { password, bio, avatar, ...rest } = user;
       const userInfo = Object.assign({}, { ...rest });
 
-      const accessToken = await createJWToken(userInfo, 1);
-      const refreshToken = await createJWToken(userInfo, 24);
-      const decodedAToken: JwtPayload = jwtDecode(accessToken);
-      const expiresInAT = new Date((decodedAToken.exp as number) * 1000);
-      const decodedRToken: JwtPayload = jwtDecode(refreshToken);
-      const expiresInRT = new Date((decodedRToken.exp as number) * 1000);
-
-      res.setHeader("Set-Cookie", [
-        serialize("access-token", accessToken, {
-          secure: true,
-          sameSite: "lax",
-          path: "/",
-          expires: expiresInAT,
-        }),
-        serialize("refresh-token", refreshToken, {
-          secure: true,
-          sameSite: "lax",
-          path: "/",
-          httpOnly: true,
-          expires: expiresInRT,
-        }),
-      ]);
-
-      return res.status(200).json({
-        message: "Authentication successful!",
-        token: accessToken,
-        userInfo,
-        expiresInAT,
-      });
+      return createTokens(res, userInfo).then(({ res, expiresAt, token }) =>
+        res.status(200).json({
+          message: "Authentication successful!",
+          token,
+          userInfo,
+          expiresAt,
+        })
+      );
     } else {
       return res.status(403).json({
         message: "Wrong email or password.",

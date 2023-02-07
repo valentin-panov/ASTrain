@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { verifyJWT } from "@utils/apiTools";
 import UserModel from "../../../models/UserModel";
 import connectMongo from "@utils/connectMongo";
+import { verifyToken } from "@lib/auth";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -11,7 +11,7 @@ const apiBio = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
       const token = req.headers.authorization?.substring(7);
-      verifyJWT(token as string);
+      await verifyToken(token as string);
 
       await connectMongo();
 

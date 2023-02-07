@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { verifyJWT } from "@utils/apiTools";
 import UserModel from "../../../models/UserModel";
 import connectMongo from "@utils/connectMongo";
 import IUser from "../../../interfaces/IUser";
+import { verifyToken } from "@lib/auth";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -12,8 +12,8 @@ const apiUsers = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
       const token = req.headers.authorization?.substring(7);
-      const userInfo = verifyJWT(token as string);
-      const { role } = userInfo as IUser;
+      const userInfo = await verifyToken(token as string);
+      const { role } = userInfo as unknown as IUser;
       if (role === "admin") {
         await connectMongo();
 
