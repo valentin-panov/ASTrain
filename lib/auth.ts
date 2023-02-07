@@ -46,7 +46,9 @@ export async function verifyToken(token: string) {
 }
 
 /**
- * Adds the user token cookie to a response.
+ * Creates and sign token.
+ * @param payload firstName: string; lastName: string; email: string; role: TUserRole;
+ * @param exp number of hours to expire
  */
 export async function createJWToken(payload: JwtPayload, exp: number) {
   return await new SignJWT(payload)
