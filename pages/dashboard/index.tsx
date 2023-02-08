@@ -26,14 +26,20 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const getDashboardData = async () => {
       try {
-        const { data } = await fetchContext.authAxios.get("dashboard-data");
-        setDashboardData(data);
+        return await fetchContext.authAxios.get("dashboard-data");
       } catch (err) {
         console.log(err);
       }
     };
 
-    getDashboardData();
+    getDashboardData().then((response) => {
+      if (response?.status === 200) {
+        setDashboardData(response.data);
+      } else {
+        // error handler
+        console.log(response?.data.message);
+      }
+    });
   }, [fetchContext]);
 
   return (

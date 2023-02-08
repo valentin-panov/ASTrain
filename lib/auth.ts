@@ -4,12 +4,13 @@ import { jwtVerify, SignJWT } from "jose";
 import { getJwtSecretKey, jwtOpt, USER_TOKEN } from "./authConstants";
 import { JwtPayload } from "jsonwebtoken";
 import { NextApiResponse } from "next";
-import IUser from "../interfaces/IUser";
+import IUser, { TUserRole } from "../interfaces/IUser";
 import jwtDecode from "jwt-decode";
 import { serialize } from "cookie";
 
-interface UserJwtPayload {
+interface IUserJwtPayload {
   sub: string;
+  role: TUserRole;
   jti: string;
   iat: number;
 }
@@ -20,7 +21,8 @@ export class AuthError extends Error {}
  * Verifies the user's JWT token in request and returns its payload if it's valid.
  */
 export async function verifyTokenInRequest(req: NextRequest) {
-  const token = req.cookies.get(USER_TOKEN);
+  const token =
+    req.cookies.get(USER_TOKEN) || req.headers.get("Authorization")?.slice(7);
 
   if (!token) throw new AuthError("Missing user token");
 
@@ -39,7 +41,7 @@ export async function verifyToken(token: string) {
       new TextEncoder().encode(getJwtSecretKey()),
       jwtOpt
     );
-    return verified.payload as UserJwtPayload;
+    return verified.payload as unknown as IUserJwtPayload;
   } catch (err) {
     throw new AuthError("Your token has expired.");
   }

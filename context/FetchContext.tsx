@@ -33,7 +33,7 @@ const FetchProvider: React.FC = ({ children }) => {
       if (code === 401 || code === 403) {
         console.log("error code", code);
       }
-      return Promise.reject(error);
+      return Promise.reject(error.response);
     }
   );
 
