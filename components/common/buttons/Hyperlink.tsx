@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import s from "./Button.module.scss";
 
 interface IHyperlink {
   text: string;
@@ -7,10 +8,7 @@ interface IHyperlink {
 }
 
 const Hyperlink: React.FC<IHyperlink> = ({ text, to }) => (
-  <Link
-    href={to}
-    className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-  >
+  <Link href={to} className={s.link}>
     {text}
   </Link>
 );

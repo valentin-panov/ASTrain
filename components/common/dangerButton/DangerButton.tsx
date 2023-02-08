@@ -1,4 +1,5 @@
 import React from "react";
+import s from "./DangerButton.module.scss";
 
 interface IDangerButton {
   text: string;
@@ -6,10 +7,7 @@ interface IDangerButton {
 }
 
 const DangerButton: React.FC<IDangerButton> = ({ text, onClick }) => (
-  <button
-    onClick={onClick}
-    className="text-red-600 text-sm rounded border border-red-600 px-2 hover:text-white hover:bg-red-600"
-  >
+  <button onClick={onClick} className={s.btn}>
     {text}
   </button>
 );

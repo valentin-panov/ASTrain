@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import LoginIcon from "@mui/icons-material/Login";
-import styles from "./Button.module.scss";
+import s from "./Button.module.scss";
 
 interface IGradientButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
@@ -28,7 +28,7 @@ const GradientButton: React.FC<IGradientButtonProps> = ({
           loadingPosition="start"
           startIcon={<LoginIcon />}
           variant="outlined"
-          className={styles.btn}
+          className={s.btn}
         >
           Loading...
         </LoadingButton>
@@ -38,7 +38,7 @@ const GradientButton: React.FC<IGradientButtonProps> = ({
           variant={"contained"}
           type={type}
           onClick={onClick}
-          className={`${styles.btn} ${styles.btn_gradient}`}
+          className={`${s.btn} ${s.btn_gradient}`}
         >
           {children}
         </Button>

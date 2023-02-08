@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import PageTitle from "../../components/common/pageTitle/PageTitle";
 import DashboardMetric from "../../components/DashboardMetric";
 import Card from "../../components/common/card/Card";
-import { FetchContext } from "../../context/FetchContext";
+import { FetchContext } from "@context/FetchContext";
 import { formatCurrency } from "../../utils";
 import DashboardChart, { ISalesData } from "../../components/DashboardChart";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { MainLayout } from "../../layouts";
+import s from "./Dashboard.module.scss";
 
 interface IDashboardData {
   salesVolume: string;
@@ -47,7 +48,7 @@ const Dashboard: React.FC = () => {
       <PageTitle title="Dashboard" />
       {dashboardData ? (
         <>
-          <div className="mb-4 flex flex-col sm:flex-row">
+          <div className={s.topContainer}>
             <div className="w-full sm:w-1/3 sm:mr-2 mb-4 sm:mb-0">
               <DashboardMetric
                 title="Sales Volume"

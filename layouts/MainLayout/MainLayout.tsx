@@ -1,8 +1,8 @@
 import React, { ReactNode, useContext } from "react";
 import Head from "next/head";
-import styles from "./MainLayout.module.scss";
 import { Footer, Header, Main, Sidebar } from "../../components";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "@context/AuthContext";
+import s from "./MainLayout.module.scss";
 
 interface MainProps {
   children: ReactNode | ReactNode[];
@@ -25,9 +25,9 @@ const MainLayout: React.FC<MainProps> = ({ children, keywords }) => {
         <meta name={"author"} content={"Valentin Panov"} />
         <title>Metropolitan book store</title>
       </Head>
-      <div className={styles.container}>
+      <div className={s.container}>
         <Header />
-        <div className={styles.container_main}>
+        <div className={s.container_main}>
           {isAuthenticated() && <Sidebar />}
           <Main>{children}</Main>
         </div>
@@ -36,5 +36,4 @@ const MainLayout: React.FC<MainProps> = ({ children, keywords }) => {
     </>
   );
 };
-
 export default MainLayout;

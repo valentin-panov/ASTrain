@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 import classNames from "classnames";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "@context/AuthContext";
 import { useRouter } from "next/router";
-import styles from "./Sidebar.module.scss";
 import GradientButton from "../common/buttons/GradientButton";
 import { routes } from "@utils/routes";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
@@ -10,6 +9,7 @@ import PieChartIcon from "@mui/icons-material/PieChart";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import SettingsIcon from "@mui/icons-material/Settings";
 import GroupsIcon from "@mui/icons-material/Groups";
+import s from "./Sidebar.module.scss";
 
 const icons: Record<string, React.ReactNode> = {
   Dashboard: <TrendingUpIcon />,
@@ -37,14 +37,14 @@ const NavItem: React.FC<NavItemProps> = ({ navItem }) => {
     <GradientButton onClick={onClick}>
       <div
         className={classNames(
-          styles.pageLink_container,
+          s.pageLink_container,
           isCurrentRoute
-            ? styles.pageLink_container_textCurrent
-            : styles.pageLink_container_text
+            ? s.pageLink_container_textCurrent
+            : s.pageLink_container_text
         )}
       >
-        <div className={styles.iconContainer}>{navItem.icon}</div>
-        <span className={styles.label}>{navItem.label}</span>
+        <div className={s.iconContainer}>{navItem.icon}</div>
+        <span className={s.label}>{navItem.label}</span>
       </div>
     </GradientButton>
   );
@@ -60,7 +60,7 @@ const Sidebar = () => {
   const auth = useContext(AuthContext);
   const role = auth.authState.userInfo?.role;
   return (
-    <section className={styles.container}>
+    <section className={s.container}>
       {routes.map((route, i) => (
         <NavItemContainer key={i}>
           {route.allowedRoles.includes(role) && (

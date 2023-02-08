@@ -1,7 +1,8 @@
 import React from "react";
+import s from "./Card.module.scss";
 
 const Card: React.FC = ({ children }) => (
-  <div className="p-3 rounded shadow-lg bg-white">{children}</div>
+  <div className={s.container}>{children}</div>
 );
 
 export default Card;

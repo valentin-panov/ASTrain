@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
-import { FetchContext } from "../../context/FetchContext";
-import { AuthContext } from "../../context/AuthContext";
+import { FetchContext } from "@context/FetchContext";
+import { AuthContext } from "@context/AuthContext";
 import { AxiosError } from "axios";
 import { MainLayout } from "../../layouts";
-import styles from "./Account.module.scss";
 import classNames from "classnames";
 import { Card, PageTitle } from "../../components";
+import s from "./Account.module.scss";
 
 const Account: React.FC = () => {
   const fetchContext = useContext(FetchContext);
@@ -35,25 +35,25 @@ const Account: React.FC = () => {
     <MainLayout>
       <PageTitle title="Account" />
       <Card>
-        <p className={styles.card_header}>User Role</p>
-        <div className={styles.card_wrapper}>
-          <p className={styles.card_cta}>Select a role for yourself</p>
-          <div className={styles.card_selectBlock}>
+        <p className={s.card_header}>User Role</p>
+        <div className={s.card_wrapper}>
+          <p className={s.card_cta}>Select a role for yourself</p>
+          <div className={s.card_selectBlock}>
             <select
               defaultValue={auth.authState.userInfo?.role}
               onChange={(e) => setUserRole(e.target.value)}
-              className={styles.card_selectBlock_select}
+              className={s.card_selectBlock_select}
             >
               <option value="user">User</option>
               <option value="admin">Admin</option>
             </select>
             {successMessage && (
-              <p className={classNames(styles.message, styles.message_success)}>
+              <p className={classNames(s.message, s.message_success)}>
                 {successMessage}
               </p>
             )}
             {errorMessage && (
-              <p className={classNames(styles.message, styles.message_error)}>
+              <p className={classNames(s.message, s.message_error)}>
                 {errorMessage}
               </p>
             )}

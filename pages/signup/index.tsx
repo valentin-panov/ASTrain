@@ -3,20 +3,20 @@ import { Form, Formik } from "formik";
 import Card from "../../components/common/card/Card";
 import GradientButton from "../../components/common/buttons/GradientButton";
 import Hyperlink from "../../components/common/buttons/Hyperlink";
-import Label from "../../components/common/Label";
+import Label from "../../components/common/label/Label";
 import FormInput from "../../components/FormInput";
-import { AuthContext } from "../../context/AuthContext";
-import GradientBar from "../../components/common/GradientBar";
+import { AuthContext } from "@context/AuthContext";
+import GradientBar from "../../components/common/gradientBar/GradientBar";
 import FormError from "../../components/FormError";
 import FormSuccess from "../../components/FormSuccess";
 import { publicFetch } from "@utils/fetch";
 import { AxiosError } from "axios";
-import { ICredentials } from "../../interfaces/ICredentials";
+import { ICredentials } from "@interfaces/ICredentials";
 import logo from "../../images/logo.png";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import styles from "./Singup.module.scss";
 import Link from "next/link";
+import s from "./Singup.module.scss";
 
 const Yup = require("yup");
 
@@ -75,7 +75,7 @@ const Signup: React.FC = () => {
               <div>
                 <div className="w-32 m-auto mb-6">
                   <Link href={"/"} shallow={false}>
-                    <a className={styles.logo}>
+                    <a className={s.logo}>
                       <Image src={logo} alt="Logo" width={150} height={32} />
                     </a>
                   </Link>

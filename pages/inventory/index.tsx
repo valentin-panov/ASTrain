@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import PageTitle from "../../components/common/pageTitle/PageTitle";
-import { FetchContext } from "../../context/FetchContext";
+import { FetchContext } from "@context/FetchContext";
 import { formatCurrency } from "../../utils";
 import InventoryItemForm, {
   IInventoryItemForm,
   TInventoryItemInitialValues,
 } from "../../components/InventoryItemForm";
-import DangerButton from "../../components/common/DangerButton";
+import DangerButton from "../../components/common/dangerButton/DangerButton";
 import FormError from "../../components/FormError";
 import FormSuccess from "../../components/FormSuccess";
 import { AxiosError } from "axios";
-import { IItem } from "../../interfaces/IItem";
+import { IItem } from "@interfaces/IItem";
 import { MainLayout } from "../../layouts";
 
 const InventoryItemContainer: React.FC = ({ children }) => (

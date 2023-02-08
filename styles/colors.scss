@@ -15,6 +15,8 @@ $deleteBtnColor: #ff0000;
 $requiredAsterisk: #ff0000;
 
 $red-500: #f56565;
+$red-600: #e53e3e;
+
 $green-700: #2f855a;
 $teal-900: #234e52;
 
@@ -27,23 +29,25 @@ $gray-400: #cbd5e0;
 $gray-500: #a0aec0;
 $gray-700: #4a5568;
 $gray-800: #2d3748;
+$gray-900: #1a202c;
 
 $blue-100: #ebf8ff;
 $blue-300: #90cdf4;
 $blue-500: #4299e1;
+$blue-600: #3182ce;
 $blue-800: #2c5282;
 $blue-900: #2a4365;
 
-
 $bg-gradient-fwd: linear-gradient(
-                135deg,
-                rgba(0, 200, 255, 1) 0%,
-                rgba(0, 97, 215, 1) 100%
+  135deg,
+  rgba(0, 200, 255, 1) 0%,
+  rgba(0, 97, 215, 1) 100%
 );
 $bg-gradient-rev: linear-gradient(
-                135deg,
-                rgba(0, 97, 215, 1) 0%,
-                rgba(0, 200, 255, 1) 100%
+  135deg,
+  rgba(0, 97, 215, 1) 0%,
+  rgba(0, 200, 255, 1) 100%
 );
 
-$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  0 4px 6px -2px rgba(0, 0, 0, 0.05);

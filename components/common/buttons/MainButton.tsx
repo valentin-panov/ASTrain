@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import LoginIcon from "@mui/icons-material/Login";
-import styles from "./Button.module.scss";
+import s from "./Button.module.scss";
 
 interface IButton {
   type?: "button" | "submit" | "reset" | undefined;
@@ -29,7 +29,7 @@ const MainButton: React.FC<IButton> = ({
         variant={variant}
         size={size}
         startIcon={<LoginIcon />}
-        className={styles.btn}
+        className={s.btn}
       >
         <span>Loading...</span>
       </LoadingButton>
@@ -39,7 +39,7 @@ const MainButton: React.FC<IButton> = ({
         type={type}
         onClick={onClick}
         size={size}
-        className={styles.btn}
+        className={s.btn}
       >
         {text}
       </Button>

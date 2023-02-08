@@ -1,4 +1,5 @@
 import React from "react";
+import s from "./CardContent.module.scss";
 
 interface ICardContent {
   title: string;
@@ -7,8 +8,8 @@ interface ICardContent {
 
 const CardContent: React.FC<ICardContent> = ({ title, body }) => (
   <>
-    <p className="font-bold text-gray-800 text-lg mb-3">{title}</p>
-    <p className="text-gray-700 text-sm">{body}</p>
+    <p className={s.title}>{title}</p>
+    <p className={s.body}>{body}</p>
   </>
 );
 

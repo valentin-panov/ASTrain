@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 import Image from "next/image";
 import logo from "../../images/logo.png";
 import GradientLink from "../common/buttons/GradientLink";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "@context/AuthContext";
 import MainButton from "../common/buttons/MainButton";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import styles from "./Header.module.scss";
 import { Navbar } from "../index";
+import s from "./Header.module.scss";
 
 const Header: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -17,13 +17,13 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={s.container}>
       <Link href={"/"} shallow={false}>
-        <a className={styles.container_logo}>
+        <a className={s.container_logo}>
           <Image src={logo} alt="Logo" width={150} height={32} />
         </a>
       </Link>
-      <div className={styles.container_buttons}>
+      <div className={s.container_buttons}>
         {auth.isAuthenticated() ? (
           <Navbar />
         ) : (

@@ -1,8 +1,8 @@
 @import "styles/colors";
-
-.rounded_full {
-  border-radius: 9999px;
-}
+//
+//.rounded_full {
+//  border-radius: 9999px;
+//}
 
 .btn {
   box-shadow: $shadow-lg;
@@ -12,4 +12,23 @@
   &_gradient {
     background: $bg-gradient-fwd;
   }
+}
+
+.link {
+  font-weight: 500;
+  color: $blue-600;
+
+  &:hover {
+    color: $blue-500;
+  }
+
+  &:focus {
+    outline: 0;
+    text-decoration: underline;
+  }
+
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
