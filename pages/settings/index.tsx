@@ -3,9 +3,9 @@ import PageTitle from "../../components/common/pageTitle/PageTitle";
 import Card from "../../components/common/card/Card";
 import GradientButton from "../../components/common/buttons/GradientButton";
 import { Field, Form, Formik } from "formik";
-import { FetchContext } from "../../context/FetchContext";
-import FormError from "../../components/FormError";
-import FormSuccess from "../../components/FormSuccess";
+import { FetchContext } from "@context/FetchContext";
+import FormError from "../../components/formError/FormError";
+import FormSuccess from "../../components/formSuccess/FormSuccess";
 import { AxiosError } from "axios";
 import { MainLayout } from "../../layouts";
 

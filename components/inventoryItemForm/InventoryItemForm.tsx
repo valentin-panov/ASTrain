@@ -1,9 +1,13 @@
 import React from "react";
 import { Form, Formik } from "formik";
-import Label from "./common/label/Label";
-import FormInput from "./FormInput";
-import GradientButton from "./common/buttons/GradientButton";
-import { IItem } from "@interfaces/IItem";
+import Label from "../common/label/Label";
+import FormInput from "../formInput/FormInput";
+import GradientButton from "../common/buttons/GradientButton";
+import s from "./InventoryItemForm.module.scss";
+import {
+  IInventoryItemForm,
+  TInventoryItemInitialValues,
+} from "@interfaces/IInventoryItemForm";
 
 const Yup = require("yup");
 
@@ -12,18 +16,6 @@ const InventoryItemSchema = Yup.object().shape({
   itemNumber: Yup.string().required("Item number is required"),
   unitPrice: Yup.string().required("Unit price is required"),
 });
-
-export type TInventoryItemInitialValues = Pick<
-  IItem,
-  "name" | "itemNumber" | "unitPrice"
->;
-
-export interface IInventoryItemForm {
-  onSubmit: (
-    values: TInventoryItemInitialValues,
-    arg1: () => void
-  ) => Promise<void>;
-}
 
 const initialValues: TInventoryItemInitialValues = {
   name: "",
@@ -43,9 +35,9 @@ const InventoryItemForm: React.FC<IInventoryItemForm> = ({ onSubmit }) => {
     >
       {() => (
         <Form>
-          <div className="flex flex-col md:flex-row">
-            <div className="w-full md:w-1/3 mr-2 mb-2 sm:mb-0">
-              <div className="mb-1">
+          <div className={s.inputsContainer}>
+            <div className={s.inputsContainer_block}>
+              <div className={s.inputsContainer_block_label}>
                 <Label text="Item Name" />
               </div>
               <FormInput
@@ -55,8 +47,8 @@ const InventoryItemForm: React.FC<IInventoryItemForm> = ({ onSubmit }) => {
                 placeholder="Item Name"
               />
             </div>
-            <div className="w-full md:w-1/3 mr-2 mb-2 sm:mb-0">
-              <div className="mb-1">
+            <div className={s.inputsContainer_block}>
+              <div className={s.inputsContainer_block_label}>
                 <Label text="Item Number" />
               </div>
               <FormInput
@@ -66,8 +58,8 @@ const InventoryItemForm: React.FC<IInventoryItemForm> = ({ onSubmit }) => {
                 placeholder="Item Number"
               />
             </div>
-            <div className="w-full md:w-1/3 mr-2 mb-2 sm:mb-0">
-              <div className="mb-1">
+            <div className={s.inputsContainer_block}>
+              <div className={s.inputsContainer_block_label}>
                 <Label text="Unit Price" />
               </div>
               <FormInput
@@ -78,10 +70,8 @@ const InventoryItemForm: React.FC<IInventoryItemForm> = ({ onSubmit }) => {
               />
             </div>
           </div>
-          <div className="flex">
-            <div className="w-full sm:w-1/4 mt-4">
-              <GradientButton type="submit">Submit</GradientButton>
-            </div>
+          <div className={s.btnContainer}>
+            <GradientButton type="submit">Submit</GradientButton>
           </div>
         </Form>
       )}

@@ -19,7 +19,8 @@
   color: $blue-600;
 
   &:hover {
-    color: $blue-500;
+    color: $blue-400;
+    text-decoration: underline;
   }
 
   &:focus {
@@ -27,8 +28,7 @@
     text-decoration: underline;
   }
 
-  transition-property: background-color, border-color, color, fill, stroke,
-    opacity, box-shadow, transform;
+  transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+  transition-duration: 200ms;
 }

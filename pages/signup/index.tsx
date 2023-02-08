@@ -4,11 +4,11 @@ import Card from "../../components/common/card/Card";
 import GradientButton from "../../components/common/buttons/GradientButton";
 import Hyperlink from "../../components/common/buttons/Hyperlink";
 import Label from "../../components/common/label/Label";
-import FormInput from "../../components/FormInput";
+import FormInput from "../../components/formInput/FormInput";
 import { AuthContext } from "@context/AuthContext";
 import GradientBar from "../../components/common/gradientBar/GradientBar";
-import FormError from "../../components/FormError";
-import FormSuccess from "../../components/FormSuccess";
+import FormError from "../../components/formError/FormError";
+import FormSuccess from "../../components/formSuccess/FormSuccess";
 import { publicFetch } from "@utils/fetch";
 import { AxiosError } from "axios";
 import { ICredentials } from "@interfaces/ICredentials";
@@ -67,46 +67,44 @@ const Signup: React.FC = () => {
 
   return (
     <>
-      <section className="w-1/2 h-screen m-auto p-8 sm:pt-10">
-        <GradientBar />
-        <Card>
-          <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full">
-              <div>
-                <div className="w-32 m-auto mb-6">
-                  <Link href={"/"} shallow={false}>
-                    <a className={s.logo}>
-                      <Image src={logo} alt="Logo" width={150} height={32} />
-                    </a>
-                  </Link>
+      <section className={s.container}>
+        <div className={s.container_cutter}>
+          <GradientBar />
+          <Card>
+            <div className={s.cardContent}>
+              <div className={s.cardContent_inlay}>
+                <div>
+                  <div className={s.logoLinkWrapper}>
+                    <Link href={"/"} shallow={false}>
+                      <a className={s.logo}>
+                        <Image src={logo} alt="Logo" width={150} height={32} />
+                      </a>
+                    </Link>
+                  </div>
+                  <h2 className={s.title}>Sign up for an account</h2>
+                  <p className={s.subtitle}>
+                    Already have an account?{" "}
+                    <Hyperlink to="login" text="Log in now" />
+                  </p>
                 </div>
-                <h2 className="mb-2 text-center text-3xl leading-9 font-extrabold text-gray-900">
-                  Sign up for an account
-                </h2>
-                <p className="text-gray-600 text-center">
-                  Already have an account?{" "}
-                  <Hyperlink to="login" text="Log in now" />
-                </p>
-              </div>
-              <Formik
-                initialValues={{
-                  firstName: "",
-                  lastName: "",
-                  email: "",
-                  password: "",
-                }}
-                onSubmit={(values: ICredentials) => submitCredentials(values)}
-                validationSchema={SignupSchema}
-              >
-                {() => (
-                  <Form className="mt-8">
-                    {signupSuccess && <FormSuccess text={signupSuccess} />}
-                    {signupError && <FormError text={signupError} />}
-                    <input type="hidden" name="remember" value="true" />
-                    <div>
-                      <div className="flex">
-                        <div className="mb-2 mr-2 w-1/2">
-                          <div className="mb-1">
+                <Formik
+                  initialValues={{
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    password: "",
+                  }}
+                  onSubmit={(values: ICredentials) => submitCredentials(values)}
+                  validationSchema={SignupSchema}
+                >
+                  {() => (
+                    <Form className={s.formContainer}>
+                      {signupSuccess && <FormSuccess text={signupSuccess} />}
+                      {signupError && <FormError text={signupError} />}
+                      <input type="hidden" name="remember" value="true" />
+                      <div className={s.inputGrid}>
+                        <div className={s.inputGrid_Fname}>
+                          <div className={s.inputGrid_label}>
                             <Label text="First Name" />
                           </div>
                           <FormInput
@@ -116,7 +114,7 @@ const Signup: React.FC = () => {
                             placeholder="First Name"
                           />
                         </div>
-                        <div className="mb-2 ml-2 w-1/2">
+                        <div className={s.inputGrid_Lname}>
                           <div className="mb-1">
                             <Label text="Last Name" />
                           </div>
@@ -127,42 +125,42 @@ const Signup: React.FC = () => {
                             placeholder="Last Name"
                           />
                         </div>
-                      </div>
-                      <div className="mb-2">
-                        <div className="mb-1">
-                          <Label text="Email address" />
+                        <div className={s.inputGrid_Email}>
+                          <div className={s.inputGrid_label}>
+                            <Label text="Email address" />
+                          </div>
+                          <FormInput
+                            ariaLabel="Email address"
+                            name="email"
+                            type="email"
+                            placeholder="Email address"
+                          />
                         </div>
-                        <FormInput
-                          ariaLabel="Email address"
-                          name="email"
-                          type="email"
-                          placeholder="Email address"
-                        />
-                      </div>
-                      <div>
-                        <div className="mb-1">
-                          <Label text="Password" />
+                        <div className={s.inputGrid_Pass}>
+                          <div className={s.inputGrid_label}>
+                            <Label text="Password" />
+                          </div>
+                          <FormInput
+                            ariaLabel="Password"
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                          />
                         </div>
-                        <FormInput
-                          ariaLabel="Password"
-                          name="password"
-                          type="password"
-                          placeholder="Password"
-                        />
-                      </div>
-                    </div>
 
-                    <div className="mt-6">
-                      <GradientButton type="submit" loading={loginLoading}>
-                        Sign Up
-                      </GradientButton>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
+                        <div className={s.submitBtnWrapper}>
+                          <GradientButton type="submit" loading={loginLoading}>
+                            Sign Up
+                          </GradientButton>
+                        </div>
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
+              </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+        </div>
       </section>
     </>
   );

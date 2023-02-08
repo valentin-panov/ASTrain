@@ -8,8 +8,8 @@ interface IHyperlink {
 }
 
 const Hyperlink: React.FC<IHyperlink> = ({ text, to }) => (
-  <Link href={to} className={s.link}>
-    {text}
+  <Link href={to}>
+    <a className={s.link}>{text}</a>
   </Link>
 );
 

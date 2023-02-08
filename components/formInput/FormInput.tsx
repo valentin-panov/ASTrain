@@ -1,7 +1,7 @@
 import React from "react";
 import { useField } from "formik";
-import FormError from "./common/formError/FormError";
-import Input from "./common/Input/Input";
+import FormError from "../common/formError/FormError";
+import Input from "../common/Input/Input";
 
 interface IFormInput {
   ariaLabel: string;

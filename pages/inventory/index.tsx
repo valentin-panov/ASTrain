@@ -2,16 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import PageTitle from "../../components/common/pageTitle/PageTitle";
 import { FetchContext } from "@context/FetchContext";
 import { formatCurrency } from "../../utils";
-import InventoryItemForm, {
-  IInventoryItemForm,
-  TInventoryItemInitialValues,
-} from "../../components/InventoryItemForm";
+
 import DangerButton from "../../components/common/dangerButton/DangerButton";
-import FormError from "../../components/FormError";
-import FormSuccess from "../../components/FormSuccess";
+import FormError from "../../components/formError/FormError";
+import FormSuccess from "../../components/formSuccess/FormSuccess";
 import { AxiosError } from "axios";
 import { IItem } from "@interfaces/IItem";
 import { MainLayout } from "../../layouts";
+import { InventoryItemForm } from "../../components";
+import {
+  IInventoryItemForm,
+  TInventoryItemInitialValues,
+} from "@interfaces/IInventoryItemForm";
 
 const InventoryItemContainer: React.FC = ({ children }) => (
   <div className="bg-white rounded shadow-md mb-4 p-4">{children}</div>
@@ -64,14 +66,19 @@ const Inventory: React.FC = () => {
   useEffect(() => {
     const getInventory = async () => {
       try {
-        const { data } = await fetchContext.authAxios.get("inventory");
-        setInventory(data);
+        return await fetchContext.authAxios.get("inventory");
       } catch (err) {
         console.log("the err", err);
       }
     };
 
-    getInventory();
+    getInventory().then((response) => {
+      if (response?.status === 200) {
+        setInventory(response.data);
+      } else {
+        console.log(response?.data.message);
+      }
+    });
   }, [fetchContext]);
 
   const onSubmit = async (
