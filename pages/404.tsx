@@ -1,5 +1,6 @@
 import { MainLayout } from "../layouts";
 import GradientLink from "../components/common/buttons/GradientLink";
+import s from "../styles/Error.module.scss";
 
 export default function Error404() {
   return (
