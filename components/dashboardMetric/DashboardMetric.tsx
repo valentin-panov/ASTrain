@@ -1,4 +1,5 @@
 import React from "react";
+import s from "./DashboardMetric.module.scss";
 
 export interface IDashboardMetric {
   title: string;
@@ -12,12 +13,12 @@ const DashboardMetric: React.FC<IDashboardMetric> = ({
   icon,
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg p-4 border-t-4 border-blue-500">
-      <p className="text-gray-600 uppercase text-xs">
+    <div className={s.container}>
+      <p className={s.title}>
         {icon}
         {title}
       </p>
-      <p className="text-3xl text-blue-600 font-bold">{value}</p>
+      <p className={s.value}>{value}</p>
     </div>
   );
 };

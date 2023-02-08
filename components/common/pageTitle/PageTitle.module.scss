@@ -1,9 +1,12 @@
 @import "styles/colors";
 
 .wrapper {
-  // sm:my-4"
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
+  @media (min-width: 640px) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .content {
