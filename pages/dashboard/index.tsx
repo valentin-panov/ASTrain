@@ -49,21 +49,21 @@ const Dashboard: React.FC = () => {
       {dashboardData ? (
         <>
           <div className={s.topContainer}>
-            <div className="w-full sm:w-1/3 sm:mr-2 mb-4 sm:mb-0">
+            <div className={s.topContainer_cards}>
               <DashboardMetric
                 title="Sales Volume"
                 value={formatCurrency(dashboardData.salesVolume)}
                 icon={<BarChartIcon />}
               />
             </div>
-            <div className="w-full sm:w-1/3 sm:ml-2 sm:mr-2 mb-4 sm:mb-0">
+            <div className={s.topContainer_cards}>
               <DashboardMetric
                 title="New Customers"
                 value={dashboardData.newCustomers}
                 icon={<PersonAddAltIcon />}
               />
             </div>
-            <div className="w-full sm:w-1/3 sm:ml-2 mb-4 sm:mb-0">
+            <div className={s.topContainer_cards}>
               <DashboardMetric
                 title="Refunds"
                 value={formatCurrency(dashboardData.refunds)}
@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
               />
             </div>
           </div>
-          <div className="w-full mt-4">
+          <div className={s.bottom_container}>
             <Card>
               {dashboardData && (
                 <DashboardChart salesData={dashboardData.graphData} />

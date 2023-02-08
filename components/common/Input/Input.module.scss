@@ -1,13 +1,13 @@
 @import "styles/colors";
 
-.topContainer {
+.container {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   position: relative;
   display: block;
   width: 100%;
-  padding: 5rem 0.75rem;
+  padding: 0.5rem 0.75rem;
   border-width: 1px;
   border-color: $gray-300;
   color: $gray-900;
