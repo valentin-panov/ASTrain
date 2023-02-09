@@ -14,9 +14,10 @@ import {
   IInventoryItemForm,
   TInventoryItemInitialValues,
 } from "@interfaces/IInventoryItemForm";
+import s from "./Inventory.module.scss";
 
 const InventoryItemContainer: React.FC = ({ children }) => (
-  <div className="bg-white rounded shadow-md mb-4 p-4">{children}</div>
+  <div className={s.inventoryItemContainer}>{children}</div>
 );
 
 interface IInventoryItem {
@@ -26,21 +27,21 @@ interface IInventoryItem {
 
 const InventoryItem: React.FC<IInventoryItem> = ({ item, onDelete }) => {
   return (
-    <div className="flex">
-      <img className="rounded w-32 h-full" src={item.image} alt="inventory" />
-      <div className="flex justify-between w-full">
-        <div className="flex flex-col ml-4 justify-between">
+    <div className={s.inventoryItem}>
+      <img className={s.inventoryItem_img} src={item.image} alt="inventory" />
+      <div className={s.inventoryItem_container}>
+        <div className={s.inventoryItem_container_inlay}>
           <div>
-            <p className="font-bold text-xl text-gray-900">{item.name}</p>
-            <p className="text-sm text-gray-600">{item.itemNumber}</p>
+            <p className={s.inventoryItem_name}>{item.name}</p>
+            <p className={s.inventoryItem_number}>{item.itemNumber}</p>
           </div>
           <div>
-            <p className="text-gray-700 text-xl">
+            <p className={s.inventoryItem_price}>
               {formatCurrency(item.unitPrice)}
             </p>
           </div>
         </div>
-        <div className="self-end">
+        <div className={s.inventoryItem_btn}>
           <DangerButton text="Delete" onClick={() => onDelete(item)} />
         </div>
       </div>
@@ -50,8 +51,8 @@ const InventoryItem: React.FC<IInventoryItem> = ({ item, onDelete }) => {
 
 const NewInventoryItem: React.FC<IInventoryItemForm> = ({ onSubmit }) => {
   return (
-    <section className="bg-white p-4 shadow-md rounded-md">
-      <p className="font-bold mb-2">New Inventory Item</p>
+    <section className={s.newInventoryItem}>
+      <p className={s.newInventoryItem_title}>New Inventory Item</p>
       <InventoryItemForm onSubmit={onSubmit} />
     </section>
   );
@@ -127,7 +128,7 @@ const Inventory: React.FC = () => {
       <PageTitle title="Inventory" />
       {successMessage && <FormSuccess text={successMessage} />}
       {errorMessage && <FormError text={errorMessage} />}
-      <div className="mb-4">
+      <div className={s.title}>
         <NewInventoryItem onSubmit={onSubmit} />
       </div>
       {inventory && inventory.length

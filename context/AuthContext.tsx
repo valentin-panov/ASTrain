@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { IAuthState, TAuthContext } from "@interfaces/IAuth";
 import { useRouter } from "next/router";
 import { storage } from "@utils/storage";
+import { expireTokenCookie } from "@lib/auth";
 
 const defaultAuthState: IAuthState = {
   token: null,
@@ -62,6 +63,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const logout = () => {
     clearStorage();
+    expireTokenCookie();
     setAuthState(defaultAuthState);
     router.push("/login").then();
   };

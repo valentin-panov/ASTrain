@@ -8,6 +8,8 @@ import FormError from "../../components/formError/FormError";
 import FormSuccess from "../../components/formSuccess/FormSuccess";
 import { AxiosError } from "axios";
 import { MainLayout } from "../../layouts";
+import s from "./Settings.module.scss";
+import { AuthContext } from "@context/AuthContext";
 
 interface IValues {
   bio: string;
@@ -16,6 +18,8 @@ interface IValues {
 
 const Settings: React.FC = () => {
   const fetchContext = useContext(FetchContext);
+  const authContext = useContext(AuthContext);
+  const { userInfo } = authContext.authState;
   const [bio, setBio] = useState<IValues>({ bio: "" });
   const [successMessage, setSuccessMessage] = useState<string>();
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -23,14 +27,24 @@ const Settings: React.FC = () => {
   useEffect(() => {
     const getBio = async () => {
       try {
-        const { data } = await fetchContext.authAxios.get("bio");
-        setBio({ bio: data.bio });
+        return await fetchContext.authAxios.get("bio", {
+          params: {
+            _id: userInfo._id,
+          },
+        });
       } catch (err) {
         console.log(err);
       }
     };
-    getBio().then();
-  }, [fetchContext.authAxios]);
+    getBio().then((response) => {
+      if (response?.status === 200) {
+        setBio({ bio: response.data.bio });
+      } else {
+        // error handler
+        console.log(response?.data.message);
+      }
+    });
+  }, [fetchContext.authAxios, userInfo._id]);
 
   const saveBio = async (bio: IValues) => {
     try {
@@ -51,7 +65,7 @@ const Settings: React.FC = () => {
     <MainLayout>
       <PageTitle title="Settings" />
       <Card>
-        <h2 className="font-bold mb-2">Fill Out Your Bio</h2>
+        <h2 className={s.title}>Fill Out Your Bio</h2>
         {successMessage && <FormSuccess text={successMessage} />}
         {errorMessage && <FormError text={errorMessage} />}
         <Formik
@@ -60,9 +74,9 @@ const Settings: React.FC = () => {
           enableReinitialize={true}
         >
           {() => (
-            <Form>
+            <Form className={s.formContainer}>
               <Field
-                className="border border-gray-300 rounded p-1 w-full h-56 mb-2"
+                className={s.formFiled}
                 component="textarea"
                 name="bio"
                 placeholder="Your bio here"

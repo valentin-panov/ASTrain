@@ -1,21 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
-import PageTitle from "../../components/common/pageTitle/PageTitle";
-import { FetchContext } from "../../context/FetchContext";
-import Card from "../../components/common/card/Card";
-import IUser from "../../interfaces/IUser";
+import PageTitle from "@components/common/pageTitle/PageTitle";
+import { FetchContext } from "@context/FetchContext";
+import Card from "@components/common/card/Card";
+import IUser from "@interfaces/IUser";
 import Image from "next/image";
-
+import s from "./Users.module.scss";
 import defaultAvatar from "../../images/defaultAvatar.png";
 import { MainLayout } from "../../layouts";
 
 const UserDetailLabel: React.FC<{ text: string }> = ({ text }) => (
-  <p className="mt-2 uppercase font-bold text-gray-500 text-xs">{text}</p>
+  <p className={s.userDetailLabel}>{text}</p>
 );
 
 const UserDetail: React.FC<{ user: IUser }> = ({ user }) => (
   <Card>
-    <div className="flex">
-      <div className="w-24">
+    <div className={s.cardContent}>
+      <div className={s.avatarWrapper}>
         <Image
           src={user.avatar || defaultAvatar}
           alt="avatar"
@@ -24,47 +24,53 @@ const UserDetail: React.FC<{ user: IUser }> = ({ user }) => (
         />
       </div>
 
-      <div>
-        <p className="font-bold text-lg">
+      <div className={s.detailsWrapper}>
+        <div className={s.names}>
           {user.firstName} {user.lastName}
-        </p>
-
-        <div className="mt-2">
-          <UserDetailLabel text="Bio" />
-          {user.bio ? (
-            <div dangerouslySetInnerHTML={{ __html: user.bio }} />
-          ) : (
-            <p className="text-gray-500 italic">No bio set</p>
-          )}
         </div>
+        <UserDetailLabel text="Bio" />
+        {user.bio ? (
+          <div
+            className={s.bio}
+            dangerouslySetInnerHTML={{ __html: user.bio }}
+          />
+        ) : (
+          <div className={s.bio}>No bio set</div>
+        )}
       </div>
     </div>
   </Card>
 );
 
-const Users = () => {
+const Users: React.FC = () => {
   const fetchContext = useContext(FetchContext);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<IUser[]>([]);
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const { data } = await fetchContext.authAxios.get("users");
-        setUsers(data.users);
+        return await fetchContext.authAxios.get("users");
       } catch (err) {
         console.log(err);
       }
     };
-    getUsers();
-  }, [fetchContext.authAxios]);
+    getUsers().then((response) => {
+      if (response?.status === 200) {
+        setUsers(response.data.users);
+      } else {
+        // error handler
+        console.log(response?.data.message);
+      }
+    });
+  }, [fetchContext]);
 
   return (
     <MainLayout>
       <PageTitle title="Users" />
-      <div className="flex flex-col">
-        {!!users.length &&
+      <div className={s.container}>
+        {users?.length > 0 &&
           users.map((user: IUser) => (
-            <div className="m-2" key={user._id}>
+            <div className={s.cardWrapper} key={user._id}>
               <UserDetail user={user} />
             </div>
           ))}
@@ -74,3 +80,18 @@ const Users = () => {
 };
 
 export default Users;
+
+// export async function getStaticProps() {
+//   try {
+//     const response = await fetch("https://jsonplaceholder.typicode.com/users");
+//     const users: IUser[] = response.status === 200 ? await response.json() : [];
+//     return {
+//       props: { users }, // will be passed to the page component as props
+//     };
+//   } catch (e) {
+//     const users: IUser[] = [];
+//     return {
+//       props: { users },
+//     };
+//   }
+// }

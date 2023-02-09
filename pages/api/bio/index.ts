@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import UserModel from "../../../models/UserModel";
 import connectMongo from "@utils/connectMongo";
-import { verifyToken } from "@lib/auth";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -10,14 +9,11 @@ import { verifyToken } from "@lib/auth";
 const apiBio = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
-      const token = req.headers.authorization?.substring(7);
-      await verifyToken(token as string);
-
       await connectMongo();
 
-      const { sub } = req.body.user;
+      const { _id } = req.body;
       const user = await UserModel.findOne({
-        _id: sub,
+        _id,
       })
         .lean()
         .select("bio");

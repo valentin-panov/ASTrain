@@ -6,9 +6,9 @@ import IUser from "./interfaces/IUser";
 
 export const config = {
   matcher: [
-    // "/((?!_next/static|_next/image|favicon.ico).*)",
-    "/dashboard",
-    "/api/dashboard-data",
+    "/((?!_next/static|_next/image|favicon.ico).*)",
+    // "/dashboard",
+    // "/api/",
   ],
 };
 
@@ -23,43 +23,66 @@ const redirectAPI = (req: NextRequest) => {
 };
 
 export default async function middleware(req: NextRequest) {
-  console.log("[middleware]", req.url);
-  // console.log("cookies:", req.cookies);
+  console.log("[middleware in]", req.url);
+  const path = req.nextUrl.pathname.split("/");
+
+  // do not protect homepage
+  if (path[1] === "") {
+    console.log("homepage [middleware exit]");
+    return NextResponse.next();
+  }
+  // do not protect authenticate api
+  if (
+    req.nextUrl.pathname.startsWith("/api/authenticate") ||
+    req.nextUrl.pathname.startsWith("/api/signup")
+  ) {
+    console.log("unprotected route, [middleware exit]");
+    return NextResponse.next();
+  }
 
   const verifiedToken = await verifyTokenInRequest(req).catch((err) => {
     console.error("[verifyAuth error:", err.message, "]");
   });
 
+  // redirect to home tried to re-authenticate logged-in user, or pass through
+  if (
+    req.nextUrl.pathname.startsWith("/signup") ||
+    req.nextUrl.pathname.startsWith("/login")
+  ) {
+    if (verifiedToken) {
+      console.log(
+        "auth page within authenticated session, redirect to homepage [middleware exit]"
+      );
+      return redirectToHome();
+    } else {
+      return NextResponse.next();
+    }
+  }
+
   if (req.nextUrl.pathname.startsWith("/api/")) {
-    console.log("headers.Authorization:", req.headers.get("Authorization"));
+    console.log(
+      "[API] headers.Authorization:",
+      req.headers.get("Authorization")
+    );
     if (!verifiedToken) {
-      console.log("no token found. api request redirect");
+      console.log("no token found. api request redirect [middleware exit]");
       return redirectAPI(req);
     }
-  } else if (
-    !req.nextUrl.pathname.startsWith("/signup") &&
-    !req.nextUrl.pathname.startsWith("/login")
-  ) {
+  } else {
     if (!verifiedToken) {
-      console.log("no token found, non-api redirect");
+      console.log("no token found, non-api redirect [middleware exit]");
       return redirectToHome();
     }
 
-    const path = req.nextUrl.pathname.split("/");
-
-    console.log("path", path);
-
     let { role } = verifiedToken as unknown as IUser;
 
-    if (path[1] !== "") {
-      const currentPath = routes.find((route) => route.path === path[1]);
-      const allowed = currentPath?.allowedRoles.includes(role);
-      if (allowed) {
-        console.log(currentPath?.path, "allowed");
-      } else {
-        console.log(currentPath?.path, "isn't allowed");
-        return redirectToHome();
-      }
+    const currentPath = routes.find((route) => route.path === path[1]);
+    const allowed = currentPath?.allowedRoles.includes(role);
+    if (allowed) {
+      console.log(currentPath?.path, "allowed [middleware exit]");
+    } else {
+      console.log(currentPath?.path, "isn't allowed [middleware exit]");
+      return redirectToHome();
     }
   }
 }

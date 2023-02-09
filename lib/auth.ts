@@ -1,7 +1,12 @@
 import type { NextRequest, NextResponse } from "next/server";
 import { nanoid } from "nanoid";
 import { jwtVerify, SignJWT } from "jose";
-import { getJwtSecretKey, jwtOpt, USER_TOKEN } from "./authConstants";
+import {
+  ACCESS_TOKEN,
+  getJwtSecretKey,
+  jwtOpt,
+  REFRESH_TOKEN,
+} from "./authConstants";
 import { JwtPayload } from "jsonwebtoken";
 import { NextApiResponse } from "next";
 import IUser, { TUserRole } from "../interfaces/IUser";
@@ -22,7 +27,7 @@ export class AuthError extends Error {}
  */
 export async function verifyTokenInRequest(req: NextRequest) {
   const token =
-    req.cookies.get(USER_TOKEN) || req.headers.get("Authorization")?.slice(7);
+    req.cookies.get(ACCESS_TOKEN) || req.headers.get("Authorization")?.slice(7);
 
   if (!token) throw new AuthError("Missing user token");
 
@@ -59,16 +64,25 @@ export async function createJWToken(payload: JwtPayload, exp: number) {
     .setIssuedAt()
     .setIssuer("api.metrobooks")
     .setAudience("api.metrobooks")
-    .setExpirationTime(`${exp}h`)
+    .setExpirationTime(`${exp + 1}h`) // TODO don't understand why that method returns wrong time
     .sign(new TextEncoder().encode(getJwtSecretKey()));
 }
 
 /**
- * Expires the user token cookie
+ * Expires the token cookies in response
  */
-export function expireUserCookie(res: NextResponse) {
-  res.cookies.set(USER_TOKEN, "", { httpOnly: true, maxAge: 0 });
+export function expireTokenCookieInResponse(res: NextResponse) {
+  res.cookies.set(ACCESS_TOKEN, "", { httpOnly: true, maxAge: 0 });
+  res.cookies.set(REFRESH_TOKEN, "", { httpOnly: true, maxAge: 0 });
   return res;
+}
+
+/**
+ * Expires the token cookies in response
+ */
+export function expireTokenCookie() {
+  document.cookie = `${ACCESS_TOKEN}=; Max-Age=0;`;
+  document.cookie = `${REFRESH_TOKEN}=; Max-Age=0;`;
 }
 
 /**
@@ -82,6 +96,9 @@ export async function createTokens(res: NextApiResponse, user: Partial<IUser>) {
     const expiresInAT = new Date((decodedAToken.exp as number) * 1000);
     const decodedRToken: JwtPayload = jwtDecode(refreshToken);
     const expiresInRT = new Date((decodedRToken.exp as number) * 1000);
+
+    // console.log("createTokens EXP AcTo", expiresInAT);
+    // console.log("createTokens EXP ReTo", expiresInRT);
 
     res.setHeader("Set-Cookie", [
       serialize("access-token", accessToken, {
