@@ -115,7 +115,7 @@ const Signup: React.FC = () => {
                           />
                         </div>
                         <div className={s.inputGrid_Lname}>
-                          <div className="mb-1">
+                          <div className={s.inputGrid_label}>
                             <Label text="Last Name" />
                           </div>
                           <FormInput
