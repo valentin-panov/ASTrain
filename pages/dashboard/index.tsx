@@ -48,7 +48,7 @@ const Dashboard: React.FC = () => {
   return (
     <MainLayout>
       <PageTitle title="Dashboard" />
-      {dashboardData ? (
+      {dashboardData?.salesVolume ? (
         <>
           <div className={s.topContainer}>
             <div className={s.topContainer_cards}>
