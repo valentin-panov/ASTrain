@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
-import { IAuthState, TAuthContext } from "../interfaces/IAuth";
+import { IAuthState, TAuthContext } from "@interfaces/IAuth";
 import { useRouter } from "next/router";
-import { storage } from "../utils/storage";
+import { storage } from "@utils/storage";
 
 const defaultAuthState: IAuthState = {
   token: null,
@@ -23,6 +23,8 @@ const defaultContext: TAuthContext = {
 };
 
 const AuthContext: React.Context<TAuthContext> = createContext(defaultContext);
+AuthContext.displayName = "AuthContext";
+
 const { Provider } = AuthContext;
 
 const AuthProvider: React.FC = ({ children }) => {

@@ -3,6 +3,8 @@ import axios from "axios";
 import { AuthContext } from "./AuthContext";
 
 const FetchContext: React.Context<any> = createContext("");
+FetchContext.displayName = "FetchContext";
+
 const { Provider } = FetchContext;
 
 const FetchProvider: React.FC = ({ children }) => {
