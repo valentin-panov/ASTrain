@@ -14,52 +14,52 @@ export const config = {
  * @param {import("next").NextApiResponse} res
  */
 const authenticate = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== "POST") {
-    return res.status(403).json({ message: "Something went wrong." });
-  }
+  if (req.method === "POST") {
+    try {
+      const { email, password } = req.body;
 
-  try {
-    const { email, password } = req.body;
+      await connectMongo();
 
-    await connectMongo();
+      const user: IUser = await UserModel.findOne({
+        email,
+      }).lean();
 
-    const user: IUser = await UserModel.findOne({
-      email,
-    }).lean();
+      if (!user) {
+        return res.status(403).json({
+          message: "Wrong email or password.",
+        });
+      }
 
-    if (!user) {
-      return res.status(403).json({
-        message: "Wrong email or password.",
-      });
-    }
-
-    const passwordValid = await verifyPassword(
-      password,
-      user.password as string
-    );
-
-    if (passwordValid) {
-      const { password, bio, avatar, ...rest } = user;
-      const userInfo = Object.assign({}, { ...rest });
-
-      return createTokens(res, userInfo).then(({ res, expiresAt, token }) =>
-        res.status(200).json({
-          message: "Authentication successful!",
-          token,
-          userInfo,
-          expiresAt,
-        })
+      const passwordValid = await verifyPassword(
+        password,
+        user.password as string
       );
-    } else {
-      return res.status(403).json({
-        message: "Wrong email or password.",
+
+      if (passwordValid) {
+        const { password, bio, avatar, ...rest } = user;
+        const userInfo = Object.assign({}, { ...rest });
+
+        return createTokens(res, userInfo).then(({ res, expiresAt, token }) =>
+          res.status(200).json({
+            message: "Authentication successful!",
+            token,
+            userInfo,
+            expiresAt,
+          })
+        );
+      } else {
+        return res.status(403).json({
+          message: "Wrong email or password.",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({
+        message: "Authentication failed.",
       });
     }
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({
-      message: "Authentication failed.",
-    });
+  } else {
+    return res.status(403).json({ message: "Something went wrong." });
   }
 };
 

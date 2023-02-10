@@ -1,4 +1,4 @@
-import type { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { nanoid } from "nanoid";
 import { jwtVerify, SignJWT } from "jose";
 import {
@@ -18,6 +18,7 @@ interface IUserJwtPayload {
   role: TUserRole;
   jti: string;
   iat: number;
+  exp: number;
 }
 
 export class AuthError extends Error {}
@@ -71,9 +72,23 @@ export async function createJWToken(payload: JwtPayload, exp: number) {
 /**
  * Expires the token cookies in response
  */
-export function expireTokenCookieInResponse(res: NextResponse) {
-  res.cookies.set(ACCESS_TOKEN, "", { httpOnly: true, maxAge: 0 });
-  res.cookies.set(REFRESH_TOKEN, "", { httpOnly: true, maxAge: 0 });
+export async function expireTokenCookieInResponse(res: NextApiResponse) {
+  res.setHeader("Set-Cookie", [
+    serialize(ACCESS_TOKEN, "", {
+      secure: true,
+      sameSite: "strict",
+      path: "/",
+      httpOnly: true,
+      maxAge: 0,
+    }),
+    serialize(REFRESH_TOKEN, "", {
+      secure: true,
+      sameSite: "strict",
+      path: "/",
+      httpOnly: true,
+      maxAge: 0,
+    }),
+  ]);
   return res;
 }
 
@@ -97,17 +112,14 @@ export async function createTokens(res: NextApiResponse, user: Partial<IUser>) {
     const decodedRToken: JwtPayload = jwtDecode(refreshToken);
     const expiresInRT = new Date((decodedRToken.exp as number) * 1000);
 
-    // console.log("createTokens EXP AcTo", expiresInAT);
-    // console.log("createTokens EXP ReTo", expiresInRT);
-
     res.setHeader("Set-Cookie", [
-      serialize("access-token", accessToken, {
+      serialize(ACCESS_TOKEN, accessToken, {
         secure: true,
         sameSite: "strict",
         path: "/",
         expires: expiresInAT,
       }),
-      serialize("refresh-token", refreshToken, {
+      serialize(REFRESH_TOKEN, refreshToken, {
         secure: true,
         sameSite: "strict",
         path: "/",

@@ -1,8 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
 import { IAuthState, TAuthContext } from "@interfaces/IAuth";
 import { useRouter } from "next/router";
-import { storage } from "@utils/storage";
-import { expireTokenCookie } from "@lib/auth";
+import { getCookieValue, storage } from "@utils/storage";
+import { publicFetch } from "@utils/fetch";
+import { ACCESS_TOKEN } from "@lib/authConstants";
+import { verifyToken } from "@lib/auth";
 
 const defaultAuthState: IAuthState = {
   token: null,
@@ -32,12 +34,14 @@ const AuthProvider: React.FC = ({ children }) => {
   const router = useRouter();
   const [authState, setAuthState] = useState<IAuthState>(defaultAuthState);
 
-  const getStateFromLocalStorage = () => {
+  const getStateFromLocalStorage = async () => {
     try {
+      const token = await getCookieValue(ACCESS_TOKEN);
+      const decodedToken = await verifyToken(token as string);
       return {
-        token: storage.get("token"),
-        expiresAt: storage.get("expiresAt"),
-        userInfo: JSON.parse(storage.get("userInfo") || ""),
+        token,
+        expiresAt: decodedToken.exp,
+        userInfo: decodedToken,
       };
     } catch {
       return defaultAuthState;
@@ -45,15 +49,15 @@ const AuthProvider: React.FC = ({ children }) => {
   };
 
   useEffect(() => {
-    setAuthState(getStateFromLocalStorage());
+    getStateFromLocalStorage().then((r) => setAuthState(r as IAuthState));
   }, []);
 
   const setAuthInfo = ({ token, userInfo, expiresAt }: IAuthState) => {
-    if (typeof window !== "undefined") {
-      storage.set("token", token || "");
-      storage.set("userInfo", JSON.stringify(userInfo));
-      storage.set("expiresAt", expiresAt || "");
-    }
+    // if (typeof window !== "undefined") {
+    //   storage.set("token", token || "");
+    //   storage.set("userInfo", JSON.stringify(userInfo));
+    //   storage.set("expiresAt", expiresAt || "");
+    // }
     setAuthState({
       token,
       userInfo,
@@ -62,10 +66,11 @@ const AuthProvider: React.FC = ({ children }) => {
   };
 
   const logout = () => {
-    clearStorage();
-    expireTokenCookie();
-    setAuthState(defaultAuthState);
-    router.push("/login").then();
+    publicFetch.post(`logout`).then(() => {
+      clearStorage();
+      setAuthState(defaultAuthState);
+      router.push("/login").then();
+    });
   };
 
   const clearStorage = () => {

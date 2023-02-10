@@ -6,6 +6,15 @@ export const storage = {
     keys.forEach((key) => localStorage.removeItem(key)),
 };
 
+export const getCookieValue = async (name: string) => {
+  const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+  if (match) {
+    return match[2];
+  } else {
+    throw new Error("--something went wrong---");
+  }
+};
+
 // export const storage = () => {
 //   if (typeof window !== "undefined") {
 //     const get = (key: string): string => localStorage.getItem(key) || '';
