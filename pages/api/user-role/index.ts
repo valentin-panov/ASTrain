@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import UserModel from "../../../models/UserModel";
 import connectMongo from "@utils/connectMongo";
 import { verifyToken } from "@lib/auth";
+import IUser from "@interfaces/IUser";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -11,7 +12,7 @@ const apiUserRole = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "PATCH") {
     try {
       const token = req.headers.authorization?.substring(7);
-      const userInfo = await verifyToken(token as string);
+      const { _id } = (await verifyToken(token as string)) as unknown as IUser;
 
       const allowedRoles = ["user", "admin"];
       const { role } = req.body;
@@ -21,7 +22,8 @@ const apiUserRole = async (req: NextApiRequest, res: NextApiResponse) => {
       }
       await connectMongo();
 
-      await UserModel.findOneAndUpdate({ _id: userInfo.sub }, { role });
+      await UserModel.findOneAndUpdate({ _id }, { role });
+
       res.status(200).json({
         message:
           "User role updated. You must log in again for the changes to take effect.",
