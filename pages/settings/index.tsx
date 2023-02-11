@@ -76,7 +76,7 @@ const Settings: React.FC = () => {
           {() => (
             <Form className={s.formContainer}>
               <Field
-                className={s.formFiled}
+                className={s.formField}
                 component="textarea"
                 name="bio"
                 placeholder="Your bio here"

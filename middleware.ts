@@ -60,10 +60,11 @@ export default async function middleware(req: NextRequest) {
   }
 
   if (req.nextUrl.pathname.startsWith("/api/")) {
-    console.log(
-      "[API] headers.Authorization:",
-      req.headers.get("Authorization")
-    );
+    // console.log(
+    //   "[API] headers.Authorization:",
+    //   req.headers.get("Authorization")
+    // );
+    // console.log("[API] req.cookies", req.cookies);
     if (!verifiedToken) {
       console.log("no token found. api request redirect [middleware exit]");
       return redirectAPI(req);

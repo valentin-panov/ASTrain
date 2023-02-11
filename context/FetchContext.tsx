@@ -9,7 +9,7 @@ const { Provider } = FetchContext;
 
 const FetchProvider: React.FC = ({ children }) => {
   const authContext = useContext(AuthContext);
-  const { token } = authContext.authState;
+  const { token } = authContext.authState; // TODO lets get rid of authContext
 
   const authAxios = axios.create({
     baseURL: process.env.API_URL,
