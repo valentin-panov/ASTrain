@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import connectMongo from "@utils/connectMongo";
 import InventoryItemModel from "../../../models/InventoryItemModel";
 import { verifyToken } from "@lib/auth";
+import IUser from "@interfaces/IUser";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -14,13 +15,13 @@ const apiDeleteInventory = async (
   if (req.method === "DELETE") {
     try {
       const token = req.headers.authorization?.substring(7);
-      const userInfo = await verifyToken(token as string);
+      const { _id } = (await verifyToken(token as string)) as unknown as IUser;
 
       await connectMongo();
 
       const deletedItem = await InventoryItemModel.findOneAndDelete({
         _id: req.query.id,
-        user: userInfo.sub,
+        user: _id,
       });
       res.status(201).json({
         message: "Inventory item deleted!",

@@ -131,13 +131,15 @@ const Inventory: React.FC = () => {
       <div className={s.title}>
         <NewInventoryItem onSubmit={onSubmit} />
       </div>
-      {inventory && inventory.length
-        ? inventory.map((item: IItem) => (
-            <InventoryItemContainer key={item._id}>
-              <InventoryItem item={item} onDelete={onDelete} />
-            </InventoryItemContainer>
-          ))
-        : "No Inventory Items"}
+      {inventory?.length > 0 ? (
+        inventory.map((item: IItem) => (
+          <InventoryItemContainer key={item._id}>
+            <InventoryItem item={item} onDelete={onDelete} />
+          </InventoryItemContainer>
+        ))
+      ) : (
+        <span className={s.noItem}>No Inventory Items</span>
+      )}
     </MainLayout>
   );
 };

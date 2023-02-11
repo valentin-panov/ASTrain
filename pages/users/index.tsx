@@ -19,8 +19,8 @@ const UserDetail: React.FC<{ user: IUser }> = ({ user }) => (
         <Image
           src={user.avatar || defaultAvatar}
           alt="avatar"
-          width={30}
-          height={30}
+          width={50}
+          height={50}
         />
       </div>
 

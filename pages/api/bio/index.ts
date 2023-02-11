@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import UserModel from "../../../models/UserModel";
 import connectMongo from "@utils/connectMongo";
+import { verifyToken } from "@lib/auth";
+import IUser from "@interfaces/IUser";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -9,9 +11,10 @@ import connectMongo from "@utils/connectMongo";
 const apiBio = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
+      const token = req.headers.authorization?.substring(7);
+      const { _id } = (await verifyToken(token as string)) as unknown as IUser;
       await connectMongo();
 
-      const { _id } = req.body;
       const user = await UserModel.findOne({
         _id,
       })
@@ -28,13 +31,14 @@ const apiBio = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   } else if (req.method === "PATCH") {
     try {
+      const token = req.headers.authorization?.substring(7);
+      const { _id } = (await verifyToken(token as string)) as unknown as IUser;
       await connectMongo();
 
-      const { sub } = req.body.user;
       const { bio } = req.body.bio;
       const updatedUser = await UserModel.findOneAndUpdate(
         {
-          _id: sub,
+          _id,
         },
         {
           bio,

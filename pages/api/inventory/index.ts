@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import InventoryItemModel from "../../../models/InventoryItemModel";
 import connectMongo from "@utils/connectMongo";
 import { verifyToken } from "@lib/auth";
+import IUser from "@interfaces/IUser";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -9,15 +10,14 @@ import { verifyToken } from "@lib/auth";
  */
 const apiInventory = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
-    const token = req.headers.authorization?.substring(7);
-    const userInfo = await verifyToken(token as string);
-
-    await connectMongo("GET from inventory api");
-
     try {
-      const user = userInfo.sub;
+      const token = req.headers.authorization?.substring(7);
+      const { _id } = (await verifyToken(token as string)) as unknown as IUser;
+
+      await connectMongo("GET from inventory api");
+
       const inventoryItems = await InventoryItemModel.find({
-        user,
+        user: _id,
       });
       res.status(200).json(inventoryItems);
     } catch (err) {
@@ -26,12 +26,11 @@ const apiInventory = async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (req.method === "POST") {
     try {
       const token = req.headers.authorization?.substring(7);
-      const userInfo = await verifyToken(token as string);
+      const { _id } = (await verifyToken(token as string)) as unknown as IUser;
       await connectMongo();
 
-      const userId = userInfo.sub;
       const input = Object.assign({}, req.body, {
-        user: userId,
+        user: _id,
       });
       const inventoryItem = new InventoryItemModel(input);
       await inventoryItem.save();

@@ -33,7 +33,6 @@
     border-radius: 0.25rem;
     width: 8rem;
     height: 100%;
-
   }
 
   &_container {
@@ -53,23 +52,24 @@
     color: $gray-900;
     font-weight: 700;
     font-size: 1.25rem;
-
   }
 
   &_number {
     color: $gray-600;
     font-size: 0.875rem;
-
   }
 
   &_price {
     color: $gray-700;
     font-size: 1.25rem;
-
   }
 
   &_btn {
-    align-self: flex-end;
-
+    align-self: center;
   }
+}
+
+.noItem {
+  font-weight: 500;
+  color: $gray-500;
 }
