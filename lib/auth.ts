@@ -1,17 +1,16 @@
 import type { NextRequest } from "next/server";
 import { nanoid } from "nanoid";
-import { jwtVerify, SignJWT } from "jose";
+import { decodeJwt, jwtVerify, SignJWT } from "jose";
 import {
   ACCESS_TOKEN,
   getJwtSecretKey,
   jwtOpt,
   REFRESH_TOKEN,
 } from "./authConstants";
-import { JwtPayload } from "jsonwebtoken";
 import { NextApiResponse } from "next";
 import IUser, { TUserRole } from "../interfaces/IUser";
-import jwtDecode from "jwt-decode";
 import { serialize } from "cookie";
+import { JWTPayload } from "jose/dist/types/types";
 
 interface IUserJwtPayload {
   sub: string;
@@ -58,7 +57,7 @@ export async function verifyToken(token: string) {
  * @param payload firstName: string; lastName: string; email: string; role: TUserRole;
  * @param exp number of hours to expire
  */
-export async function createJWToken(payload: JwtPayload, exp: number) {
+export async function createJWToken(payload: JWTPayload, exp: number) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setJti(nanoid())
@@ -107,9 +106,9 @@ export async function createTokens(res: NextApiResponse, user: Partial<IUser>) {
   try {
     const accessToken = await createJWToken(user, 1);
     const refreshToken = await createJWToken(user, 24);
-    const decodedAToken: JwtPayload = jwtDecode(accessToken);
+    const decodedAToken: JWTPayload = decodeJwt(accessToken);
     const expiresInAT = new Date((decodedAToken.exp as number) * 1000);
-    const decodedRToken: JwtPayload = jwtDecode(refreshToken);
+    const decodedRToken: JWTPayload = decodeJwt(refreshToken);
     const expiresInRT = new Date((decodedRToken.exp as number) * 1000);
 
     res.setHeader("Set-Cookie", [
