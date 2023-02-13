@@ -12,6 +12,8 @@ export const config = {
   ],
 };
 
+// TODO CSRF protection https://github.com/amorey/edge-csrf/tree/0.2.1
+
 const redirectToHome = () => {
   return NextResponse.redirect(process.env.BASE_URL as string);
 };
