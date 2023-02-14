@@ -83,13 +83,10 @@ export default async function middleware(req: NextRequest) {
     const allowed = currentPath?.allowedRoles.includes(role);
     if (allowed) {
       console.log(currentPath?.path, "allowed [middleware exit]");
+      return NextResponse.next();
     } else {
       console.log(currentPath?.path, "isn't allowed [middleware exit]");
       return redirectToHome();
     }
   }
 }
-
-// https://www.youtube.com/watch?v=4zlqCu24wr4
-
-// TODO instead of jsonwebtoken use that: https://github.com/vercel/examples/blob/main/edge-middleware/jwt-authentication/lib/auth.ts
