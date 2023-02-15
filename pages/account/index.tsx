@@ -6,8 +6,15 @@ import { MainLayout } from "../../layouts";
 import classNames from "classnames";
 import { Card, PageTitle } from "../../components";
 import s from "./Account.module.scss";
+import { ICsrfToken } from "@interfaces/ICsrf";
+import { GetServerSideProps } from "next";
 
-const Account: React.FC = () => {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  const csrfToken = res.getHeader("x-csrf-token") || "";
+  return { props: { csrfToken } };
+};
+
+const Account: React.FC<ICsrfToken> = ({ csrfToken }) => {
   const fetchContext = useContext(FetchContext);
   const auth = useContext(AuthContext);
   const [successMessage, setSuccessMessage] = useState<string>("");
@@ -15,9 +22,17 @@ const Account: React.FC = () => {
 
   const setUserRole = async (role: string) => {
     try {
-      const { data } = await fetchContext.authAxios.patch("user-role", {
-        role,
-      });
+      const { data } = await fetchContext.authAxios.patch(
+        "user-role",
+        {
+          role,
+        },
+        {
+          headers: {
+            "x-csrf-token": csrfToken,
+          },
+        }
+      );
       setSuccessMessage(data.message);
       setErrorMessage("");
     } catch (err: unknown) {

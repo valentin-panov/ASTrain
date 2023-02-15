@@ -15,7 +15,13 @@ import {
   TInventoryItemInitialValues,
 } from "@interfaces/IInventoryItemForm";
 import s from "./Inventory.module.scss";
+import { GetServerSideProps } from "next";
+import { ICsrfToken } from "@interfaces/ICsrf";
 
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  const csrfToken = res.getHeader("x-csrf-token") || "";
+  return { props: { csrfToken } };
+};
 const InventoryItemContainer: React.FC = ({ children }) => (
   <div className={s.inventoryItemContainer}>{children}</div>
 );
@@ -58,7 +64,7 @@ const NewInventoryItem: React.FC<IInventoryItemForm> = ({ onSubmit }) => {
   );
 };
 
-const Inventory: React.FC = () => {
+const Inventory: React.FC<ICsrfToken> = ({ csrfToken }) => {
   const fetchContext = useContext(FetchContext);
   const [inventory, setInventory] = useState<IItem[]>([]);
   const [successMessage, setSuccessMessage] = useState<string>("");
@@ -87,7 +93,11 @@ const Inventory: React.FC = () => {
     resetForm: () => void
   ) => {
     try {
-      const { data } = await fetchContext.authAxios.post("inventory", values);
+      const { data } = await fetchContext.authAxios.post("inventory", values, {
+        headers: {
+          "x-csrf-token": csrfToken,
+        },
+      });
       setInventory([...inventory, data.inventoryItem]);
       resetForm();
       setSuccessMessage(data.message);
@@ -107,7 +117,12 @@ const Inventory: React.FC = () => {
     try {
       if (window.confirm("Are you sure you want to delete this item?")) {
         const { data } = await fetchContext.authAxios.delete(
-          `inventory/${item._id}`
+          `inventory/${item._id}`,
+          {
+            headers: {
+              "x-csrf-token": csrfToken,
+            },
+          }
         );
         setInventory(
           inventory.filter((item: IItem) => item._id !== data.deletedItem._id)

@@ -51,7 +51,7 @@ const Users: React.FC = () => {
       try {
         return await fetchContext.authAxios.get("users");
       } catch (err) {
-        console.log(err);
+        console.log("getUsers error", err);
       }
     };
     getUsers().then((response) => {
@@ -59,7 +59,7 @@ const Users: React.FC = () => {
         setUsers(response.data.users);
       } else {
         // error handler
-        console.log(response?.data.message);
+        console.log("getUsers then error", response?.data.message);
       }
     });
   }, [fetchContext]);

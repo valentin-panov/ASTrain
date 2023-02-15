@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
       try {
         return await fetchContext.authAxios.get("dashboard-data");
       } catch (err) {
-        console.log(err);
+        console.log("Dashboard get error", err);
       }
     };
 
@@ -40,7 +40,7 @@ const Dashboard: React.FC = () => {
         setDashboardData(response.data);
       } else {
         // error handler
-        console.log(response?.data.message);
+        console.log("Dashboard then error", response?.data.message);
       }
     });
   }, [fetchContext]);

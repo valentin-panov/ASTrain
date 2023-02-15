@@ -3,6 +3,7 @@ import * as process from "process";
 import { routes } from "@utils/routes";
 import { verifyTokenInRequest } from "@lib/auth";
 import IUser from "./interfaces/IUser";
+import csrf from "edge-csrf";
 
 export const config = {
   matcher: [
@@ -13,6 +14,8 @@ export const config = {
 };
 
 // TODO CSRF protection https://github.com/amorey/edge-csrf/tree/0.2.1
+// initalize protection function
+const csrfProtect = csrf();
 
 const redirectToHome = () => {
   return NextResponse.redirect(process.env.BASE_URL as string);
@@ -25,13 +28,19 @@ const redirectAPI = (req: NextRequest) => {
 };
 
 export default async function middleware(req: NextRequest) {
+  const response = NextResponse.next();
   console.log("[middleware in]", req.url);
+
+  // csrf protection
+  const csrfError = await csrfProtect(req, response);
+
+  //get the actual request path
   const path = req.nextUrl.pathname.split("/");
 
   // do not protect homepage
   if (path[1] === "") {
     console.log("homepage [middleware exit]");
-    return NextResponse.next();
+    return response;
   }
   // do not protect authenticate api
   if (
@@ -39,7 +48,7 @@ export default async function middleware(req: NextRequest) {
     req.nextUrl.pathname.startsWith("/api/signup")
   ) {
     console.log("unprotected route, [middleware exit]");
-    return NextResponse.next();
+    return response;
   }
 
   const verifiedToken = await verifyTokenInRequest(req).catch((err) => {
@@ -57,16 +66,18 @@ export default async function middleware(req: NextRequest) {
       );
       return redirectToHome();
     } else {
-      return NextResponse.next();
+      return response;
     }
   }
 
   if (req.nextUrl.pathname.startsWith("/api/")) {
-    // console.log(
-    //   "[API] headers.Authorization:",
-    //   req.headers.get("Authorization")
-    // );
-    // console.log("[API] req.cookies", req.cookies);
+    // check CSRF
+    if (csrfError) {
+      console.log(
+        `CSRF Error: [${csrfError}]. API request redirect [middleware exit]`
+      );
+      return redirectAPI(req);
+    }
     if (!verifiedToken) {
       console.log("no token found. api request redirect [middleware exit]");
       return redirectAPI(req);
@@ -83,7 +94,7 @@ export default async function middleware(req: NextRequest) {
     const allowed = currentPath?.allowedRoles.includes(role);
     if (allowed) {
       console.log(currentPath?.path, "allowed [middleware exit]");
-      return NextResponse.next();
+      return response;
     } else {
       console.log(currentPath?.path, "isn't allowed [middleware exit]");
       return redirectToHome();

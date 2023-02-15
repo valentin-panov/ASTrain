@@ -10,13 +10,20 @@ import { AxiosError } from "axios";
 import { MainLayout } from "../../layouts";
 import s from "./Settings.module.scss";
 import { AuthContext } from "@context/AuthContext";
+import { GetServerSideProps } from "next";
+import { ICsrfToken } from "@interfaces/ICsrf";
 
 interface IValues {
   bio: string;
   // formikHelpers: FormikHelpers<FormikValues>;
 }
 
-const Settings: React.FC = () => {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  const csrfToken = res.getHeader("x-csrf-token") || "";
+  return { props: { csrfToken } };
+};
+
+const Settings: React.FC<ICsrfToken> = ({ csrfToken }) => {
   const fetchContext = useContext(FetchContext);
   const authContext = useContext(AuthContext);
   const { userInfo } = authContext.authState;
@@ -33,7 +40,7 @@ const Settings: React.FC = () => {
           },
         });
       } catch (err) {
-        console.log(err);
+        console.log("getBio error", err);
       }
     };
     getBio().then((response) => {
@@ -41,14 +48,22 @@ const Settings: React.FC = () => {
         setBio({ bio: response.data.bio });
       } else {
         // error handler
-        console.log(response?.data.message);
+        console.log("getBio then error", response?.data.message);
       }
     });
   }, [fetchContext.authAxios, userInfo._id]);
 
   const saveBio = async (bio: IValues) => {
     try {
-      const { data } = await fetchContext.authAxios.patch("bio", { bio }); // TODO : check!
+      const { data } = await fetchContext.authAxios.patch(
+        "bio",
+        { bio },
+        {
+          headers: {
+            "x-csrf-token": csrfToken,
+          },
+        }
+      );
       setErrorMessage("");
       setSuccessMessage(data.message);
     } catch (err) {
@@ -81,6 +96,7 @@ const Settings: React.FC = () => {
                 name="bio"
                 placeholder="Your bio here"
               />
+              {/*<input type="hidden" value={csrfToken} />*/}
               <GradientButton type="submit">Save</GradientButton>
             </Form>
           )}
