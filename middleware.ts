@@ -29,7 +29,7 @@ const redirectAPI = (req: NextRequest) => {
 
 export default async function middleware(request: NextRequest) {
   const response = NextResponse.next();
-  let csrfError;
+  let csrfError = null;
   console.log(
     "[middleware in] => request.nextUrl.pathname [",
     request.nextUrl.pathname,
@@ -83,7 +83,7 @@ export default async function middleware(request: NextRequest) {
 
   if (request.nextUrl.pathname.startsWith("/api/")) {
     // check CSRF
-    if (csrfError) {
+    if (csrfError !== null) {
       console.log(
         `CSRF Error: [${csrfError}]. API request redirect => [middleware exit]`
       );
