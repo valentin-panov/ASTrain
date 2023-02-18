@@ -30,6 +30,7 @@ const redirectAPI = (req: NextRequest) => {
 export default async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   console.log("[middleware in]", request.url);
+  console.log("[middleware PATH]", request.nextUrl.pathname);
 
   // csrf protection
   const csrfError = await csrfProtect(request, response);
@@ -93,10 +94,10 @@ export default async function middleware(request: NextRequest) {
     const currentPath = routes.find((route) => route.path === path[1]);
     const allowed = currentPath?.allowedRoles.includes(role);
     if (allowed) {
-      console.log(currentPath?.path, "allowed [middleware exit]");
+      console.log("[", currentPath?.path, "] allowed [middleware exit]");
       return response;
     } else {
-      console.log(currentPath?.path, "isn't allowed [middleware exit]");
+      console.log("[", currentPath?.path, "] isn't allowed [middleware exit]");
       return redirectToHome();
     }
   }
