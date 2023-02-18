@@ -15,6 +15,12 @@ export const getCookieValue = async (name: string) => {
   }
 };
 
+export const extractCookieByName = (cookies: string, name: string) => {
+  const cookiesArr = cookies.split("; ");
+  const result = cookiesArr.find((el) => el.split("=")[0] === name);
+  return result && result.split("=")[1];
+};
+
 // export const storage = () => {
 //   if (typeof window !== "undefined") {
 //     const get = (key: string): string => localStorage.getItem(key) || '';

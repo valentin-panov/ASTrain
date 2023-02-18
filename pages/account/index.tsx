@@ -15,14 +15,14 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 };
 
 const Account: React.FC<ICsrfToken> = ({ csrfToken }) => {
-  const fetchContext = useContext(FetchContext);
+  const { authAxios } = useContext(FetchContext);
   const auth = useContext(AuthContext);
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const setUserRole = async (role: string) => {
     try {
-      const { data } = await fetchContext.authAxios.patch(
+      const { data } = await authAxios.patch(
         "user-role",
         {
           role,

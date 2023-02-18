@@ -11,7 +11,8 @@ import IUser from "@interfaces/IUser";
 const apiBio = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
-      const token = req.headers.authorization?.substring(7);
+      const token =
+        req.cookies["access-token"] || req.headers.authorization?.substring(7);
       const { _id } = (await verifyToken(token as string)) as unknown as IUser;
       await connectMongo();
 
@@ -26,7 +27,7 @@ const apiBio = async (req: NextApiRequest, res: NextApiResponse) => {
       });
     } catch (err) {
       return res.status(400).json({
-        message: "There was a problem updating your bio",
+        message: "There was a problem fetching your bio",
       });
     }
   } else if (req.method === "PATCH") {

@@ -10,23 +10,36 @@ import { AxiosError } from "axios";
 import { MainLayout } from "../../layouts";
 import s from "./Settings.module.scss";
 import { AuthContext } from "@context/AuthContext";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { ICsrfToken } from "@interfaces/ICsrf";
+import { extractCookieByName } from "@utils/storage";
 
 interface IValues {
   bio: string;
   // formikHelpers: FormikHelpers<FormikValues>;
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const csrfToken = res.getHeader("x-csrf-token") || "";
-  return { props: { csrfToken } };
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  res,
+}: GetServerSidePropsContext) => {
+  try {
+    const csrfToken =
+      (res.getHeader("x-csrf-token") as string) ||
+      extractCookieByName(req.headers.cookie as string, "_csrfSecret");
+    return { props: { csrfToken } };
+  } catch (e) {
+    return { props: { csrfToken: "" } };
+  }
 };
 
 const Settings: React.FC<ICsrfToken> = ({ csrfToken }) => {
-  const fetchContext = useContext(FetchContext);
-  const authContext = useContext(AuthContext);
-  const { userInfo } = authContext.authState;
+  const { authAxios } = useContext(FetchContext);
+  const {
+    authState: {
+      userInfo: { _id },
+    },
+  } = useContext(AuthContext);
   const [bio, setBio] = useState<IValues>({ bio: "" });
   const [successMessage, setSuccessMessage] = useState<string>();
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -34,11 +47,7 @@ const Settings: React.FC<ICsrfToken> = ({ csrfToken }) => {
   useEffect(() => {
     const getBio = async () => {
       try {
-        return await fetchContext.authAxios.get("bio", {
-          params: {
-            _id: userInfo._id,
-          },
-        });
+        return await authAxios.get("bio");
       } catch (err) {
         console.log("getBio error", err);
       }
@@ -51,11 +60,11 @@ const Settings: React.FC<ICsrfToken> = ({ csrfToken }) => {
         console.log("getBio then error", response?.data.message);
       }
     });
-  }, [fetchContext.authAxios, userInfo._id]);
+  }, [authAxios, _id]);
 
   const saveBio = async (bio: IValues) => {
     try {
-      const { data } = await fetchContext.authAxios.patch(
+      const { data } = await authAxios.patch(
         "bio",
         { bio },
         {

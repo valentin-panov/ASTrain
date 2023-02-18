@@ -27,15 +27,15 @@ const redirectAPI = (req: NextRequest) => {
   return NextResponse.redirect(req.nextUrl);
 };
 
-export default async function middleware(req: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const response = NextResponse.next();
-  console.log("[middleware in]", req.url);
+  console.log("[middleware in]", request.url);
 
   // csrf protection
-  const csrfError = await csrfProtect(req, response);
+  const csrfError = await csrfProtect(request, response);
 
   //get the actual request path
-  const path = req.nextUrl.pathname.split("/");
+  const path = request.nextUrl.pathname.split("/");
 
   // do not protect homepage
   if (path[1] === "") {
@@ -44,21 +44,21 @@ export default async function middleware(req: NextRequest) {
   }
   // do not protect authenticate api
   if (
-    req.nextUrl.pathname.startsWith("/api/authenticate") ||
-    req.nextUrl.pathname.startsWith("/api/signup")
+    request.nextUrl.pathname.startsWith("/api/authenticate") ||
+    request.nextUrl.pathname.startsWith("/api/signup")
   ) {
     console.log("unprotected route, [middleware exit]");
     return response;
   }
 
-  const verifiedToken = await verifyTokenInRequest(req).catch((err) => {
+  const verifiedToken = await verifyTokenInRequest(request).catch((err) => {
     console.error("[verifyAuth error:", err.message, "]");
   });
 
   // redirect to home tried to re-authenticate logged-in user, or pass through
   if (
-    req.nextUrl.pathname.startsWith("/signup") ||
-    req.nextUrl.pathname.startsWith("/login")
+    request.nextUrl.pathname.startsWith("/signup") ||
+    request.nextUrl.pathname.startsWith("/login")
   ) {
     if (verifiedToken) {
       console.log(
@@ -70,17 +70,17 @@ export default async function middleware(req: NextRequest) {
     }
   }
 
-  if (req.nextUrl.pathname.startsWith("/api/")) {
+  if (request.nextUrl.pathname.startsWith("/api/")) {
     // check CSRF
     if (csrfError) {
       console.log(
         `CSRF Error: [${csrfError}]. API request redirect [middleware exit]`
       );
-      return redirectAPI(req);
+      return redirectAPI(request);
     }
     if (!verifiedToken) {
       console.log("no token found. api request redirect [middleware exit]");
-      return redirectAPI(req);
+      return redirectAPI(request);
     }
   } else {
     if (!verifiedToken) {
