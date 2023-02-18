@@ -41,6 +41,7 @@ export default async function middleware(request: NextRequest) {
     csrfError = await csrfProtect(request, response);
     console.log("csrfProtect success. csrfError:", csrfError);
   } catch (e) {
+    csrfError = e;
     console.log("csrfProtect failed. csrfError:", e);
   }
 
