@@ -3,7 +3,6 @@ import * as process from "process";
 import { routes } from "@utils/routes";
 import { verifyTokenInRequest } from "@lib/auth";
 import IUser from "./interfaces/IUser";
-import csrf from "edge-csrf";
 
 export const config = {
   matcher: [
@@ -15,7 +14,7 @@ export const config = {
 
 // TODO CSRF protection https://github.com/amorey/edge-csrf/tree/0.2.1
 // initalize protection function
-const csrfProtect = csrf();
+// const csrfProtect = csrf();
 
 const redirectToHome = () => {
   return NextResponse.redirect(process.env.BASE_URL as string);
@@ -29,21 +28,21 @@ const redirectAPI = (req: NextRequest) => {
 
 export default async function middleware(request: NextRequest) {
   const response = NextResponse.next();
-  let csrfError = null;
+  // let csrfError = null;
   console.log(
     "[middleware in] => request.nextUrl.pathname [",
     request.nextUrl.pathname,
     "]"
   );
 
-  // csrf protection
-  try {
-    csrfError = await csrfProtect(request, response);
-    console.log("csrfProtect success. csrfError:", csrfError);
-  } catch (e) {
-    csrfError = e;
-    console.log("csrfProtect failed. csrfError:", e);
-  }
+  // // csrf protection
+  // try {
+  //   csrfError = await csrfProtect(request, response);
+  //   console.log("csrfProtect didn't crashed. csrfError:", csrfError);
+  // } catch (e) {
+  //   csrfError = e;
+  //   console.log("csrfProtect crashed. csrfError:", e);
+  // }
 
   //get the actual request path
   const path = request.nextUrl.pathname.split("/");
@@ -84,12 +83,12 @@ export default async function middleware(request: NextRequest) {
 
   if (request.nextUrl.pathname.startsWith("/api/")) {
     // check CSRF
-    if (csrfError !== null) {
-      console.log(
-        `CSRF Error: [${csrfError}]. API request redirect => [middleware exit]`
-      );
-      return redirectAPI(request);
-    }
+    // if (csrfError !== null) {
+    //   console.log(
+    //     `CSRF Error: [${csrfError}]. API request redirect => [middleware exit]`
+    //   );
+    //   return redirectAPI(request);
+    // }
     if (!verifiedToken) {
       console.log(
         "no access token found. API request redirect => [middleware exit]"
