@@ -29,6 +29,7 @@ const redirectAPI = (req: NextRequest) => {
 
 export default async function middleware(request: NextRequest) {
   const response = NextResponse.next();
+  let csrfError;
   console.log(
     "[middleware in] => request.nextUrl.pathname [",
     request.nextUrl.pathname,
@@ -36,7 +37,12 @@ export default async function middleware(request: NextRequest) {
   );
 
   // csrf protection
-  const csrfError = await csrfProtect(request, response);
+  try {
+    csrfError = await csrfProtect(request, response);
+    console.log("csrfProtect success. csrfError:", csrfError);
+  } catch (e) {
+    console.log("csrfProtect failed. csrfError:", e);
+  }
 
   //get the actual request path
   const path = request.nextUrl.pathname.split("/");
