@@ -32,7 +32,9 @@ const apiBio = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   } else if (req.method === "PATCH") {
     try {
-      const token = req.headers.authorization?.substring(7);
+      const token =
+        req.cookies["access-token"] || req.headers.authorization?.substring(7);
+
       const { _id } = (await verifyToken(token as string)) as unknown as IUser;
       await connectMongo();
 

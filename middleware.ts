@@ -29,10 +29,10 @@ const redirectAPI = (req: NextRequest) => {
 
 export default async function middleware(request: NextRequest) {
   const response = NextResponse.next();
-  console.log("[middleware in request.url]", request.url);
   console.log(
-    "[middleware request.nextUrl.pathname]",
-    request.nextUrl.pathname
+    "[middleware in] => request.nextUrl.pathname [",
+    request.nextUrl.pathname,
+    "]"
   );
 
   // csrf protection
@@ -43,7 +43,7 @@ export default async function middleware(request: NextRequest) {
 
   // do not protect homepage
   if (path[1] === "") {
-    console.log("homepage [middleware exit]");
+    console.log("homepage => [middleware exit]");
     return response;
   }
   // do not protect authenticate api
@@ -52,7 +52,7 @@ export default async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/api/signup") ||
     request.nextUrl.pathname.startsWith("/api/logout")
   ) {
-    console.log("unprotected route, [middleware exit]");
+    console.log("unprotected route => [middleware exit]");
     return response;
   }
 
@@ -67,7 +67,7 @@ export default async function middleware(request: NextRequest) {
   ) {
     if (verifiedToken) {
       console.log(
-        "auth page within authenticated session, redirect to homepage [middleware exit]"
+        "auth page within authenticated session, redirect to homepage => [middleware exit]"
       );
       return redirectToHome();
     } else {
@@ -79,17 +79,21 @@ export default async function middleware(request: NextRequest) {
     // check CSRF
     if (csrfError) {
       console.log(
-        `CSRF Error: [${csrfError}]. API request redirect [middleware exit]`
+        `CSRF Error: [${csrfError}]. API request redirect => [middleware exit]`
       );
       return redirectAPI(request);
     }
     if (!verifiedToken) {
-      console.log("no token found. api request redirect [middleware exit]");
+      console.log(
+        "no access token found. API request redirect => [middleware exit]"
+      );
       return redirectAPI(request);
     }
   } else {
     if (!verifiedToken) {
-      console.log("no token found, non-api redirect [middleware exit]");
+      console.log(
+        "no access token found, non-API redirect => [middleware exit]"
+      );
       return redirectToHome();
     }
 
@@ -98,10 +102,14 @@ export default async function middleware(request: NextRequest) {
     const currentPath = routes.find((route) => route.path === path[1]);
     const allowed = currentPath?.allowedRoles.includes(role);
     if (allowed) {
-      console.log("[", currentPath?.path, "] allowed [middleware exit]");
+      console.log("[", currentPath?.path, "] allowed => [middleware exit]");
       return response;
     } else {
-      console.log("[", currentPath?.path, "] isn't allowed [middleware exit]");
+      console.log(
+        "[",
+        currentPath?.path,
+        "] isn't allowed => [middleware exit]"
+      );
       return redirectToHome();
     }
   }
