@@ -29,8 +29,11 @@ const redirectAPI = (req: NextRequest) => {
 
 export default async function middleware(request: NextRequest) {
   const response = NextResponse.next();
-  console.log("[middleware in]", request.url);
-  console.log("[middleware PATH]", request.nextUrl.pathname);
+  console.log("[middleware in request.url]", request.url);
+  console.log(
+    "[middleware request.nextUrl.pathname]",
+    request.nextUrl.pathname
+  );
 
   // csrf protection
   const csrfError = await csrfProtect(request, response);
