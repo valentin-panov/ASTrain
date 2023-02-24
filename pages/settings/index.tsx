@@ -26,7 +26,8 @@ export const getServerSideProps: GetServerSideProps = async ({
   try {
     const csrfToken =
       (res.getHeader("x-csrf-token") as string) ||
-      extractCookieByName(req.headers.cookie as string, "_csrfSecret");
+      extractCookieByName(req.headers.cookie as string, "_csrfSecret") ||
+      null;
     return { props: { csrfToken } };
   } catch (e) {
     return { props: { csrfToken: null } };

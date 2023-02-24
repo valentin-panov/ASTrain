@@ -1,3 +1,3 @@
 export interface ICsrfToken {
-  csrfToken: string;
+  csrfToken: string | null;
 }
