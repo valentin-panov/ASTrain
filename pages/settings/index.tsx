@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       extractCookieByName(req.headers.cookie as string, "_csrfSecret");
     return { props: { csrfToken } };
   } catch (e) {
-    return { props: { csrfToken: "" } };
+    return { props: { csrfToken: null } };
   }
 };
 
@@ -69,7 +69,7 @@ const Settings: React.FC<ICsrfToken> = ({ csrfToken }) => {
         { bio },
         {
           headers: {
-            "x-csrf-token": csrfToken,
+            "x-csrf-token": csrfToken || null,
           },
         }
       );
