@@ -29,11 +29,7 @@ const redirectAPI = (req: NextRequest) => {
 export default async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   // let csrfError = null;
-  console.log(
-    "[middleware in] => request.nextUrl.pathname [",
-    request.nextUrl.pathname,
-    "]"
-  );
+  console.log("[middleware in] => pathname [", request.nextUrl.pathname, "]");
 
   // // csrf protection
   // try {
@@ -95,6 +91,8 @@ export default async function middleware(request: NextRequest) {
       );
       return redirectAPI(request);
     }
+    console.log("API access granted => [middleware exit]");
+    return response;
   } else {
     if (!verifiedToken) {
       console.log(
