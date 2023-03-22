@@ -26,7 +26,10 @@
         "./components/*"
       ],
       "@styles/*": [
-        "./src/styles/*"
+        "./styles/*"
+      ],
+      "@layouts/*": [
+        "./layouts/*"
       ],
       "@utils/*": [
         "./utils/*"

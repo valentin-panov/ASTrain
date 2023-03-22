@@ -29,4 +29,10 @@ export const routes = [
     api: "users",
     allowedRoles: ["admin"],
   },
+  {
+    label: "Laboratory",
+    path: "lab",
+    api: "lab",
+    allowedRoles: ["admin"],
+  },
 ];

@@ -8,3 +8,5 @@ export { default as Navbar } from "./navbar/Navbar";
 export { default as AvatarDropdown } from "./avatarDropdown/AvatarDropdown";
 export { default as Sidebar } from "./sidebar/Sidebar";
 export { default as InventoryItemForm } from "./inventoryItemForm/InventoryItemForm";
+
+export { default as TestContainer } from "./testLib/container";

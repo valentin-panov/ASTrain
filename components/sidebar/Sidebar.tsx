@@ -9,6 +9,7 @@ import PieChartIcon from "@mui/icons-material/PieChart";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import SettingsIcon from "@mui/icons-material/Settings";
 import GroupsIcon from "@mui/icons-material/Groups";
+import BiotechIcon from "@mui/icons-material/Biotech";
 import s from "./Sidebar.module.scss";
 
 const icons: Record<string, React.ReactNode> = {
@@ -17,6 +18,7 @@ const icons: Record<string, React.ReactNode> = {
   Account: <ManageAccountsIcon />,
   Settings: <SettingsIcon />,
   Users: <GroupsIcon />,
+  Laboratory: <BiotechIcon />,
 };
 
 interface NavItemProps {
