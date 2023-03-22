@@ -33,6 +33,7 @@ const components: {
 const examples: string[] = [
   `<img src="xxx:x" onerror=alert('pwnd')>`,
   `javascript:alert(1)`,
+  `javascript:alert(document.cookie.split(';'))`,
 ];
 
 const TestContainer: React.FC = () => {
