@@ -10,9 +10,9 @@ import {
   FormAction,
   HtmlAttr,
   LocationHref,
-  NextRedirect,
+  NextRedirect, PopulatedInput,
   RefInnerHTML,
-  WindowOpen,
+  WindowOpen
 } from "@components/testLib";
 import Barrel from "@components/testLib/container/barrel";
 
@@ -29,7 +29,8 @@ const components: {
   SAFE_classNames: ClassN,
   SAFE_data_Test_Id: DataTestId,
   SAFE_html_Attr: HtmlAttr,
-  TEST_dangerouslySetInnerHTML_script: DSIHscript,
+  SAFE_dangerouslySetInnerHTML_script: DSIHscript,
+  SAFE_input: PopulatedInput
 };
 
 const examples: string[] = [
