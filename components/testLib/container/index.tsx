@@ -5,6 +5,7 @@ import {
   ClassN,
   DataTestId,
   DSIH,
+  DSIHscript,
   ExampleRouter,
   FormAction,
   HtmlAttr,
@@ -28,6 +29,7 @@ const components: {
   SAFE_classNames: ClassN,
   SAFE_data_Test_Id: DataTestId,
   SAFE_html_Attr: HtmlAttr,
+  TEST_dangerouslySetInnerHTML_script: DSIHscript,
 };
 
 const examples: string[] = [

@@ -9,3 +9,4 @@ export { default as NextRedirect } from "./poc_nextRedirect/nextRedirect";
 export { default as RefInnerHTML } from "./poc_refInnerHTML/refInnerHTML";
 export { default as WindowOpen } from "./poc_windowOpen/windowOpen";
 export { default as ClassicInput } from "./classicInput/classicInput";
+export { default as DSIHscript } from "./test_dSIH_script/DSIHscript";
