@@ -6,9 +6,10 @@ interface Props {
 }
 
 const DataTestId: React.FC<Props> = ({ payload }) => {
+  const sample = `<div className={styles.description} data-testid={payload}>`;
   return (
     <>
-      <h2>div.data-testid=testId</h2>
+      <h2>{sample}</h2>
       <div className={styles.description} data-testid={payload}>
         Inspect me!
       </div>

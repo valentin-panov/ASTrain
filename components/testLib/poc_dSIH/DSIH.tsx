@@ -6,9 +6,14 @@ interface Props {
 }
 
 const DSIH: React.FC<Props> = ({ payload }) => {
+  const sample = `<div
+          dangerouslySetInnerHTML={{
+            __html: '${payload}',
+          }}
+        />`;
   return (
     <>
-      <h2>dangerouslySetInnerHTML in div</h2>
+      <h2>{sample}</h2>
       <div className={styles.code}>
         inspect me!
         <div

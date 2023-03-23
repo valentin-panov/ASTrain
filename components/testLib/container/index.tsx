@@ -25,9 +25,9 @@ const components: {
   next_redirect: NextRedirect,
   ref_InnerHTML: RefInnerHTML,
   window_open: WindowOpen,
-  classNames: ClassN,
-  data_Test_Id: DataTestId,
-  html_Attr: HtmlAttr,
+  SAFE_classNames: ClassN,
+  SAFE_data_Test_Id: DataTestId,
+  SAFE_html_Attr: HtmlAttr,
 };
 
 const examples: string[] = [

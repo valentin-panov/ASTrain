@@ -6,9 +6,10 @@ interface Props {
 }
 
 const ClassN: React.FC<Props> = ({ payload }) => {
+  const sample = `<p className={payload}>`;
   return (
     <>
-      <h2>className injection</h2>
+      <h2>{sample}</h2>
       <div className={styles.code}>
         <p className={payload}>
           I&apos;m a &lt;p&nbsp;className={`{payload} /`}&gt;. Inspect me!
