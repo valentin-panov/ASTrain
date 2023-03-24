@@ -9,39 +9,42 @@ import {
   ExampleRouter,
   FormAction,
   HtmlAttr,
+  JSONparse,
   LocationHref,
-  NextRedirect, PopulatedInput,
+  NextRedirect,
+  PopulatedInput,
   RefInnerHTML,
-  WindowOpen
+  WindowOpen,
 } from "@components/testLib";
 import Barrel from "@components/testLib/container/barrel";
 
 const components: {
   [propName: string]: React.FunctionComponent<{ payload: string }>;
 } = {
-  dangerouslySetInnerHTML: DSIH,
   next_router_push: ExampleRouter,
   form_action: FormAction,
   location_href: LocationHref,
   next_redirect: NextRedirect,
-  ref_InnerHTML: RefInnerHTML,
   window_open: WindowOpen,
+  dangerouslySetInnerHTML: DSIH,
+  ref_InnerHTML: RefInnerHTML,
+  json_parse_RCE: JSONparse,
   SAFE_classNames: ClassN,
   SAFE_data_Test_Id: DataTestId,
   SAFE_html_Attr: HtmlAttr,
   SAFE_dangerouslySetInnerHTML_script: DSIHscript,
-  SAFE_input: PopulatedInput
+  SAFE_input: PopulatedInput,
 };
 
 const examples: string[] = [
-  `<img src="xxx:x" onerror=alert('pwnd')>`,
   `javascript:alert(1)`,
   `javascript:alert(document.cookie.split(';'))`,
+  `<img src="xxx:x" onerror=alert('pwnd')>`,
 ];
 
 const TestContainer: React.FC = () => {
-  const [inputString, setInputString] = React.useState("javascript:alert(1)");
-  const [element, setElement] = React.useState(Object.keys(components)[1]);
+  const [inputString, setInputString] = React.useState(examples[0]);
+  const [element, setElement] = React.useState(Object.keys(components)[0]);
 
   const onChangeInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputString(event.target.value);
@@ -55,14 +58,14 @@ const TestContainer: React.FC = () => {
             value={inputString}
             onChangeHandler={onChangeInputHandler}
           />
-          <p>
-            Examples:
-            <ul>
-              {examples.map((el) => (
-                <li key={el}>{el}</li>
-              ))}
-            </ul>
-          </p>
+          <p>Examples:</p>
+          <ul>
+            {examples.map((el) => (
+              <li key={el}>
+                <p>{el}</p>
+              </li>
+            ))}
+          </ul>
           <br />
           <label htmlFor={"element_select"}>Tested element: </label>
           <select
