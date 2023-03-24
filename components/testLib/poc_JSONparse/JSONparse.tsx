@@ -35,6 +35,11 @@ const JSONparse: React.FC<Props> = ({ payload }) => {
           }
           break;
         case "object":
+          // BEGIN prototype poisoning mitigation
+          // if (key === '__proto__') {
+          //   break;
+          // }
+          // END prototype poisoning mitigation
           copied[key] = deepCopy(value);
       }
     }
