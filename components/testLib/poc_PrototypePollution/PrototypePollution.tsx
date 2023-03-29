@@ -1,11 +1,11 @@
 import React from "react";
-import styles from "./JSONparse.module.scss";
+import styles from "./PrototypePollution.module.scss";
 
 interface Props {
   payload: string;
 }
 
-const JSONparse: React.FC<Props> = ({ payload }) => {
+const PrototypePollution: React.FC<Props> = ({ payload }) => {
   const deepCopy = (obj: unknown) => {
     if (!obj) return obj;
 
@@ -53,10 +53,10 @@ const JSONparse: React.FC<Props> = ({ payload }) => {
 
   return (
     <>
-      <h2>Insecure deserialization for:</h2>
+      <h2>RCE through the prototype pollution with:</h2>
       <div className={styles.code}>{crafted}</div>
     </>
   );
 };
 
-export default JSONparse;
+export default PrototypePollution;
