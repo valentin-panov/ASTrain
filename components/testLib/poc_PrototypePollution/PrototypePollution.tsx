@@ -47,9 +47,13 @@ const PrototypePollution: React.FC<Props> = ({ payload }) => {
   };
 
   const crafted = `{"__proto__":{"toJSON":"function(){${payload};return 1;};"},"foo":"bar"}`;
-  const parsed = JSON.parse(crafted);
-  const copied = deepCopy(parsed);
-  JSON.stringify(copied); // JSON.stringify calls toJSON method under the hood
+  try {
+    const parsed = JSON.parse(crafted);
+    const copied = deepCopy(parsed);
+    JSON.stringify(copied); // JSON.stringify calls toJSON method under the hood
+  } catch (e) {
+    console.log(e);
+  }
 
   return (
     <>

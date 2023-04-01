@@ -11,4 +11,5 @@ export { default as WindowOpen } from "./poc_windowOpen/windowOpen";
 export { default as ClassicInput } from "./classicInput/classicInput";
 export { default as DSIHscript } from "./test_dSIH_script/DSIHscript";
 export { default as PopulatedInput } from "./populatedInput/populatedInput";
-export { default as PrototypePollution } from "@components/testLib/poc_PrototypePollution/PrototypePollution";
+export { default as PrototypePollution } from "./poc_PrototypePollution/PrototypePollution";
+export { default as ReactParser } from "./test_react_parser/ReactParser";

@@ -13,6 +13,7 @@ import {
   NextRedirect,
   PopulatedInput,
   PrototypePollution,
+  ReactParser,
   RefInnerHTML,
   WindowOpen,
 } from "@components/testLib";
@@ -29,6 +30,7 @@ const components: {
   dangerouslySetInnerHTML: DSIH,
   ref_InnerHTML: RefInnerHTML,
   proto_pollution_RCE: PrototypePollution,
+  html_react_parser: ReactParser,
   SAFE_classNames: ClassN,
   SAFE_data_Test_Id: DataTestId,
   SAFE_html_Attr: HtmlAttr,
@@ -40,6 +42,7 @@ const examples: string[] = [
   `javascript:alert(1)`,
   `javascript:alert(document.cookie.split(';'))`,
   `<img src="xxx:x" onerror=alert('pwnd')>`,
+  `<iframe src="javascript:alert(1)">`,
 ];
 
 const TestContainer: React.FC = () => {
