@@ -3,6 +3,7 @@ import React from "react";
 import {
   ClassicInput,
   ClassN,
+  CreateElement,
   DataTestId,
   DSIH,
   DSIHscript,
@@ -31,6 +32,7 @@ const components: {
   ref_InnerHTML: RefInnerHTML,
   proto_pollution_RCE: PrototypePollution,
   html_react_parser: ReactParser,
+  reactCreateElement: CreateElement,
   SAFE_classNames: ClassN,
   SAFE_data_Test_Id: DataTestId,
   SAFE_html_Attr: HtmlAttr,
@@ -43,6 +45,7 @@ const examples: string[] = [
   `javascript:alert(document.cookie.split(';'))`,
   `<img src="xxx:x" onerror=alert('pwnd')>`,
   `<iframe src="javascript:alert(1)">`,
+  `script|javascript|alert(1)`,
 ];
 
 const TestContainer: React.FC = () => {

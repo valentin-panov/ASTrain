@@ -10,11 +10,4 @@ Here is working web-version, deployed on Vercel https://metrobooks.vercel.app/
 Future developments:
 
 1) yaml with bad settings
-2) <img
-   className={className}
-   style={{
-   ...style,
-   width: '100%',
-   }}
-   src={imageSource}
-
+2) React.createElement
