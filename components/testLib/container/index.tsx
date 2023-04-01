@@ -45,7 +45,7 @@ const examples: string[] = [
   `javascript:alert(document.cookie.split(';'))`,
   `<img src="xxx:x" onerror=alert('pwnd')>`,
   `<iframe src="javascript:alert(1)">`,
-  `script|javascript|alert(1)`,
+  `For createElement only: scRipt|javascript|alert(1)`,
 ];
 
 const TestContainer: React.FC = () => {
