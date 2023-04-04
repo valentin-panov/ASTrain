@@ -11,12 +11,12 @@ import {
   FormAction,
   HtmlAttr,
   LocationHref,
-  NextRedirect,
+  NextRedirect, ObjectAssign,
   PopulatedInput,
   PrototypePollution,
   ReactParser,
   RefInnerHTML,
-  WindowOpen,
+  WindowOpen
 } from "@components/testLib";
 import Barrel from "@components/testLib/container/barrel";
 
@@ -33,6 +33,7 @@ const components: {
   POC_proto_pollution_RCE: PrototypePollution,
   POC_html_react_parser: ReactParser,
   POC_reactCreateElement: CreateElement,
+  POC_ObjectAssign: ObjectAssign,
   SAFE_classNames: ClassN,
   SAFE_data_Test_Id: DataTestId,
   SAFE_html_Attr: HtmlAttr,

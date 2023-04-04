@@ -14,3 +14,4 @@ export { default as PopulatedInput } from "@components/testLib/safe_populatedInp
 export { default as PrototypePollution } from "./poc_PrototypePollution/PrototypePollution";
 export { default as ReactParser } from "@components/testLib/poc_react_parser/ReactParser";
 export { default as CreateElement } from "@components/testLib/poc_createElement/createElement";
+export { default as ObjectAssign } from "@components/testLib/poc_objAssain/ObjectAssign";
