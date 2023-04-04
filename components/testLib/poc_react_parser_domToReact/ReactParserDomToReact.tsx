@@ -9,16 +9,16 @@ interface Props {
 }
 
 const ReactParserDomToReact: React.FC<Props> = ({ payload }) => {
-  const sample = `<p id="main">
-    <span class="prettify">
-     ${payload}
-    </span>
-  </p>`;
+  // const sample = `<p id="main">
+  //   <span class="prettify">
+  //    ${payload}
+  //   </span>
+  // </p>`;
   return (
     <>
-      <h2>{`TRY IFRAME! => <HtmlToReactParser>${sample}</HtmlToReactParser>`}</h2>
+      <h2>{`TRY IFRAME! => <HtmlToReactParser>${payload}</HtmlToReactParser>`}</h2>
       <div className={styles.code}>
-        <HtmlToReactParser>{sample}</HtmlToReactParser>
+        <HtmlToReactParser>{payload}</HtmlToReactParser>
         {/*<HtmlToReactParser>{purify.sanitize(sample)}</HtmlToReactParser>*/}
       </div>
     </>

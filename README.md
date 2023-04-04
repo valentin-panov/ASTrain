@@ -9,5 +9,6 @@ Here is working web-version, deployed on Vercel https://metrobooks.vercel.app/
 
 Future developments:
 
-1) yaml with bad settings
-2) ReactDOMServer.renderToStaticMarkup
+1. yaml with bad settings
+2. ReactDOMServer.renderToStaticMarkup
+3. https://blog.logrocket.com/best-practices-react-iframes/
