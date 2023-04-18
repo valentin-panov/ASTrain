@@ -16,3 +16,4 @@ export { default as ReactParser } from "@components/testLib/poc_react_parser/Rea
 export { default as CreateElement } from "@components/testLib/poc_createElement/createElement";
 export { default as ObjectAssign } from "@components/testLib/poc_objAssign/ObjectAssign";
 export { default as ReactParserDomToReact } from "@components/testLib/poc_react_parser_domToReact/ReactParserDomToReact";
+export { default as SafeImage } from "@components/testLib/safe_Image/SafeImage";
