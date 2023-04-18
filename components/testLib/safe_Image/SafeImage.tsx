@@ -13,7 +13,7 @@ const SafeImage: React.FC<Props> = ({ payload }) => {
       <h2>{sample}</h2>
       <div className={styles.code}>
         inspect me!
-        <Image src={payload}  alt={payload}/>
+        <Image src={payload} alt={payload} />
       </div>
     </>
   );

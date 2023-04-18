@@ -17,8 +17,10 @@ import {
   PrototypePollution,
   ReactParser,
   ReactParserDomToReact,
-  RefInnerHTML, SafeImage,
-  WindowOpen
+  RefInnerHTML,
+  SafeAsPathLink,
+  SafeImage,
+  WindowOpen,
 } from "@components/testLib";
 import Barrel from "@components/testLib/container/barrel";
 
@@ -43,6 +45,7 @@ const components: {
   SAFE_dangerouslySetInnerHTML_script: DSIHscript,
   SAFE_input: PopulatedInput,
   SAFE_Image_package: SafeImage,
+  SAFE_asPathLink: SafeAsPathLink,
 };
 
 const examples: string[] = [
