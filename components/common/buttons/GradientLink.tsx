@@ -22,7 +22,7 @@ const GradientLink: React.FC<IGradientLink> = ({
     <MainButton
       text={text}
       loading={false}
-      level={size}
+      size={size}
       onClick={onClick}
       variant={"contained"}
     />

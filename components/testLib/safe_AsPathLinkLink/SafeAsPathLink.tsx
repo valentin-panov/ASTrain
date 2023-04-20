@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SafeAsPathLink.module.scss";
 import { useRouter } from "next/router";
-import { Link } from "@packages/Link/Link";
+import { Link } from "@packages/index";
 
 interface Props {
   payload: string;

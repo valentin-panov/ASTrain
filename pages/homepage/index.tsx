@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
         <div className={s.linkContainer}>
           <GradientLink
             text="Get Started"
-            level="large"
+            size="large"
             to={auth.isAuthenticated() ? "/dashboard" : "/signup"}
           />
         </div>

@@ -23,7 +23,7 @@ const GradientButton: React.FC<IGradientButtonProps> = ({
     <>
       {loading ? (
         <LoadingButton
-          level={size}
+          size={size}
           loading
           loadingPosition="start"
           startIcon={<LoginIcon />}
@@ -34,7 +34,7 @@ const GradientButton: React.FC<IGradientButtonProps> = ({
         </LoadingButton>
       ) : (
         <Button
-          level={size}
+          size={size}
           variant={"contained"}
           type={type}
           onClick={onClick}

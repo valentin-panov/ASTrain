@@ -27,7 +27,7 @@ const MainButton: React.FC<IButton> = ({
         loading
         loadingPosition="start"
         variant={variant}
-        level={size}
+        size={size}
         startIcon={<LoginIcon />}
         className={s.btn}
       >
@@ -38,7 +38,7 @@ const MainButton: React.FC<IButton> = ({
         variant={variant}
         type={type}
         onClick={onClick}
-        level={size}
+        size={size}
         className={s.btn}
       >
         {text}
