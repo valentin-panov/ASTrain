@@ -10,7 +10,7 @@ Here is working web-version, deployed on Vercel https://metrobooks.vercel.app/
 There are:
 
 - 1 broken access control (A01:2021-Broken Access Control)
-- 13 markup injections (A03:2021-Injection)
+- 14 markup injections (A03:2021-Injection)
 - 4 DB injections (A03:2021-Injection)
 - 1 system information disclosure (A04:2021-Insecure Design )
 - 1 account enumeration failure (A05:2021-Security Misconfiguration )

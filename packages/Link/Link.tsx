@@ -1,4 +1,4 @@
-import {forwardRef, ReactNode} from "react";
+import { forwardRef, ReactNode } from "react";
 import classNames from "classnames";
 
 import "./Link.module.scss";
@@ -8,7 +8,7 @@ import "./Link.module.scss";
  */
 
 // eslint-disable-next-line react/display-name
-export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
       children,
@@ -133,3 +133,5 @@ interface LinkBaseProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 export type LinkProps = LinkBaseProps & LeadingOrTrailingProps;
+
+export default Link;

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./SafeImage.module.scss";
-import { Image } from "@packages/Image/Image";
+import { Image } from "@packages/index";
 
 interface Props {
   payload: string;

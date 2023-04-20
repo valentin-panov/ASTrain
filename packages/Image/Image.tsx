@@ -5,7 +5,7 @@ import classNames from "classnames";
 // import "lazysizes/plugins/attrchange/ls.attrchange";
 import "./Image.module.scss";
 
-export const Image: FC<ImageProps> = ({
+const Image: FC<ImageProps> = ({
   responsive,
   lazyLoaded,
   additionalClasses,
@@ -63,3 +63,5 @@ export interface ImageProps extends Omit<HTMLImgProps, "className"> {
    */
   alt: string;
 }
+
+export default Image;

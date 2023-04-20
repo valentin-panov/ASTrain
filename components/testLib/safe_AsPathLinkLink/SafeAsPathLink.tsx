@@ -16,6 +16,7 @@ const SafeAsPathLink: React.FC<Props> = ({ payload }) => {
           </a>
           </Link>`;
   console.log(payload);
+  console.log(asPath);
   return (
     <>
       <h2>{sample}</h2>
