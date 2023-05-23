@@ -1,6 +1,5 @@
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import styles from "./BaseService.module.scss";
-import { AccountSummaryService } from "@services/index";
 
 interface Props {
   payload: string;
@@ -9,11 +8,11 @@ interface Props {
 const BaseServiceComponent: React.FC<Props> = ({ payload }) => {
   const sample = `BaseService ${payload}`;
 
-  const ASService = useMemo(() => new AccountSummaryService(), []);
-
-  useEffect(() => {
-    ASService.get().then(() => {});
-  }, [ASService]);
+  // const ASService = useMemo(() => new AccountSummaryService(), []);
+  //
+  // useEffect(() => {
+  //   ASService.get().then(() => {});
+  // }, [ASService]);
 
   return (
     <>
