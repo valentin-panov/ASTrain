@@ -19,3 +19,4 @@ export { default as ReactParserDomToReact } from "@components/testLib/poc_react_
 export { default as SafeImage } from "@components/testLib/safe_Image/SafeImage";
 export { default as SafeAsPathLink } from "@components/testLib/safe_AsPathLinkLink/SafeAsPathLink";
 export { default as ParseHtmlStringToLoop } from "@components/testLib/poc_parseHtmlStringToLoop/ParseHtmlStringToLoop";
+export { default as BaseServiceComponent } from "@components/testLib/test_BaseService/BaseServiceComponent";

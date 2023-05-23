@@ -45,7 +45,11 @@
       ],
       "@public/*": [
         "./public/*"
-      ],     "@packages/*": [
+      ],
+      "@services/*": [
+        "./services/*"
+      ],
+      "@packages/*": [
         "./packages/*"
       ]
     },

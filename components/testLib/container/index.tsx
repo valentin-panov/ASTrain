@@ -1,6 +1,7 @@
 import styles from "./testContainer.module.scss";
 import React from "react";
 import {
+  BaseServiceComponent,
   ClassicInput,
   ClassN,
   CreateElement,
@@ -48,6 +49,7 @@ const components: {
   SAFE_input: PopulatedInput,
   SAFE_Image_package: SafeImage,
   SAFE_asPathLink: SafeAsPathLink,
+  TEST_BaseService: BaseServiceComponent,
 };
 
 const examples: string[] = [
