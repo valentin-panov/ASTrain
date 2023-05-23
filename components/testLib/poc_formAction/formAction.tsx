@@ -7,13 +7,13 @@ interface Props {
 }
 
 const FormAction: React.FC<Props> = ({ payload }) => {
-  const sample = `<form action={payload} method={"post"}>`;
+  const sample = `<form action={payload} method={"POST"}>`;
   return (
     <>
       <h2>{sample}</h2>
       <div className={s.code}>
         inspect me!
-        <form action={payload} method={"post"}>
+        <form action={payload} method={"POST"}>
           <Button variant={"outlined"} type={"submit"}>
             SUBMIT
           </Button>

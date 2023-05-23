@@ -2,15 +2,11 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { decodeURL } from "@utils/url-parse";
 import { getClientCSRF } from "@utils/cookie-parse-client-side";
 
-export default class BaseService {
+class BaseService {
   BASE_URL = `${process.env.BASE_URL}/api`;
-
   url: string;
-
   instance: AxiosInstance;
-
-  reactFlowPrefix = process.env.PROD_MODE ? "" : process.env.ENV_RETURL_PREFIX;
-
+  
   /**
    * Creates the URL string used for all requests
    * @param {string} path - the URL path to append to the base URL
@@ -30,7 +26,7 @@ export default class BaseService {
       withCredentials: true,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-        "react-flow": `${this.reactFlowPrefix}${this.reactFlow}`,
+        "react-flow": `${this.reactFlow}`,
       },
     });
 
@@ -115,3 +111,5 @@ export default class BaseService {
     );
   }
 }
+
+export default BaseService;

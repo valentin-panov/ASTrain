@@ -1,7 +1,10 @@
-import { BaseService, InternalPages } from "@services/index";
+import BaseService from "@services/BaseService";
+import { InternalPages } from "@services/index";
 
-export default class AccountSummaryService extends BaseService {
+class AccountSummaryService extends BaseService {
   constructor() {
     super("accountsummary", InternalPages.AccountSummaryPage.path);
   }
 }
+
+export default AccountSummaryService;
