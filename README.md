@@ -13,11 +13,11 @@ There are:
 - 1 uses plain text passwords data store (A02:2021-Cryptographic Failures)
 - 14 markup injections (A03:2021-Injection)
 - 4 DB injections (A03:2021-Injection)
-- 1 system information disclosure (A04:2021-Insecure Design )
+- 3 system information disclosure (A04:2021-Insecure Design )
 - 1 account enumeration failure (A05:2021-Security Misconfiguration )
+- 5 vulnerable components (A06:2021-Vulnerable and Outdated Components)
 - 2 authorisation failure (A07:2021-Identification and Authentication Failures)
 - 1 exposes session identifier in the URL (A07:2021–Identification and Authentication Failures)
-- 5 vulnerable components (A06:2021-Vulnerable and Outdated Components)
 - 1 logging failure (A09:2021-Security Logging and Monitoring Failures)
 
 Future developments:
