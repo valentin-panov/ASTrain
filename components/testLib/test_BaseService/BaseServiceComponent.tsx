@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import styles from "./BaseService.module.scss";
 import { AccountSummaryService } from "@services/index";
+import { sessionId } from "../../../data/constants";
 
 interface Props {
   payload: string;
@@ -12,9 +13,13 @@ const BaseServiceComponent: React.FC<Props> = ({ payload }) => {
   const ASService = useMemo(() => new AccountSummaryService(), []);
 
   useEffect(() => {
-    ASService.post("", new URLSearchParams({ payload: payload }))
-      .then((d) => console.log(d))
-      .catch((e) => console.log(e));
+    payload
+      ? ASService.post("", new URLSearchParams({ payload: payload }))
+          .then((d) => console.log(d))
+          .catch((e) => console.log(e))
+      : ASService.get(`?${new URLSearchParams({ token: sessionId })}`)
+          .then((d) => console.log(d))
+          .catch((e) => console.log(e));
   }, [ASService, payload]);
 
   return (

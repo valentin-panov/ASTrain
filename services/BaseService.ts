@@ -1,12 +1,15 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { decodeURL } from "@utils/url-parse";
 import { getClientCSRF } from "@utils/cookie-parse-client-side";
+import { apiPassword, sessionId } from "../data/constants";
 
 class BaseService {
   BASE_URL = `${process.env.BASE_URL}/api`;
   url: string;
   instance: AxiosInstance;
-  
+  apiPassword: string = apiPassword;
+  apiToken: string = sessionId;
+
   /**
    * Creates the URL string used for all requests
    * @param {string} path - the URL path to append to the base URL
@@ -27,6 +30,7 @@ class BaseService {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         "react-flow": `${this.reactFlow}`,
+        "API-PASS": `${this.apiPassword}`,
       },
     });
 
@@ -65,7 +69,7 @@ class BaseService {
    */
   post<T>(
     path?: string,
-    body: URLSearchParams = new URLSearchParams(),
+    body: URLSearchParams = new URLSearchParams({ "api-token": this.apiToken }),
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse<T>> {
     body.append("csrf", getClientCSRF());
