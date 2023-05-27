@@ -7,8 +7,8 @@ class BaseService {
   BASE_URL = `${process.env.BASE_URL}/api`;
   url: string;
   instance: AxiosInstance;
-  apiPassword: string = stripe_api_key;
-  apiToken: string = aws_session_token;
+  stripeApiKey: string = stripe_api_key;
+  awsSessionToken: string = aws_session_token;
 
   /**
    * Creates the URL string used for all requests
@@ -30,7 +30,7 @@ class BaseService {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         "react-flow": `${this.reactFlow}`,
-        "API-PASS": `${this.apiPassword}`,
+        "STRIPE-API-KEY": `${this.stripeApiKey}`,
       },
     });
 
@@ -69,7 +69,9 @@ class BaseService {
    */
   post<T>(
     path?: string,
-    body: URLSearchParams = new URLSearchParams({ "api-token": this.apiToken }),
+    body: URLSearchParams = new URLSearchParams({
+      aws_session_token: this.awsSessionToken,
+    }),
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse<T>> {
     body.append("csrf", getClientCSRF());
