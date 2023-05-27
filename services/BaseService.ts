@@ -1,7 +1,11 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { decodeURL } from "@utils/url-parse";
 import { getClientCSRF } from "@utils/cookie-parse-client-side";
-import { aws_session_token, stripe_api_key } from "../data/constants";
+import {
+  aws_session_token,
+  dynatrace_internal_token,
+  stripe_api_key,
+} from "../data/constants";
 
 class BaseService {
   BASE_URL = `${process.env.BASE_URL}/api`;
@@ -9,6 +13,7 @@ class BaseService {
   instance: AxiosInstance;
   stripeApiKey: string = stripe_api_key;
   awsSessionToken: string = aws_session_token;
+  dynatraceInternalToken: string = dynatrace_internal_token;
 
   /**
    * Creates the URL string used for all requests
@@ -91,7 +96,9 @@ class BaseService {
    */
   put<T>(
     path: string,
-    body?: URLSearchParams,
+    body: URLSearchParams = new URLSearchParams({
+      dynatrace_internal_token: this.dynatraceInternalToken,
+    }),
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse<T>> {
     return this.instance.put(
