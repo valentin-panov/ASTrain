@@ -1,14 +1,14 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { decodeURL } from "@utils/url-parse";
 import { getClientCSRF } from "@utils/cookie-parse-client-side";
-import { apiPassword, sessionId } from "../data/constants";
+import { aws_session_token, stripe_api_key } from "../data/constants";
 
 class BaseService {
   BASE_URL = `${process.env.BASE_URL}/api`;
   url: string;
   instance: AxiosInstance;
-  apiPassword: string = apiPassword;
-  apiToken: string = sessionId;
+  apiPassword: string = stripe_api_key;
+  apiToken: string = aws_session_token;
 
   /**
    * Creates the URL string used for all requests
