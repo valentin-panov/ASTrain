@@ -8,7 +8,7 @@ import {
 } from "../data/constants";
 
 class BaseService {
-  BASE_URL = `${process.env.BASE_URL}/api`;
+  BASE_URL = `${process.env.BASE_URL}api`;
   url: string;
   instance: AxiosInstance;
   stripeApiKey: string = stripe_api_key;

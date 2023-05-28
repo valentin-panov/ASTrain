@@ -1,10 +1,10 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useMemo, useState } from "react";
 import { IAuthState, TAuthContext } from "@interfaces/IAuth";
 import { useRouter } from "next/router";
 import { getCookieValue, storage } from "@utils/storage";
-import { publicFetch } from "@utils/fetch";
 import { ACCESS_TOKEN } from "@lib/authConstants";
 import { verifyToken } from "@lib/auth";
+import { AuthService } from "@services/index";
 
 const defaultAuthState: IAuthState = {
   token: null,
@@ -33,6 +33,8 @@ const { Provider } = AuthContext;
 const AuthProvider: React.FC = ({ children }) => {
   const router = useRouter();
   const [authState, setAuthState] = useState<IAuthState>(defaultAuthState);
+
+  const AuthServiceInstance = useMemo(() => new AuthService(), []);
 
   const getStateFromLocalStorage = async () => {
     try {
@@ -66,7 +68,7 @@ const AuthProvider: React.FC = ({ children }) => {
   };
 
   const logout = () => {
-    publicFetch.post(`logout`).then(() => {
+    AuthServiceInstance.post(`logout`).then(() => {
       clearStorage();
       setAuthState(defaultAuthState);
       router.push("/login").then();

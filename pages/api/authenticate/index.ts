@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { verifyPassword } from "@utils/passwordTools";
 import connectMongo from "@utils/connectMongo";
 import UserModel from "../../../models/UserModel";
-import IUser from "../../../interfaces/IUser";
+import IUser from "@interfaces/IUser";
 import { createTokens } from "@lib/auth";
 
 export const config = {
