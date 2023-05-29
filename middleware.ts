@@ -50,9 +50,9 @@ export default async function middleware(request: NextRequest) {
   }
   // do not protect authenticate api
   if (
-    request.nextUrl.pathname.startsWith("/api/authenticate") ||
     request.nextUrl.pathname.startsWith("/api/signup") ||
-    request.nextUrl.pathname.startsWith("/api/logout")
+    request.nextUrl.pathname.startsWith("/api/auth/authenticate") ||
+    request.nextUrl.pathname.startsWith("/api/auth/logout")
   ) {
     console.log("unprotected route => [middleware exit]");
     return response;

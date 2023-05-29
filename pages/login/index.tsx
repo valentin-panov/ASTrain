@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Form, Formik } from "formik";
 import Card from "../../components/common/card/Card";
 import Hyperlink from "../../components/common/buttons/Hyperlink";
@@ -8,15 +8,15 @@ import FormSuccess from "../../components/formSuccess/FormSuccess";
 import FormError from "../../components/formError/FormError";
 import GradientBar from "../../components/common/gradientBar/GradientBar";
 import { AuthContext } from "@context/AuthContext";
-import { publicFetch } from "@utils/fetch";
 import GradientButton from "../../components/common/buttons/GradientButton";
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { ICredentials } from "@interfaces/ICredentials";
 import Image from "next/image";
 import logo from "../../images/logo.png";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import s from "./Login.module.scss";
+import { AuthService } from "@services/index";
 
 const Yup = require("yup");
 
@@ -33,10 +33,15 @@ const Login: React.FC = () => {
   const [redirectOnLogin, setRedirectOnLogin] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
 
+  const AuthServiceInstance = useMemo(() => new AuthService(), []);
+
   const submitCredentials = async (credentials: ICredentials) => {
     try {
       setLoginLoading(true);
-      const { data } = await publicFetch.post(`authenticate`, credentials);
+      const { data }: AxiosResponse = await AuthServiceInstance.post(
+        `authenticate`,
+        new URLSearchParams(credentials as unknown as Record<string, string>)
+      );
 
       authContext.setAuthState(data);
       setLoginSuccess(data.message);

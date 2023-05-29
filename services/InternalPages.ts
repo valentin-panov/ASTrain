@@ -33,6 +33,7 @@ export interface InternalPageConfig {
 export enum InternalBasePaths {
   PLANS_SUBSCRIPTIONS = "/plans-subscriptions",
   AUTH = "/auth",
+  SIGNUP = "/signup",
 }
 
 function inferPages<T>(object: {
@@ -44,6 +45,10 @@ function inferPages<T>(object: {
 const InternalPages = inferPages({
   AuthService: {
     path: `${InternalBasePaths.AUTH}`,
+    showLeftNav: true,
+  },
+  SignupService: {
+    path: `${InternalBasePaths.SIGNUP}`,
     showLeftNav: true,
   },
   AccountSummaryPage: {
