@@ -21,7 +21,7 @@
     "@mui/material": "^5.11.6",
     "axios": "^0.26.1",
     "bcryptjs": "^2.4.3",
-    "chart.js": "^4.2.1",
+    "chart.js": "^4.3.0",
     "classnames": "^2.3.1",
     "cross-env": "^7.0.3",
     "debounce": "1.2.1",
