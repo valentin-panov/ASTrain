@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Image from "next/image";
-import logo from "../../images/logo.png";
+import logo from "@images/logo.png";
 import GradientLink from "../common/buttons/GradientLink";
 import { AuthContext } from "@context/AuthContext";
 import MainButton from "../common/buttons/MainButton";

@@ -5,8 +5,8 @@ import Card from "@components/common/card/Card";
 import IUser from "@interfaces/IUser";
 import Image from "next/image";
 import s from "./Users.module.scss";
-import defaultAvatar from "../../images/defaultAvatar.png";
-import { MainLayout } from "../../layouts";
+import defaultAvatar from "@images/defaultAvatar.png";
+import { MainLayout } from "@layouts/index";
 
 const UserDetailLabel: React.FC<{ text: string }> = ({ text }) => (
   <p className={s.userDetailLabel}>{text}</p>

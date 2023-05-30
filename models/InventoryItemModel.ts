@@ -1,6 +1,6 @@
 import { Model, Schema, Types } from "mongoose";
 import createModel from "./createModel";
-import { IInventory } from "../interfaces/IInventory";
+import { IInventory } from "@interfaces/IInventory";
 
 interface IInventoryMethods {
   fullName(): string;

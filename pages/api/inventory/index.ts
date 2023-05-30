@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import InventoryItemModel from "../../../models/InventoryItemModel";
+import InventoryItemModel from "@models/InventoryItemModel";
 import connectMongo from "@utils/connectMongo";
 import { verifyToken } from "@lib/auth";
 import IUser from "@interfaces/IUser";

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import UserModel from "../../../models/UserModel";
+import UserModel from "@models/UserModel";
 import connectMongo from "@utils/connectMongo";
 import { verifyToken } from "@lib/auth";
 import IUser from "@interfaces/IUser";

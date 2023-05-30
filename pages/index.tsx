@@ -1,6 +1,6 @@
 import HomePage from "./homepage";
 import React from "react";
-import { MainLayout } from "../layouts";
+import { MainLayout } from "@layouts/index";
 
 const IndexPage: React.FC = () => {
   return (

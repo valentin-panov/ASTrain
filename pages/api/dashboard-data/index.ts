@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import data from "../../../data/dashboard";
+import data from "@data/dashboard";
 
 /**
  * @param {import("next").NextApiRequest} req

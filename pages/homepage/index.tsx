@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "@context/AuthContext";
-import GradientLink from "../../components/common/buttons/GradientLink";
+import GradientLink from "@components/common/buttons/GradientLink";
 import s from "./Homepage.module.scss";
 
 const HomePage: React.FC = () => {

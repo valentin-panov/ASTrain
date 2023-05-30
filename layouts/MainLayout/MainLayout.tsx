@@ -1,6 +1,6 @@
 import React, { ReactNode, useContext } from "react";
 import Head from "next/head";
-import { Footer, Header, Main, Sidebar } from "../../components";
+import { Footer, Header, Main, Sidebar } from "@components/index";
 import { AuthContext } from "@context/AuthContext";
 import s from "./MainLayout.module.scss";
 

@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import connectMongo from "@utils/connectMongo";
-import InventoryItemModel from "../../../models/InventoryItemModel";
+// import connectMongo from "@utils/connectMongo";
+import InventoryItemModel from "@models/InventoryItemModel";
 import { verifyToken } from "@lib/auth";
 import IUser from "@interfaces/IUser";
+import { connectMongo } from "@utils/index";
 
 /**
  * @param {import("next").NextApiRequest} req

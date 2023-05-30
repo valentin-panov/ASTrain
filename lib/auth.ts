@@ -8,7 +8,7 @@ import {
   REFRESH_TOKEN,
 } from "./authConstants";
 import { NextApiResponse } from "next";
-import IUser, { TUserRole } from "../interfaces/IUser";
+import IUser, { TUserRole } from "@interfaces/IUser";
 import { serialize } from "cookie";
 import { JWTPayload } from "jose/dist/types/types";
 

@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import PageTitle from "../../components/common/pageTitle/PageTitle";
-import DashboardMetric from "../../components/dashboardMetric/DashboardMetric";
-import Card from "../../components/common/card/Card";
+import PageTitle from "@components/common/pageTitle/PageTitle";
+import DashboardMetric from "@components/dashboardMetric/DashboardMetric";
+import Card from "@components/common/card/Card";
 import { FetchContext } from "@context/FetchContext";
-import { formatCurrency } from "../../utils";
+import { formatCurrency } from "@utils/index";
 import DashboardChart, {
   ISalesData,
-} from "../../components/dashboardChart/DashboardChart";
+} from "@components/dashboardChart/DashboardChart";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { MainLayout } from "../../layouts";
+import { MainLayout } from "@layouts/index";
 import s from "./Dashboard.module.scss";
 
 interface IDashboardData {

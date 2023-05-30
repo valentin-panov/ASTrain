@@ -5,7 +5,7 @@ import {
   aws_session_token,
   dynatrace_internal_token,
   stripe_api_key,
-} from "../data/constants";
+} from "@data/constants";
 
 class BaseService {
   BASE_URL = `${process.env.BASE_URL}api`;

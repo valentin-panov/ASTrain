@@ -1,6 +1,6 @@
 import { Model, Schema } from "mongoose";
 import createModel from "./createModel";
-import IUser from "../interfaces/IUser";
+import IUser from "@interfaces/IUser";
 
 interface IUserMethods {
   fullName(): string;

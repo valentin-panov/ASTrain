@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import styles from "./BaseService.module.scss";
 import { AccountSummaryService } from "@services/index";
-import { aws_session_token } from "../../../data/constants";
+import { aws_session_token } from "@data/constants";
 
 interface Props {
   payload: string;

@@ -28,6 +28,12 @@
       "@styles/*": [
         "./styles/*"
       ],
+      "@images/*": [
+        "./images/*"
+      ],
+      "@data/*": [
+        "./data/*"
+      ],
       "@layouts/*": [
         "./layouts/*"
       ],
@@ -48,6 +54,9 @@
       ],
       "@services/*": [
         "./services/*"
+      ],
+      "@models/*": [
+        "./models/*"
       ],
       "@packages/*": [
         "./packages/*"

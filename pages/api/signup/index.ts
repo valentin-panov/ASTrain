@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { hashPassword } from "@utils/passwordTools";
-import UserModel from "../../../models/UserModel";
+import UserModel from "@models/UserModel";
 import connectMongo from "utils/connectMongo";
 import { createTokens } from "@lib/auth";
 

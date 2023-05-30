@@ -1,15 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import PageTitle from "../../components/common/pageTitle/PageTitle";
+import PageTitle from "@components/common/pageTitle/PageTitle";
 import { FetchContext } from "@context/FetchContext";
-import { formatCurrency } from "../../utils";
-
-import DangerButton from "../../components/common/dangerButton/DangerButton";
-import FormError from "../../components/formError/FormError";
-import FormSuccess from "../../components/formSuccess/FormSuccess";
+import { formatCurrency } from "@utils/index";
+import DangerButton from "@components/common/dangerButton/DangerButton";
+import FormError from "@components/formError/FormError";
+import FormSuccess from "@components/formSuccess/FormSuccess";
 import { AxiosError } from "axios";
 import { IItem } from "@interfaces/IItem";
-import { MainLayout } from "../../layouts";
-import { InventoryItemForm } from "../../components";
+import { MainLayout } from "@layouts/index";
 import {
   IInventoryItemForm,
   TInventoryItemInitialValues,
@@ -17,6 +15,7 @@ import {
 import s from "./Inventory.module.scss";
 import { GetServerSideProps } from "next";
 import { ICsrfToken } from "@interfaces/ICsrf";
+import { InventoryItemForm } from "@components/index";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const csrfToken = res.getHeader("x-csrf-token") || "";

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "@context/AuthContext";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import LoginIcon from "@mui/icons-material/Login";
-import defaultAvatar from "../../images/defaultAvatar.png";
+import defaultAvatar from "@images/defaultAvatar.png";
 import Image from "next/image";
 import s from "./AvatarDropdown.module.scss";
 
