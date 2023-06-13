@@ -15,6 +15,7 @@ const TestComponent: React.FC<Props> = ({ payload }) => {
         "aria-describedby",
         `tooltip_${tooltipId}`
       );
+      tooltipRef.current.innerHTML = xssFilters.inHTMLData(payload);
     }
   }, [tooltipId, tooltipRef]);
 
