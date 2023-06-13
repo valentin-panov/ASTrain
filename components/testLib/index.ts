@@ -9,7 +9,7 @@ export { default as NextRedirect } from "./poc_nextRedirect/nextRedirect";
 export { default as RefInnerHTML } from "./poc_refInnerHTML/refInnerHTML";
 export { default as WindowOpen } from "./poc_windowOpen/windowOpen";
 export { default as ClassicInput } from "./classicInput/classicInput";
-export { default as DSIHscript } from "./test_dSIH_script/DSIHscript";
+export { default as DSIHscript } from "@components/testLib/safe_dSIH_script/DSIHscript";
 export { default as PopulatedInput } from "@components/testLib/safe_populatedInput/populatedInput";
 export { default as PrototypePollution } from "./poc_PrototypePollution/PrototypePollution";
 export { default as ReactParser } from "@components/testLib/poc_react_parser/ReactParser";
@@ -19,4 +19,5 @@ export { default as ReactParserDomToReact } from "@components/testLib/poc_react_
 export { default as SafeImage } from "@components/testLib/safe_Image/SafeImage";
 export { default as SafeAsPathLink } from "@components/testLib/safe_AsPathLinkLink/SafeAsPathLink";
 export { default as ParseHtmlStringToLoop } from "@components/testLib/poc_parseHtmlStringToLoop/ParseHtmlStringToLoop";
-export { default as BaseServiceComponent } from "@components/testLib/test_BaseService/BaseServiceComponent";
+export { default as BaseServiceComponent } from "@components/testLib/safe_BaseService/BaseServiceComponent";
+export { default as TestComponent } from "@components/testLib/test_Component/testComponent";

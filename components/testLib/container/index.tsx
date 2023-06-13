@@ -22,6 +22,7 @@ import {
   RefInnerHTML,
   SafeAsPathLink,
   SafeImage,
+  TestComponent,
   WindowOpen,
 } from "@components/testLib";
 import Barrel from "@components/testLib/container/barrel";
@@ -29,6 +30,7 @@ import Barrel from "@components/testLib/container/barrel";
 const components: {
   [propName: string]: React.FunctionComponent<{ payload: string }>;
 } = {
+  TestComponent: TestComponent,
   POC_next_router_push: ExampleRouter,
   POC_form_action: FormAction,
   POC_location_href: LocationHref,
@@ -49,7 +51,7 @@ const components: {
   SAFE_input: PopulatedInput,
   SAFE_Image_package: SafeImage,
   SAFE_asPathLink: SafeAsPathLink,
-  TEST_BaseService: BaseServiceComponent,
+  SAFE_BaseService: BaseServiceComponent,
 };
 
 const examples: string[] = [
