@@ -1,4 +1,5 @@
 import React, { createRef, useEffect } from "react";
+import xssFilters from "xss-filters";
 
 interface Props {
   payload: string;
@@ -6,7 +7,7 @@ interface Props {
 
 const TestComponent: React.FC<Props> = ({ payload }) => {
   const tooltipId = payload;
-  const tooltipRef = createRef<HTMLDivElement>();
+  const tooltipRef = createRef<HTMLAnchorElement>();
 
   useEffect(() => {
     if (tooltipRef.current) {
@@ -17,7 +18,11 @@ const TestComponent: React.FC<Props> = ({ payload }) => {
     }
   }, [tooltipId, tooltipRef]);
 
-  return <div ref={tooltipRef}>INSPECT ME!</div>;
+  return (
+    <a ref={tooltipRef} href={xssFilters.uriInUnQuotedAttr(payload)}>
+      INSPECT ME!
+    </a>
+  );
 };
 
 export default TestComponent;
