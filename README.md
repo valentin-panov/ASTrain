@@ -15,8 +15,8 @@ There are:
 * 5 business logic injections (A03:2021-Injection) [components/testLib]
 * 5 DB injections (A03:
   2021-Injection) [pages/api/bio/index.ts, pages/api/auth/authenticate/index.ts, pages/api/inventory/, pages/api/signup/index.ts]
-* 7 system information disclosure (A04:2021-Insecure
-  Design ) [components/testLib/poc_PrototypePollution/PrototypePollution.tsx, pages/dashboard/index.tsx, components/testLib/safe_BaseService/BaseServiceComponent.tsx]
+* 8 system information disclosure (A04:2021-Insecure
+  Design ) [package.json, components/testLib/poc_PrototypePollution/PrototypePollution.tsx, pages/dashboard/index.tsx, components/testLib/safe_BaseService/BaseServiceComponent.tsx]
 * 1 account enumeration failure (A05:2021-Security Misconfiguration ) [pages/login/index.tsx]
 * 2 vulnerable components (A06:2021-Vulnerable and Outdated Components)
 * 5 authorisation failures (A07:2021-Identification and Authentication
