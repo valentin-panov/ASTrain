@@ -2,6 +2,7 @@
 require("dotenv").config();
 
 const nextConfig = {
+  productionBrowserSourceMaps: true,
   reactStrictMode: true,
   env: {
     ATLAS_URL: process.env.ATLAS_URL,
