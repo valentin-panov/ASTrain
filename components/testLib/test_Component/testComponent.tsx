@@ -1,5 +1,6 @@
 import React, { createRef, useEffect } from "react";
 import xssFilters from "xss-filters";
+import { decodeURLnew } from "@utils/url-parse";
 
 interface Props {
   payload: string;
@@ -17,10 +18,10 @@ const TestComponent: React.FC<Props> = ({ payload }) => {
       );
       tooltipRef.current.innerHTML = xssFilters.inHTMLData(payload);
     }
-  }, [tooltipId, tooltipRef]);
+  }, [payload, tooltipId, tooltipRef]);
 
   return (
-    <a ref={tooltipRef} href={xssFilters.uriInUnQuotedAttr(payload)}>
+    <a ref={tooltipRef} href={decodeURLnew(payload)}>
       INSPECT ME!
     </a>
   );
