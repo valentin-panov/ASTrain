@@ -26,12 +26,12 @@ There are:
 * 1 Insecure deserialization of untrusted data & prototype pollution (A08:2021 – Software and Data Integrity
   Failures) [components/testLib/poc_PrototypePollution/PrototypePollution.tsx]
 * 1 logging failure (A09:2021-Security Logging and Monitoring Failures)
+* Bad protocol settings .yaml
 
 Sample dataflow:
 ![](public/ASTrain.png)
 
 Future developments:
 
-1. yaml with bad settings
-2. ReactDOMServer.renderToStaticMarkup
-3. vulnerable iframe
+1. ReactDOMServer.renderToStaticMarkup
+2. vulnerable iframe
