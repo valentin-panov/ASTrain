@@ -27,6 +27,7 @@ const Dashboard: React.FC = () => {
   );
 
   useEffect(() => {
+    console.log("DASHBOARD_ID");
     const getDashboardData = async () => {
       try {
         return await fetchContext.authAxios.get("dashboard-data");
