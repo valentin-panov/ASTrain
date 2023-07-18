@@ -1,6 +1,7 @@
 import { sanitizeUrl } from "@braintree/sanitize-url";
 
 export function decodeURL(url: string): string {
+  // &#340; => Ŕ
   return url.replace(/(&#(\d+);)/g, (_match, _capture, charCode) =>
     String.fromCharCode(charCode)
   );
