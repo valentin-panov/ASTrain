@@ -18,7 +18,7 @@ const DSIH: React.FC<Props> = ({ payload }) => {
         inspect me!
         <div
           dangerouslySetInnerHTML={{
-            __html: `${payload}`,
+            __html: payload,
           }}
         />
       </div>
