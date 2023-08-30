@@ -1,6 +1,7 @@
 import React, { createRef, useEffect } from "react";
 import xssFilters from "xss-filters";
-import { decodeURLnew } from "@utils/url-parse";
+// import { decodeURLnew } from "@utils/url-parse";
+import { sanitizeUri } from "micromark-util-sanitize-uri";
 
 interface Props {
   payload: string;
@@ -21,7 +22,7 @@ const TestComponent: React.FC<Props> = ({ payload }) => {
   }, [payload, tooltipId, tooltipRef]);
 
   return (
-    <a ref={tooltipRef} href={decodeURLnew(payload)}>
+    <a ref={tooltipRef} href={sanitizeUri(payload)}>
       INSPECT ME!
     </a>
   );
