@@ -35,7 +35,7 @@
     "jose": "^4.11.2",
     "json5": "^2.2.3",
     "micromark-util-sanitize-uri": "^2.0.0",
-    "mongoose": "^6.9.0",
+    "mongoose": "^6.12.0",
     "nanoid": "^4.0.1",
     "next": "^12.1.2",
     "react": "^17.0.2",
