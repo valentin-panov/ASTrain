@@ -1,7 +1,7 @@
 {
   "redirects": [
     {
-      "source": "https://api.metrobooks.vercel.app/",
+      "source": "api.metrobooks.vercel.app/",
       "destination": "https://metrobooks.vercel.app/api/"
     }
   ]
