@@ -32,7 +32,7 @@
     "formik": "^2.1.4",
     "html-react-parser": "^1.4.14",
     "isomorphic-fetch": "^3.0.0",
-    "jose": "^4.11.2",
+    "jose": "^4.15.5",
     "json5": "^2.2.3",
     "micromark-util-sanitize-uri": "^2.0.0",
     "mongoose": "^6.9.0",
